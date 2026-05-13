@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2026 Ben Kalegin.
+ *
+ * Licensed under the Eclipse Public License 2.0.
+ * SPDX-License-Identifier: EPL-2.0
+ */
+
 /**
  * Generates `docs/layout-examples.md` and the SVG files under `docs/examples/`
  * that it references. Run via `pnpm --filter @filigree/alg-layered generate-docs`.
@@ -12,196 +19,20 @@ import { writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { createDefaultForceAlgorithm } from '@filigree/alg-force';
-import { createDefaultMrTreeAlgorithm } from '@filigree/alg-mrtree';
-import { createDefaultRadialAlgorithm } from '@filigree/alg-radial';
-import {
-  DefaultAlgorithmRegistry,
-  DefaultLayoutEngine,
-  DefaultOptionResolver,
-  type ILayoutEngine,
-} from '@filigree/core';
-import { type ElkGraph, fromJson, type IJsonGraph } from '@filigree/graph';
-import { applyHints, type IHint, pinPosition } from '@filigree/hints';
-import { type IRenderOptions, renderSvg } from '@filigree/render-svg';
+import { type ElkGraph, fromJson } from '@filigree/graph';
+import { applyHints, attachHints, type IHint } from '@filigree/hints';
+import { renderSvg } from '@filigree/render-svg';
 
-import {
-  BalancedNodePlacer,
-  BarycenterCrossingMinimizer,
-  BrandesKopfNodePlacer,
-  GreedyCycleBreaker,
-  type INodePlacer,
-  LayeredAlgorithm,
-  LayeredContextBuilder,
-  LayeredResultApplier,
-  LinearNodePlacer,
-  LongestPathLayerer,
-  OrthogonalEdgeRouter,
-} from '../src/index.js';
-import {
-  BIDIRECTIONAL,
-  COMPOUND,
-  CYCLIC,
-  FLOWCHART,
-  ORGANIC,
-  RADIAL_TREE,
-  TIGHT_COMPOUND,
-  TREE,
-} from './example-fixtures.js';
+import { EXAMPLES, type IExample } from './example-list.js';
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DOCS_DIR = path.resolve(SCRIPT_DIR, '../../../docs');
 
-const PINNED_X = 200;
-const PINNED_Y = 200;
-
-interface IExample {
-  readonly slug: string;
-  readonly title: string;
-  readonly description: string;
-  readonly graph: IJsonGraph;
-  readonly buildEngine: () => ILayoutEngine;
-  readonly renderOptions?: Partial<IRenderOptions>;
-  readonly hints?: readonly IHint[];
-}
-
-const buildLayeredEngine = (nodePlacer: INodePlacer): ILayoutEngine => {
-  const registry = new DefaultAlgorithmRegistry();
-  registry.register(
-    new LayeredAlgorithm({
-      contextBuilder: new LayeredContextBuilder(),
-      cycleBreaker: new GreedyCycleBreaker(),
-      layerAssigner: new LongestPathLayerer(),
-      crossingMinimizer: new BarycenterCrossingMinimizer(),
-      nodePlacer,
-      edgeRouter: new OrthogonalEdgeRouter(),
-      resultApplier: new LayeredResultApplier(),
-    }),
-  );
-  return new DefaultLayoutEngine(registry, new DefaultOptionResolver());
-};
-
-const buildForceEngine = (): ILayoutEngine => {
-  const registry = new DefaultAlgorithmRegistry();
-  registry.register(createDefaultForceAlgorithm());
-  return new DefaultLayoutEngine(registry, new DefaultOptionResolver());
-};
-
-const buildMrTreeEngine = (): ILayoutEngine => {
-  const registry = new DefaultAlgorithmRegistry();
-  registry.register(createDefaultMrTreeAlgorithm());
-  return new DefaultLayoutEngine(registry, new DefaultOptionResolver());
-};
-
-const buildRadialEngine = (): ILayoutEngine => {
-  const registry = new DefaultAlgorithmRegistry();
-  registry.register(createDefaultRadialAlgorithm());
-  return new DefaultLayoutEngine(registry, new DefaultOptionResolver());
-};
-
-const EXAMPLES: readonly IExample[] = [
-  {
-    slug: 'layered-default',
-    title: 'Layered (default)',
-    description:
-      'Classic top-to-bottom flowchart. Default composition: greedy cycle breaker, longest-path layer assignment, barycenter crossing minimization, Brandes-Köpf node placement, two-bend orthogonal edge routing.',
-    graph: FLOWCHART,
-    buildEngine: () => buildLayeredEngine(new BrandesKopfNodePlacer()),
-  },
-  {
-    slug: 'layered-balanced',
-    title: 'Layered with BalancedNodePlacer',
-    description:
-      'Same flowchart, simpler placer: linear initial placement then a single-pass median balance.',
-    graph: FLOWCHART,
-    buildEngine: () => buildLayeredEngine(new BalancedNodePlacer()),
-  },
-  {
-    slug: 'layered-linear',
-    title: 'Layered with LinearNodePlacer',
-    description:
-      'Simplest placer — every node at its `indexInLayer * spacing`. Reveals what a pre-balancing layout looks like.',
-    graph: FLOWCHART,
-    buildEngine: () => buildLayeredEngine(new LinearNodePlacer()),
-  },
-  {
-    slug: 'layered-cyclic',
-    title: 'Layered on a cyclic graph',
-    description:
-      'Demonstrates the greedy cycle breaker. The back edge (fix → check) is reversed for layering so longest-path treats the graph as a DAG.',
-    graph: CYCLIC,
-    buildEngine: () => buildLayeredEngine(new BrandesKopfNodePlacer()),
-  },
-  {
-    slug: 'layered-compound',
-    title: 'Layered with a compound node',
-    description:
-      'Hierarchical layout. The engine recurses bottom-up: the sub-flow is laid out first, the compound is sized from its children, then the top level lays out preamble → sub-flow → finale.',
-    graph: COMPOUND,
-    buildEngine: () => buildLayeredEngine(new BrandesKopfNodePlacer()),
-  },
-  {
-    slug: 'layered-bidirectional',
-    title: 'Parallel edges (bidirectional pair)',
-    description:
-      'Two edges between the same node pair. The router groups parallel edges, leaves one along the natural column, and detours the other through a side offset (LayeredOptions.parallelEdgeOffset). Without the offset both lines would trace the same vertical column.',
-    graph: BIDIRECTIONAL,
-    buildEngine: () => buildLayeredEngine(new BrandesKopfNodePlacer()),
-  },
-  {
-    slug: 'layered-compound-tight',
-    title: 'Compound with custom padding (elk.padding = 4)',
-    description:
-      'Same compound topology as above but the root sets `elk.padding: 4`. Inheritance walks the parent chain in DefaultOptionResolver, so the sub-flow compound picks up the tighter padding without an explicit override.',
-    graph: TIGHT_COMPOUND,
-    buildEngine: () => buildLayeredEngine(new BrandesKopfNodePlacer()),
-  },
-  {
-    slug: 'layered-themed',
-    title: 'Flowchart with label backgrounds',
-    description:
-      'Same flowchart, rendered with `labelBackground: "#fef3c7"`. The renderer emits a backing rect behind every label so wider text remains readable over busy edges or narrow nodes.',
-    graph: FLOWCHART,
-    buildEngine: () => buildLayeredEngine(new BrandesKopfNodePlacer()),
-    renderOptions: { labelBackground: '#fef3c7' },
-  },
-  {
-    slug: 'mrtree-project',
-    title: 'Mr.Tree (tree layout)',
-    description:
-      'Reingold-Tilford-style tree placement. Leaves are placed left-to-right, internal nodes are centred above their direct children, levels stack vertically. Reads edges as parent → child; nodes with no incoming edge are treated as roots.',
-    graph: TREE,
-    buildEngine: buildMrTreeEngine,
-  },
-  {
-    slug: 'radial-architecture',
-    title: 'Radial (concentric tree)',
-    description:
-      "A hub-and-spoke architecture diagram. The root sits at the centre; each subsequent level lives on a circle of increasing radius. Children of a node share their parent's angular slice.",
-    graph: RADIAL_TREE,
-    buildEngine: buildRadialEngine,
-  },
-  {
-    slug: 'force-organic',
-    title: 'Force-directed',
-    description:
-      'Fruchterman-Reingold. Deterministic spiral start, 100 iterations with cooling. Connected nodes converge to roughly equal spring lengths; the graph forms two triangles linked by one edge.',
-    graph: ORGANIC,
-    buildEngine: buildForceEngine,
-  },
-  {
-    slug: 'layered-pinned',
-    title: 'Layered + human hint (pin position)',
-    description:
-      "The 12-node flowchart laid out with the default layered pipeline, then post-processed by `applyHints`. A `pinPosition` hint locks `decision` at a custom coordinate. The rest of the graph keeps its algorithm-computed placement; only the pinned node moves. Edges already routed through the pinned node aren't re-routed — a deliberate known artefact for this first hint POC.",
-    graph: FLOWCHART,
-    buildEngine: () => buildLayeredEngine(new BrandesKopfNodePlacer()),
-    hints: [pinPosition('decision', PINNED_X, PINNED_Y)],
-  },
-];
-
 const renderExample = async (example: IExample): Promise<void> => {
   const graph = fromJson(example.graph);
+  if (example.preLayoutHints !== undefined) {
+    attachHints(graph, example.preLayoutHints);
+  }
   await example.buildEngine().layout(graph);
   applyExampleHints(graph, example.hints);
   const svg = renderSvg(graph, example.renderOptions ?? {});

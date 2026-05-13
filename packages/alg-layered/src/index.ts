@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2026 Ben Kalegin.
+ *
+ * Licensed under the Eclipse Public License 2.0.
+ * SPDX-License-Identifier: EPL-2.0
+ */
+
 /**
  * Public surface of @filigree/alg-layered.
  */
@@ -25,7 +32,9 @@ export { LayeredOptions } from './layered-options.js';
 export { createNullPhase } from './null-phase.js';
 export { GreedyCycleBreaker } from './phases/cycle-breaking/greedy-cycle-breaker.js';
 export { LongestPathLayerer } from './phases/layer-assignment/longest-path-layerer.js';
+export { HintAwareLayerer } from './phases/layer-assignment/hint-aware-layerer.js';
 export { BarycenterCrossingMinimizer } from './phases/crossing-minimization/barycenter-crossing-minimizer.js';
+export { HintAwareCrossingMinimizer } from './phases/crossing-minimization/hint-aware-crossing-minimizer.js';
 export { LinearNodePlacer } from './phases/node-placement/linear-node-placer.js';
 export { BalancedNodePlacer } from './phases/node-placement/balanced-node-placer.js';
 export { BrandesKopfNodePlacer } from './phases/node-placement/brandes-kopf-node-placer.js';

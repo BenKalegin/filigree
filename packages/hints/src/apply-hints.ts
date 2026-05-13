@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2026 Ben Kalegin.
+ *
+ * Licensed under the Eclipse Public License 2.0.
+ * SPDX-License-Identifier: EPL-2.0
+ */
+
 /**
  * Entry point: apply a list of hints to a laid-out graph.
  *
@@ -28,11 +35,7 @@ export const applyHints = (
   }
 };
 
-// HintKind currently has a single member, so this comparison is always true
-// at the type level. Adding a second kind activates real discrimination
-// without changing the predicate's call sites.
 const isPinPositionHint = (hint: IHint): hint is IPinPositionHint =>
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- placeholder until a second HintKind lands
   hint.kind === HintKind.PinPosition;
 
 const applyPinPosition = (hint: IPinPositionHint, byId: ReadonlyMap<string, INode>): void => {

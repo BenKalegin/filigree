@@ -16,6 +16,7 @@
   "dependencies": {
     "@filigree/core": "workspace:*",
     "@filigree/graph": "workspace:*",
+    "@filigree/hints": "workspace:*",
     "@filigree/util-geometry": "workspace:*",
     "@filigree/util-solver": "workspace:*"
   },
@@ -23,7 +24,6 @@
     "@filigree/alg-force": "workspace:*",
     "@filigree/alg-mrtree": "workspace:*",
     "@filigree/alg-radial": "workspace:*",
-    "@filigree/hints": "workspace:*",
     "@filigree/render-svg": "workspace:*"
   }
 }

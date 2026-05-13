@@ -20,6 +20,8 @@ Regenerate with `pnpm --filter @filigree/alg-layered generate-docs`.
 - [Radial (concentric tree)](#radial-architecture)
 - [Force-directed](#force-organic)
 - [Layered + human hint (pin position)](#layered-pinned)
+- [Layered + human hint (same layer)](#layered-same-layer)
+- [Layered + human hint (order before)](#layered-order-before)
 
 ## Layered (default)
 
@@ -92,3 +94,15 @@ Fruchterman-Reingold. Deterministic spiral start, 100 iterations with cooling. C
 The 12-node flowchart laid out with the default layered pipeline, then post-processed by `applyHints`. A `pinPosition` hint locks `decision` at a custom coordinate. The rest of the graph keeps its algorithm-computed placement; only the pinned node moves. Edges already routed through the pinned node aren't re-routed — a deliberate known artefact for this first hint POC.
 
 ![Layered + human hint (pin position)](examples/layered-pinned.svg)
+
+## Layered + human hint (same layer)
+
+Two branches of unequal length share a root. Longest-path places `left_leaf` one layer above `right_leaf`, leaving the two terminations on different rows. A `sameLayer(left_leaf, right_leaf)` hint asks `HintAwareLayerer` to push both leaves to `max(layer)` so they line up at the bottom. The layer partition is rebuilt after longest-path; downstream crossing minimization keeps the columns sensible.
+
+![Layered + human hint (same layer)](examples/layered-same-layer.svg)
+
+## Layered + human hint (order before)
+
+Same flowchart. A `orderBefore('no_branch', 'yes_branch')` hint flips the two `decision` children so 'No' shows up on the left. `HintAwareCrossingMinimizer` wraps barycenter; the swap happens after the barycenter sweep, overriding whichever order minimization picked.
+
+![Layered + human hint (order before)](examples/layered-order-before.svg)

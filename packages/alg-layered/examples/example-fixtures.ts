@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2026 Ben Kalegin.
+ *
+ * Licensed under the Eclipse Public License 2.0.
+ * SPDX-License-Identifier: EPL-2.0
+ */
+
 /**
  * Graph fixtures used by `generate-docs.ts` to render the layout examples.
  *
@@ -167,6 +174,28 @@ export const RADIAL_TREE: IJsonGraph = {
     { id: 'ui_mob', sources: ['ui'], targets: ['mobile'] },
     { id: 'data_sql', sources: ['data'], targets: ['sql'] },
     { id: 'data_cache', sources: ['data'], targets: ['cache'] },
+  ],
+};
+
+// Two branches of unequal length sharing a root. Without hints the right
+// branch's leaf lands one layer below the left branch's leaf. A SameLayer
+// hint can pull them into the same row.
+export const UNEVEN_BRANCHES: IJsonGraph = {
+  id: 'root',
+  children: [
+    { id: 'a', width: 60, height: 30, labels: [{ text: 'Start' }] },
+    { id: 'b', width: 60, height: 30, labels: [{ text: 'Quick' }] },
+    { id: 'c', width: 60, height: 30, labels: [{ text: 'Plan' }] },
+    { id: 'd', width: 60, height: 30, labels: [{ text: 'Build' }] },
+    { id: 'left_leaf', width: 60, height: 30, labels: [{ text: 'Done A' }] },
+    { id: 'right_leaf', width: 60, height: 30, labels: [{ text: 'Done B' }] },
+  ],
+  edges: [
+    { id: 'ab', sources: ['a'], targets: ['b'] },
+    { id: 'ac', sources: ['a'], targets: ['c'] },
+    { id: 'b_l', sources: ['b'], targets: ['left_leaf'] },
+    { id: 'cd', sources: ['c'], targets: ['d'] },
+    { id: 'd_r', sources: ['d'], targets: ['right_leaf'] },
   ],
 };
 
