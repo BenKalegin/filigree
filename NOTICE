@@ -1,0 +1,61 @@
+filigree
+========
+
+This product is a TypeScript port of the Eclipse Layout Kernel (ELK),
+originally developed at the Real-Time and Embedded Systems Group of
+Kiel University and maintained as an official Eclipse Foundation project.
+
+Original project
+----------------
+
+  Name:       Eclipse Layout Kernel (ELK)
+  Homepage:   https://eclipse.dev/elk/
+  Source:     https://github.com/eclipse-elk/elk
+  JS port:    https://github.com/kieler/elkjs
+  Paper:      https://arxiv.org/abs/2311.00533
+              "The Eclipse Layout Kernel" (Domrös et al., 2023)
+  License:    Eclipse Public License 2.0 (EPL-2.0)
+  Copyright:  Copyright (c) 2009-2025 Kiel University and others.
+
+The original ELK is released under the Eclipse Public License 2.0.
+A copy of the license is included in the LICENSE file at the root of
+this repository.
+
+Per the requirements of EPL-2.0, the original copyright notices have
+been preserved in the headers of all ported source files. Files in
+this repository that are derived from ELK source code remain subject
+to the EPL-2.0.
+
+This port
+---------
+
+  Name:       filigree
+  Source:     https://github.com/BenKalegin/filigree
+  License:    Eclipse Public License 2.0 (EPL-2.0)
+  Copyright:  Copyright (c) 2026 Ben Kalegin and contributors.
+
+Modifications relative to the original
+--------------------------------------
+
+  * Translated from Java to TypeScript.
+  * Removed dependency on Eclipse / Xtext / GWT runtime infrastructure.
+  * Replaced Java collections with native TypeScript / JavaScript
+    equivalents.
+  * Introduces a human hint system that influences layout decisions
+    beyond ELK's existing constraint vocabulary. [Document substantive
+    changes here as the port progresses.]
+
+Components NOT ported
+---------------------
+
+The following components of ELK are intentionally excluded from this
+port because they are licensed under terms incompatible with EPL-2.0
+or rely on native code that cannot be reasonably ported:
+
+  * OGDF integration (GPL-licensed C++ library)
+  * libavoid edge routing (LGPL-licensed C++ library)
+
+Third-party attributions
+------------------------
+
+[Add any additional third-party dependencies and their licenses here.]
