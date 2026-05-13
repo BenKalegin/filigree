@@ -140,6 +140,36 @@ export const TREE: IJsonGraph = {
   ],
 };
 
+export const RADIAL_TREE: IJsonGraph = {
+  id: 'root',
+  layoutOptions: { 'elk.algorithm': 'radial' },
+  children: [
+    { id: 'core', width: 50, height: 50, labels: [{ text: 'Core' }] },
+    { id: 'api', width: 50, height: 40, labels: [{ text: 'API' }] },
+    { id: 'ui', width: 50, height: 40, labels: [{ text: 'UI' }] },
+    { id: 'data', width: 50, height: 40, labels: [{ text: 'Data' }] },
+    { id: 'auth', width: 50, height: 40, labels: [{ text: 'Auth' }] },
+    { id: 'http', width: 40, height: 30, labels: [{ text: 'HTTP' }] },
+    { id: 'graphql', width: 60, height: 30, labels: [{ text: 'GraphQL' }] },
+    { id: 'web', width: 40, height: 30, labels: [{ text: 'Web' }] },
+    { id: 'mobile', width: 50, height: 30, labels: [{ text: 'Mobile' }] },
+    { id: 'sql', width: 40, height: 30, labels: [{ text: 'SQL' }] },
+    { id: 'cache', width: 50, height: 30, labels: [{ text: 'Cache' }] },
+  ],
+  edges: [
+    { id: 'c_api', sources: ['core'], targets: ['api'] },
+    { id: 'c_ui', sources: ['core'], targets: ['ui'] },
+    { id: 'c_data', sources: ['core'], targets: ['data'] },
+    { id: 'c_auth', sources: ['core'], targets: ['auth'] },
+    { id: 'api_http', sources: ['api'], targets: ['http'] },
+    { id: 'api_gql', sources: ['api'], targets: ['graphql'] },
+    { id: 'ui_web', sources: ['ui'], targets: ['web'] },
+    { id: 'ui_mob', sources: ['ui'], targets: ['mobile'] },
+    { id: 'data_sql', sources: ['data'], targets: ['sql'] },
+    { id: 'data_cache', sources: ['data'], targets: ['cache'] },
+  ],
+};
+
 export const ORGANIC: IJsonGraph = {
   id: 'root',
   layoutOptions: { 'elk.algorithm': 'force' },

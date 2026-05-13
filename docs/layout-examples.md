@@ -17,7 +17,9 @@ Regenerate with `pnpm --filter @filigree/alg-layered generate-docs`.
 - [Compound with custom padding (elk.padding = 4)](#layered-compound-tight)
 - [Flowchart with label backgrounds](#layered-themed)
 - [Mr.Tree (tree layout)](#mrtree-project)
+- [Radial (concentric tree)](#radial-architecture)
 - [Force-directed](#force-organic)
+- [Layered + human hint (pin position)](#layered-pinned)
 
 ## Layered (default)
 
@@ -73,8 +75,20 @@ Reingold-Tilford-style tree placement. Leaves are placed left-to-right, internal
 
 ![Mr.Tree (tree layout)](examples/mrtree-project.svg)
 
+## Radial (concentric tree)
+
+A hub-and-spoke architecture diagram. The root sits at the centre; each subsequent level lives on a circle of increasing radius. Children of a node share their parent's angular slice.
+
+![Radial (concentric tree)](examples/radial-architecture.svg)
+
 ## Force-directed
 
 Fruchterman-Reingold. Deterministic spiral start, 100 iterations with cooling. Connected nodes converge to roughly equal spring lengths; the graph forms two triangles linked by one edge.
 
 ![Force-directed](examples/force-organic.svg)
+
+## Layered + human hint (pin position)
+
+The 12-node flowchart laid out with the default layered pipeline, then post-processed by `applyHints`. A `pinPosition` hint locks `decision` at a custom coordinate. The rest of the graph keeps its algorithm-computed placement; only the pinned node moves. Edges already routed through the pinned node aren't re-routed — a deliberate known artefact for this first hint POC.
+
+![Layered + human hint (pin position)](examples/layered-pinned.svg)

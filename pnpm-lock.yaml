@@ -84,11 +84,26 @@ importers:
       '@filigree/alg-mrtree':
         specifier: workspace:*
         version: link:../alg-mrtree
+      '@filigree/alg-radial':
+        specifier: workspace:*
+        version: link:../alg-radial
+      '@filigree/hints':
+        specifier: workspace:*
+        version: link:../hints
       '@filigree/render-svg':
         specifier: workspace:*
         version: link:../render-svg
 
   packages/alg-mrtree:
+    dependencies:
+      '@filigree/core':
+        specifier: workspace:*
+        version: link:../core
+      '@filigree/graph':
+        specifier: workspace:*
+        version: link:../graph
+
+  packages/alg-radial:
     dependencies:
       '@filigree/core':
         specifier: workspace:*
@@ -122,6 +137,12 @@ importers:
         version: link:../graph
 
   packages/graph: {}
+
+  packages/hints:
+    dependencies:
+      '@filigree/graph':
+        specifier: workspace:*
+        version: link:../graph
 
   packages/render-svg:
     dependencies:

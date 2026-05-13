@@ -22,6 +22,8 @@
   "devDependencies": {
     "@filigree/alg-force": "workspace:*",
     "@filigree/alg-mrtree": "workspace:*",
+    "@filigree/alg-radial": "workspace:*",
+    "@filigree/hints": "workspace:*",
     "@filigree/render-svg": "workspace:*"
   }
 }

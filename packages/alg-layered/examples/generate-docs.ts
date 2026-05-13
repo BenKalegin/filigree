@@ -14,13 +14,15 @@ import { fileURLToPath } from 'node:url';
 
 import { createDefaultForceAlgorithm } from '@filigree/alg-force';
 import { createDefaultMrTreeAlgorithm } from '@filigree/alg-mrtree';
+import { createDefaultRadialAlgorithm } from '@filigree/alg-radial';
 import {
   DefaultAlgorithmRegistry,
   DefaultLayoutEngine,
   DefaultOptionResolver,
   type ILayoutEngine,
 } from '@filigree/core';
-import { fromJson, type IJsonGraph } from '@filigree/graph';
+import { type ElkGraph, fromJson, type IJsonGraph } from '@filigree/graph';
+import { applyHints, type IHint, pinPosition } from '@filigree/hints';
 import { type IRenderOptions, renderSvg } from '@filigree/render-svg';
 
 import {
@@ -42,12 +44,16 @@ import {
   CYCLIC,
   FLOWCHART,
   ORGANIC,
+  RADIAL_TREE,
   TIGHT_COMPOUND,
   TREE,
 } from './example-fixtures.js';
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DOCS_DIR = path.resolve(SCRIPT_DIR, '../../../docs');
+
+const PINNED_X = 200;
+const PINNED_Y = 200;
 
 interface IExample {
   readonly slug: string;
@@ -56,6 +62,7 @@ interface IExample {
   readonly graph: IJsonGraph;
   readonly buildEngine: () => ILayoutEngine;
   readonly renderOptions?: Partial<IRenderOptions>;
+  readonly hints?: readonly IHint[];
 }
 
 const buildLayeredEngine = (nodePlacer: INodePlacer): ILayoutEngine => {
@@ -83,6 +90,12 @@ const buildForceEngine = (): ILayoutEngine => {
 const buildMrTreeEngine = (): ILayoutEngine => {
   const registry = new DefaultAlgorithmRegistry();
   registry.register(createDefaultMrTreeAlgorithm());
+  return new DefaultLayoutEngine(registry, new DefaultOptionResolver());
+};
+
+const buildRadialEngine = (): ILayoutEngine => {
+  const registry = new DefaultAlgorithmRegistry();
+  registry.register(createDefaultRadialAlgorithm());
   return new DefaultLayoutEngine(registry, new DefaultOptionResolver());
 };
 
@@ -161,6 +174,14 @@ const EXAMPLES: readonly IExample[] = [
     buildEngine: buildMrTreeEngine,
   },
   {
+    slug: 'radial-architecture',
+    title: 'Radial (concentric tree)',
+    description:
+      "A hub-and-spoke architecture diagram. The root sits at the centre; each subsequent level lives on a circle of increasing radius. Children of a node share their parent's angular slice.",
+    graph: RADIAL_TREE,
+    buildEngine: buildRadialEngine,
+  },
+  {
     slug: 'force-organic',
     title: 'Force-directed',
     description:
@@ -168,13 +189,30 @@ const EXAMPLES: readonly IExample[] = [
     graph: ORGANIC,
     buildEngine: buildForceEngine,
   },
+  {
+    slug: 'layered-pinned',
+    title: 'Layered + human hint (pin position)',
+    description:
+      "The 12-node flowchart laid out with the default layered pipeline, then post-processed by `applyHints`. A `pinPosition` hint locks `decision` at a custom coordinate. The rest of the graph keeps its algorithm-computed placement; only the pinned node moves. Edges already routed through the pinned node aren't re-routed — a deliberate known artefact for this first hint POC.",
+    graph: FLOWCHART,
+    buildEngine: () => buildLayeredEngine(new BrandesKopfNodePlacer()),
+    hints: [pinPosition('decision', PINNED_X, PINNED_Y)],
+  },
 ];
 
 const renderExample = async (example: IExample): Promise<void> => {
   const graph = fromJson(example.graph);
   await example.buildEngine().layout(graph);
+  applyExampleHints(graph, example.hints);
   const svg = renderSvg(graph, example.renderOptions ?? {});
   writeFileSync(path.join(DOCS_DIR, 'examples', `${example.slug}.svg`), svg, 'utf8');
+};
+
+const applyExampleHints = (graph: ElkGraph, hints: readonly IHint[] | undefined): void => {
+  if (hints === undefined) {
+    return;
+  }
+  applyHints(graph, hints);
 };
 
 const generateMarkdown = (examples: readonly IExample[]): string => {

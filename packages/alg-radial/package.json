@@ -1,0 +1,20 @@
+{
+  "name": "@filigree/alg-radial",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@filigree/core": "workspace:*",
+    "@filigree/graph": "workspace:*"
+  },
+  "devDependencies": {}
+}
