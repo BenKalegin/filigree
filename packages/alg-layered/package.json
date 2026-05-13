@@ -1,5 +1,5 @@
 {
-  "name": "@elk/alg-layered",
+  "name": "@filigree/alg-layered",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -15,13 +15,13 @@
     "generate-docs": "tsx examples/generate-docs.ts"
   },
   "dependencies": {
-    "@elk/core": "workspace:*",
-    "@elk/graph": "workspace:*",
-    "@elk/util-geometry": "workspace:*",
-    "@elk/util-solver": "workspace:*"
+    "@filigree/core": "workspace:*",
+    "@filigree/graph": "workspace:*",
+    "@filigree/util-geometry": "workspace:*",
+    "@filigree/util-solver": "workspace:*"
   },
   "devDependencies": {
-    "@elk/alg-force": "workspace:*",
-    "@elk/render-svg": "workspace:*"
+    "@filigree/alg-force": "workspace:*",
+    "@filigree/render-svg": "workspace:*"
   }
 }

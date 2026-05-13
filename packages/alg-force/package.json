@@ -1,5 +1,5 @@
 {
-  "name": "@elk/alg-force",
+  "name": "@filigree/alg-force",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -13,8 +13,8 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@elk/core": "workspace:*",
-    "@elk/graph": "workspace:*"
+    "@filigree/core": "workspace:*",
+    "@filigree/graph": "workspace:*"
   },
   "devDependencies": {}
 }

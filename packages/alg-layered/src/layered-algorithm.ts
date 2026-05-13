@@ -9,7 +9,7 @@
  * pipeline change — that is the entire reason for the IPhase interface.
  */
 
-import { type ILayoutAlgorithm, type ILayoutContext } from '@elk/core';
+import { type ILayoutAlgorithm, type ILayoutContext } from '@filigree/core';
 
 import { type ICrossingMinimizer } from './i-crossing-minimizer.js';
 import { type ICycleBreaker } from './i-cycle-breaker.js';

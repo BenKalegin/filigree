@@ -5,7 +5,7 @@
  * (e.g. the flowchart is rendered with three different node placers).
  */
 
-import { type IJsonGraph } from '@elk/graph';
+import { type IJsonGraph } from '@filigree/graph';
 
 export const FLOWCHART: IJsonGraph = {
   id: 'root',

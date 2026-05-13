@@ -1,5 +1,5 @@
 /**
- * Public surface of @elk/core.
+ * Public surface of @filigree/core.
  */
 
 export { OptionScope, LayoutPhaseEvent } from './enums.js';

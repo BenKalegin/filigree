@@ -6,8 +6,8 @@
  * payoff: adding a new algorithm doesn't touch core, only its own module.
  */
 
-import { defineProperty } from '@elk/graph';
-import { type IOption, OptionScope } from '@elk/core';
+import { defineProperty } from '@filigree/graph';
+import { type IOption, OptionScope } from '@filigree/core';
 
 const DEFAULT_NODE_NODE_SPACING = 40;
 const DEFAULT_LAYER_SPACING = 80;

@@ -5,8 +5,8 @@
  * graph-level layout options reading these `IOption`s through the resolver.
  */
 
-import { defineProperty } from '@elk/graph';
-import { type IOption, OptionScope } from '@elk/core';
+import { defineProperty } from '@filigree/graph';
+import { type IOption, OptionScope } from '@filigree/core';
 
 const DEFAULT_ITERATIONS = 100;
 const DEFAULT_AREA = 90_000;

@@ -1,5 +1,5 @@
 /**
- * Public surface of @elk/alg-layered.
+ * Public surface of @filigree/alg-layered.
  */
 
 export { LayeredPhase } from './enums.js';

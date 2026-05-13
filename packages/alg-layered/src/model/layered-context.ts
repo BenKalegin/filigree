@@ -7,8 +7,8 @@
  * so phases don't reach into private maps directly.
  */
 
-import { InvalidGraphError, type INode } from '@elk/graph';
-import { type ILayoutContext, type IOptionResolver } from '@elk/core';
+import { InvalidGraphError, type INode } from '@filigree/graph';
+import { type ILayoutContext, type IOptionResolver } from '@filigree/core';
 
 import { type LNode } from './l-node.js';
 

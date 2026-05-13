@@ -1,5 +1,5 @@
 /**
- * Public surface of @elk/util-geometry.
+ * Public surface of @filigree/util-geometry.
  *
  * Currently exposes interfaces only — concrete geometric operations
  * (vector arithmetic, intersection, projection) will be added as algorithms need them.

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { defineProperty, fromJson, type INode, type IJsonGraph } from '@elk/graph';
+import { defineProperty, fromJson, type INode, type IJsonGraph } from '@filigree/graph';
 
 import { DefaultOptionResolver } from '../src/default-option-resolver.js';
 import { OptionScope } from '../src/enums.js';

@@ -2,7 +2,7 @@
  * Structural geometric types shared across the graph model.
  *
  * Operations on these types (intersection, projection, distance, …) live in
- * `@elk/util-geometry`. This module declares shape only — no functions —
+ * `@filigree/util-geometry`. This module declares shape only — no functions —
  * so that algorithm consumers can read the graph without pulling in geometry math.
  */
 

@@ -2,7 +2,7 @@
 
 Single documented repo of layout approaches. Each section names an algorithm or strategy, explains what it does, and shows the rendered output as an inline image. The SVG files live next to this doc under `examples/` — they are referenced, not duplicated.
 
-Regenerate with `pnpm --filter @elk/alg-layered generate-docs`.
+Regenerate with `pnpm --filter @filigree/alg-layered generate-docs`.
 
 <!-- Generated file — do not edit by hand. -->
 

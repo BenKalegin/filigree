@@ -1,5 +1,5 @@
 /**
- * Public surface of @elk/alg-force.
+ * Public surface of @filigree/alg-force.
  */
 
 export { ForceDirectedAlgorithm } from './force-directed-algorithm.js';

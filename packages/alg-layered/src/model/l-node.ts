@@ -7,7 +7,7 @@
  * back to `ElkNode`.
  */
 
-import { type ElkNode } from '@elk/graph';
+import { type ElkNode } from '@filigree/graph';
 
 const UNSET_LAYER = -1;
 const UNSET_INDEX = -1;

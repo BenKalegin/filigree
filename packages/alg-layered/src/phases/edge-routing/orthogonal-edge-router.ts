@@ -5,7 +5,7 @@
  *
  *   source-anchor → (sx, midY) → (tx, midY) → target-anchor
  *
- * Anchors come from `endpointAnchor` in @elk/graph: node endpoints anchor at
+ * Anchors come from `endpointAnchor` in @filigree/graph: node endpoints anchor at
  * their top/bottom-center, port endpoints anchor at the port's absolute
  * center. Same-column anchors normally need no bends and produce a straight
  * vertical edge.
@@ -28,7 +28,7 @@ import {
   type INode,
   type IPoint,
   isNode,
-} from '@elk/graph';
+} from '@filigree/graph';
 
 import { LayeredPhase } from '../../enums.js';
 import { type IEdgeRouter } from '../../i-edge-router.js';

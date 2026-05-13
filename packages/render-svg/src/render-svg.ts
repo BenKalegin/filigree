@@ -2,7 +2,7 @@
  * Public entry: render a laid-out `IGraph` to a self-contained SVG string.
  */
 
-import { type IGraph } from '@elk/graph';
+import { type IGraph } from '@filigree/graph';
 
 import { mergeRenderOptions, type IRenderOptions } from './render-options.js';
 import { SvgRenderer } from './svg-renderer.js';

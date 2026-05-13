@@ -1,5 +1,5 @@
 {
-  "name": "@elk/core",
+  "name": "@filigree/core",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -13,7 +13,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@elk/graph": "workspace:*"
+    "@filigree/graph": "workspace:*"
   },
   "devDependencies": {}
 }

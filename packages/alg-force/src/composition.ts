@@ -1,5 +1,5 @@
 /**
- * Composition root for @elk/alg-force.
+ * Composition root for @filigree/alg-force.
  */
 
 import { ForceDirectedAlgorithm } from './force-directed-algorithm.js';

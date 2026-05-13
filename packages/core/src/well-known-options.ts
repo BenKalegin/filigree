@@ -5,7 +5,7 @@
  * here are the minimum the engine needs to dispatch a layout.
  */
 
-import { defineProperty } from '@elk/graph';
+import { defineProperty } from '@filigree/graph';
 
 import { OptionScope } from './enums.js';
 import { type IOption } from './i-option.js';

@@ -20,7 +20,7 @@ import {
   type IGraph,
   type INode,
   isNode,
-} from '@elk/graph';
+} from '@filigree/graph';
 
 import { escapeXml } from './escape-xml.js';
 import { type IRenderOptions } from './render-options.js';

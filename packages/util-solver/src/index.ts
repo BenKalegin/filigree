@@ -1,5 +1,5 @@
 /**
- * Public surface of @elk/util-solver.
+ * Public surface of @filigree/util-solver.
  */
 
 export type {

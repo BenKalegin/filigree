@@ -7,8 +7,8 @@
  * `portId → LNode` map so adjacency is always between layered nodes.
  */
 
-import { type ElkEdge, type ElkNode, type IEdgeEndpoint } from '@elk/graph';
-import { type ILayoutContext } from '@elk/core';
+import { type ElkEdge, type ElkNode, type IEdgeEndpoint } from '@filigree/graph';
+import { type ILayoutContext } from '@filigree/core';
 
 import { appendUnique } from './adjacency.js';
 import { LayeredContext } from './layered-context.js';

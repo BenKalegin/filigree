@@ -1,5 +1,5 @@
 /**
- * Public surface of @elk/render-svg.
+ * Public surface of @filigree/render-svg.
  */
 
 export { renderSvg } from './render-svg.js';

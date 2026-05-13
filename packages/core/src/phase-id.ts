@@ -1,8 +1,8 @@
 /**
  * Branded id used to identify a layout phase across the algorithm/observer boundary.
  *
- * The engine and observers live in @elk/core and do not know about algorithm-specific
- * phase enums (e.g. `LayeredPhase` in @elk/alg-layered). At the boundary, algorithms
+ * The engine and observers live in @filigree/core and do not know about algorithm-specific
+ * phase enums (e.g. `LayeredPhase` in @filigree/alg-layered). At the boundary, algorithms
  * cast their enum value through `toPhaseId` — observers receive an opaque, type-safe id
  * and may match on it without taking a dependency on any algorithm package.
  */

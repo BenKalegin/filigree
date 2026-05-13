@@ -1,8 +1,8 @@
 {
-  "name": "elk-ts",
+  "name": "filigree",
   "version": "0.0.0",
   "private": true,
-  "description": "TypeScript redesign of ELK (Eclipse Layout Kernel) — SOLID monorepo.",
+  "description": "A pure TypeScript port of the Eclipse Layout Kernel — graph layout algorithms with a human hint system.",
   "packageManager": "pnpm@10.28.2",
   "engines": {
     "node": ">=22.0.0"

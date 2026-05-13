@@ -7,7 +7,7 @@
  * sophisticated as it wants).
  */
 
-import { type IGraph, type INode, type IRect } from '@elk/graph';
+import { type IGraph, type INode, type IRect } from '@filigree/graph';
 
 import { AlgorithmNotFoundError } from './errors.js';
 import { type IAlgorithmRegistry } from './i-algorithm-registry.js';

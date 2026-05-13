@@ -1,5 +1,5 @@
 /**
- * Default composition root for `@elk/alg-layered`.
+ * Default composition root for `@filigree/alg-layered`.
  *
  * Returns a `LayeredAlgorithm` wired with the simplest strategies available
  * for each phase. Hosts that want a different strategy combination construct

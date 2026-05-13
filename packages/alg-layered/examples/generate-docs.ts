@@ -1,6 +1,6 @@
 /**
  * Generates `docs/layout-examples.md` and the SVG files under `docs/examples/`
- * that it references. Run via `pnpm --filter @elk/alg-layered generate-docs`.
+ * that it references. Run via `pnpm --filter @filigree/alg-layered generate-docs`.
  *
  * Each example pairs a graph fixture (from `example-fixtures.ts`) with an
  * engine wiring that registers a specific algorithm or strategy. The script
@@ -12,15 +12,15 @@ import { writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { createDefaultForceAlgorithm } from '@elk/alg-force';
+import { createDefaultForceAlgorithm } from '@filigree/alg-force';
 import {
   DefaultAlgorithmRegistry,
   DefaultLayoutEngine,
   DefaultOptionResolver,
   type ILayoutEngine,
-} from '@elk/core';
-import { fromJson, type IJsonGraph } from '@elk/graph';
-import { type IRenderOptions, renderSvg } from '@elk/render-svg';
+} from '@filigree/core';
+import { fromJson, type IJsonGraph } from '@filigree/graph';
+import { type IRenderOptions, renderSvg } from '@filigree/render-svg';
 
 import {
   BalancedNodePlacer,
@@ -167,7 +167,7 @@ const generateMarkdown = (examples: readonly IExample[]): string => {
     '',
     'Single documented repo of layout approaches. Each section names an algorithm or strategy, explains what it does, and shows the rendered output as an inline image. The SVG files live next to this doc under `examples/` — they are referenced, not duplicated.',
     '',
-    'Regenerate with `pnpm --filter @elk/alg-layered generate-docs`.',
+    'Regenerate with `pnpm --filter @filigree/alg-layered generate-docs`.',
     '',
     '<!-- Generated file — do not edit by hand. -->',
     '',

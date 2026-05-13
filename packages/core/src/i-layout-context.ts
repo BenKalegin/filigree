@@ -7,7 +7,7 @@
  * idempotent and makes them testable in isolation.
  */
 
-import { type INode } from '@elk/graph';
+import { type INode } from '@filigree/graph';
 
 import { type IOptionResolver } from './i-option.js';
 

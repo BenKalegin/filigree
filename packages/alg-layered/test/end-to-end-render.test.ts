@@ -11,9 +11,9 @@ import {
   DefaultLayoutEngine,
   DefaultOptionResolver,
   type ILayoutEngine,
-} from '@elk/core';
-import { fromJson, type IJsonGraph } from '@elk/graph';
-import { renderSvg } from '@elk/render-svg';
+} from '@filigree/core';
+import { fromJson, type IJsonGraph } from '@filigree/graph';
+import { renderSvg } from '@filigree/render-svg';
 
 import { createDefaultLayeredAlgorithm } from '../src/composition.js';
 

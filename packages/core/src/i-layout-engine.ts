@@ -12,7 +12,7 @@
  * lives behind `ILayoutAlgorithm`.
  */
 
-import { type IGraph } from '@elk/graph';
+import { type IGraph } from '@filigree/graph';
 
 export interface ILayoutEngine {
   layout(graph: IGraph): Promise<IGraph>;

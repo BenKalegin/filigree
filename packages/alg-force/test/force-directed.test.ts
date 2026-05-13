@@ -4,8 +4,8 @@ import {
   DefaultLayoutEngine,
   DefaultOptionResolver,
   type ILayoutEngine,
-} from '@elk/core';
-import { type ElkNode, fromJson, type IJsonGraph } from '@elk/graph';
+} from '@filigree/core';
+import { type ElkNode, fromJson, type IJsonGraph } from '@filigree/graph';
 
 import { createDefaultForceAlgorithm } from '../src/composition.js';
 import { FORCE_ALGORITHM_ID } from '../src/force-directed-algorithm.js';

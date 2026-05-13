@@ -16,8 +16,8 @@
  * seeded RNG for "natural-looking" starts.
  */
 
-import { type IEdge, type INode, isNode } from '@elk/graph';
-import { type ILayoutAlgorithm, type ILayoutContext } from '@elk/core';
+import { type IEdge, type INode, isNode } from '@filigree/graph';
+import { type ILayoutAlgorithm, type ILayoutContext } from '@filigree/core';
 
 import { ForceOptions } from './force-options.js';
 

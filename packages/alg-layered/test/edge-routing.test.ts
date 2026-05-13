@@ -4,8 +4,8 @@ import {
   DefaultLayoutEngine,
   DefaultOptionResolver,
   type ILayoutEngine,
-} from '@elk/core';
-import { type ElkEdge, fromJson, type IJsonGraph } from '@elk/graph';
+} from '@filigree/core';
+import { type ElkEdge, fromJson, type IJsonGraph } from '@filigree/graph';
 
 import { createDefaultLayeredAlgorithm } from '../src/composition.js';
 
