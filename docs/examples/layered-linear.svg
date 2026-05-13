@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="304" height="1064" viewBox="0 0 304 1064">
+<defs><marker id="elk-ts-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#374151"/></marker></defs>
+<g transform="translate(12, 12)">
+<g transform="translate(20, 20)">
+<rect x="0" y="0" width="80" height="40" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="40" y="23" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">Start</text>
+</g>
+<g transform="translate(20, 140)">
+<rect x="0" y="0" width="80" height="40" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="40" y="23" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">Read input</text>
+</g>
+<g transform="translate(20, 260)">
+<rect x="0" y="0" width="100" height="60" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="50" y="33" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">Valid?</text>
+</g>
+<g transform="translate(20, 400)">
+<rect x="0" y="0" width="60" height="30" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="30" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">Yes</text>
+</g>
+<g transform="translate(120, 400)">
+<rect x="0" y="0" width="60" height="30" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="30" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">No</text>
+</g>
+<g transform="translate(20, 510)">
+<rect x="0" y="0" width="100" height="40" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="50" y="23" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">Process</text>
+</g>
+<g transform="translate(160, 510)">
+<rect x="0" y="0" width="100" height="40" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="50" y="23" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">Report error</text>
+</g>
+<g transform="translate(20, 630)">
+<rect x="0" y="0" width="60" height="30" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="30" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">Join</text>
+</g>
+<g transform="translate(20, 740)">
+<rect x="0" y="0" width="100" height="40" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="50" y="23" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">Validate</text>
+</g>
+<g transform="translate(20, 860)">
+<rect x="0" y="0" width="80" height="40" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="40" y="23" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">Write output</text>
+</g>
+<g transform="translate(20, 980)">
+<rect x="0" y="0" width="80" height="40" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="40" y="23" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">End</text>
+</g>
+<polyline points="60,60 60,140" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="60,180 60,220 70,220 70,260" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="70,320 70,360 50,360 50,400" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="70,320 70,360 150,360 150,400" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="50,430 50,470 70,470 70,510" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="150,430 150,470 210,470 210,510" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="70,550 70,590 50,590 50,630" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="210,550 210,590 50,590 50,630" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="50,660 50,700 70,700 70,740" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="70,780 70,820 60,820 60,860" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="60,900 60,980" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+</g>
+</svg>

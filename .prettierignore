@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+pnpm-lock.yaml
+# README and license-adjacent docs are authored by hand — Prettier should not
+# reflow tables or word-wrap them.
+README.md
+NOTICE
+LICENSE
+COPYRIGHT_HEADER_TEMPLATE.ts
+docs/examples/*.svg

@@ -1,0 +1,30 @@
+/**
+ * Directed edge between two graph elements.
+ *
+ * ELK supports hyperedges (multiple sources, multiple targets) and edges that
+ * connect to ports rather than nodes; sources and targets are therefore lists
+ * of either nodes or ports.
+ */
+
+import { type IPoint } from './coordinates.js';
+import { type IGraphElement } from './i-graph-element.js';
+import { type ILabel } from './i-label.js';
+import { type INode } from './i-node.js';
+import { type IPort } from './i-port.js';
+
+export type IEdgeEndpoint = INode | IPort;
+
+export interface IEdge extends IGraphElement {
+  readonly sources: readonly IEdgeEndpoint[];
+  readonly targets: readonly IEdgeEndpoint[];
+  readonly labels: readonly ILabel[];
+  /**
+   * Inflection points of the edge's polyline, in order from source to target.
+   * The endpoint anchors (where the line touches the source/target box) are
+   * not stored here — renderers derive them from node geometry. A straight
+   * edge has `bendPoints = []`.
+   */
+  readonly bendPoints: readonly IPoint[];
+
+  setBendPoints(points: readonly IPoint[]): void;
+}

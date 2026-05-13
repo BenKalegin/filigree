@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="356.3860835774293" height="402.39868896673073" viewBox="0 0 356.3860835774293 402.39868896673073">
+<defs><marker id="elk-ts-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#374151"/></marker></defs>
+<g transform="translate(12, 12)">
+<g transform="translate(80.07344166274736, 328.39868896673073)">
+<rect x="0" y="0" width="40" height="30" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="20" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">A</text>
+</g>
+<g transform="translate(20.000000000000014, 284.76781926341096)">
+<rect x="0" y="0" width="40" height="30" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="20" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">B</text>
+</g>
+<g transform="translate(106.22905105763837, 229.21448528945248)">
+<rect x="0" y="0" width="40" height="30" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="20" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">C</text>
+</g>
+<g transform="translate(186.08298150517805, 119.26709104861166)">
+<rect x="0" y="0" width="40" height="30" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="20" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">D</text>
+</g>
+<g transform="translate(212.2540151359829, 20)">
+<rect x="0" y="0" width="40" height="30" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="20" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">E</text>
+</g>
+<g transform="translate(272.3860835774293, 63.67344987085846)">
+<rect x="0" y="0" width="40" height="30" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="20" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">F</text>
+</g>
+<polyline points="100.07344166274736,328.39868896673073 40.000000000000014,314.76781926341096" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="40.000000000000014,284.76781926341096 126.22905105763837,259.21448528945245" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="126.22905105763837,259.21448528945245 100.07344166274736,328.39868896673073" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="126.22905105763837,229.21448528945248 206.08298150517805,149.26709104861166" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="206.08298150517805,119.26709104861166 232.2540151359829,50" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="232.2540151359829,50 292.3860835774293,63.67344987085846" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="292.3860835774293,93.67344987085846 206.08298150517805,119.26709104861166" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+</g>
+</svg>
