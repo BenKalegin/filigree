@@ -1,0 +1,7 @@
+/**
+ * Public surface of @filigree/alg-mrtree.
+ */
+
+export { MrTreeAlgorithm, MRTREE_ALGORITHM_ID, MRTREE_DISPLAY_NAME } from './mrtree-algorithm.js';
+export { MrTreeOptions } from './mrtree-options.js';
+export { createDefaultMrTreeAlgorithm } from './composition.js';

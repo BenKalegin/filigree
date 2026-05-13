@@ -13,6 +13,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { createDefaultForceAlgorithm } from '@filigree/alg-force';
+import { createDefaultMrTreeAlgorithm } from '@filigree/alg-mrtree';
 import {
   DefaultAlgorithmRegistry,
   DefaultLayoutEngine,
@@ -42,6 +43,7 @@ import {
   FLOWCHART,
   ORGANIC,
   TIGHT_COMPOUND,
+  TREE,
 } from './example-fixtures.js';
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -75,6 +77,12 @@ const buildLayeredEngine = (nodePlacer: INodePlacer): ILayoutEngine => {
 const buildForceEngine = (): ILayoutEngine => {
   const registry = new DefaultAlgorithmRegistry();
   registry.register(createDefaultForceAlgorithm());
+  return new DefaultLayoutEngine(registry, new DefaultOptionResolver());
+};
+
+const buildMrTreeEngine = (): ILayoutEngine => {
+  const registry = new DefaultAlgorithmRegistry();
+  registry.register(createDefaultMrTreeAlgorithm());
   return new DefaultLayoutEngine(registry, new DefaultOptionResolver());
 };
 
@@ -143,6 +151,14 @@ const EXAMPLES: readonly IExample[] = [
     graph: FLOWCHART,
     buildEngine: () => buildLayeredEngine(new BrandesKopfNodePlacer()),
     renderOptions: { labelBackground: '#fef3c7' },
+  },
+  {
+    slug: 'mrtree-project',
+    title: 'Mr.Tree (tree layout)',
+    description:
+      'Reingold-Tilford-style tree placement. Leaves are placed left-to-right, internal nodes are centred above their direct children, levels stack vertically. Reads edges as parent → child; nodes with no incoming edge are treated as roots.',
+    graph: TREE,
+    buildEngine: buildMrTreeEngine,
   },
   {
     slug: 'force-organic',

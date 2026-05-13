@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="484" height="214" viewBox="0 0 484 214">
+<defs><marker id="elk-ts-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#374151"/></marker></defs>
+<g transform="translate(12, 12)">
+<g transform="translate(167.5, 20)">
+<rect x="0" y="0" width="80" height="40" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="40" y="23" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">Project</text>
+</g>
+<g transform="translate(55, 80)">
+<rect x="0" y="0" width="80" height="40" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="40" y="23" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">Frontend</text>
+</g>
+<g transform="translate(280, 80)">
+<rect x="0" y="0" width="80" height="40" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="40" y="23" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">Backend</text>
+</g>
+<g transform="translate(20, 140)">
+<rect x="0" y="0" width="60" height="30" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="30" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">UI</text>
+</g>
+<g transform="translate(110, 140)">
+<rect x="0" y="0" width="60" height="30" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="30" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">State</text>
+</g>
+<g transform="translate(200, 140)">
+<rect x="0" y="0" width="60" height="30" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="30" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">API</text>
+</g>
+<g transform="translate(290, 140)">
+<rect x="0" y="0" width="60" height="30" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="30" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">DB</text>
+</g>
+<g transform="translate(380, 140)">
+<rect x="0" y="0" width="60" height="30" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
+<text x="30" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#111827">Worker</text>
+</g>
+<polyline points="207.5,60 95,80" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="207.5,60 320,80" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="95,120 50,140" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="95,120 140,140" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="320,120 230,140" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="320,120 320,140" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="320,120 410,140" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+</g>
+</svg>

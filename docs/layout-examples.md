@@ -16,6 +16,7 @@ Regenerate with `pnpm --filter @filigree/alg-layered generate-docs`.
 - [Parallel edges (bidirectional pair)](#layered-bidirectional)
 - [Compound with custom padding (elk.padding = 4)](#layered-compound-tight)
 - [Flowchart with label backgrounds](#layered-themed)
+- [Mr.Tree (tree layout)](#mrtree-project)
 - [Force-directed](#force-organic)
 
 ## Layered (default)
@@ -65,6 +66,12 @@ Same compound topology as above but the root sets `elk.padding: 4`. Inheritance 
 Same flowchart, rendered with `labelBackground: "#fef3c7"`. The renderer emits a backing rect behind every label so wider text remains readable over busy edges or narrow nodes.
 
 ![Flowchart with label backgrounds](examples/layered-themed.svg)
+
+## Mr.Tree (tree layout)
+
+Reingold-Tilford-style tree placement. Leaves are placed left-to-right, internal nodes are centred above their direct children, levels stack vertically. Reads edges as parent → child; nodes with no incoming edge are treated as roots.
+
+![Mr.Tree (tree layout)](examples/mrtree-project.svg)
 
 ## Force-directed
 

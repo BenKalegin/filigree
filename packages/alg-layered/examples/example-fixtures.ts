@@ -116,6 +116,30 @@ export const TIGHT_COMPOUND: IJsonGraph = {
   ],
 };
 
+export const TREE: IJsonGraph = {
+  id: 'root',
+  layoutOptions: { 'elk.algorithm': 'mrtree' },
+  children: [
+    { id: 'r', width: 80, height: 40, labels: [{ text: 'Project' }] },
+    { id: 'frontend', width: 80, height: 40, labels: [{ text: 'Frontend' }] },
+    { id: 'backend', width: 80, height: 40, labels: [{ text: 'Backend' }] },
+    { id: 'ui', width: 60, height: 30, labels: [{ text: 'UI' }] },
+    { id: 'state', width: 60, height: 30, labels: [{ text: 'State' }] },
+    { id: 'api', width: 60, height: 30, labels: [{ text: 'API' }] },
+    { id: 'db', width: 60, height: 30, labels: [{ text: 'DB' }] },
+    { id: 'worker', width: 60, height: 30, labels: [{ text: 'Worker' }] },
+  ],
+  edges: [
+    { id: 'r_fe', sources: ['r'], targets: ['frontend'] },
+    { id: 'r_be', sources: ['r'], targets: ['backend'] },
+    { id: 'fe_ui', sources: ['frontend'], targets: ['ui'] },
+    { id: 'fe_st', sources: ['frontend'], targets: ['state'] },
+    { id: 'be_api', sources: ['backend'], targets: ['api'] },
+    { id: 'be_db', sources: ['backend'], targets: ['db'] },
+    { id: 'be_wk', sources: ['backend'], targets: ['worker'] },
+  ],
+};
+
 export const ORGANIC: IJsonGraph = {
   id: 'root',
   layoutOptions: { 'elk.algorithm': 'force' },

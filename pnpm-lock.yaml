@@ -81,6 +81,36 @@ importers:
       '@filigree/alg-force':
         specifier: workspace:*
         version: link:../alg-force
+      '@filigree/alg-mrtree':
+        specifier: workspace:*
+        version: link:../alg-mrtree
+      '@filigree/render-svg':
+        specifier: workspace:*
+        version: link:../render-svg
+
+  packages/alg-mrtree:
+    dependencies:
+      '@filigree/core':
+        specifier: workspace:*
+        version: link:../core
+      '@filigree/graph':
+        specifier: workspace:*
+        version: link:../graph
+
+  packages/api:
+    dependencies:
+      '@filigree/alg-force':
+        specifier: workspace:*
+        version: link:../alg-force
+      '@filigree/alg-layered':
+        specifier: workspace:*
+        version: link:../alg-layered
+      '@filigree/core':
+        specifier: workspace:*
+        version: link:../core
+      '@filigree/graph':
+        specifier: workspace:*
+        version: link:../graph
       '@filigree/render-svg':
         specifier: workspace:*
         version: link:../render-svg

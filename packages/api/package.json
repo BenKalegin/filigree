@@ -1,5 +1,5 @@
 {
-  "name": "@filigree/alg-layered",
+  "name": "@filigree/api",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -10,18 +10,14 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "build": "tsc",
-    "generate-docs": "tsx examples/generate-docs.ts"
+    "build": "tsc"
   },
   "dependencies": {
+    "@filigree/alg-force": "workspace:*",
+    "@filigree/alg-layered": "workspace:*",
     "@filigree/core": "workspace:*",
     "@filigree/graph": "workspace:*",
-    "@filigree/util-geometry": "workspace:*",
-    "@filigree/util-solver": "workspace:*"
-  },
-  "devDependencies": {
-    "@filigree/alg-force": "workspace:*",
-    "@filigree/alg-mrtree": "workspace:*",
     "@filigree/render-svg": "workspace:*"
-  }
+  },
+  "devDependencies": {}
 }
