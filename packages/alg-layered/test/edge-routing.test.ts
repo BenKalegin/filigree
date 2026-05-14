@@ -172,8 +172,11 @@ describe('orthogonal edge router', () => {
     expect(back.bendPoints[1]?.x).not.toBe(back.bendPoints[0]?.x);
   });
 
-  // Hyperedge (2 sources, 1 target). The router skips it; bendPoints stays empty.
-  it('skips hyperedges (does not route them)', async () => {
+  // Hyperedge (2 sources, 1 target). Router emits one routeSegment per
+  // endpoint branch — `bendPoints` stays empty, `routeSegments` gets 3
+  // entries (2 source branches + 1 target branch) that all share a
+  // junction point.
+  it('routes a 2-sources / 1-target hyperedge as branches meeting at a junction', async () => {
     const graph = fromJson({
       id: 'root',
       children: [
@@ -185,6 +188,27 @@ describe('orthogonal edge router', () => {
     } satisfies IJsonGraph);
 
     await buildEngine().layout(graph);
-    expect(findEdge(graph, 'h').bendPoints).toEqual([]);
+    const h = findEdge(graph, 'h');
+    expect(h.bendPoints).toEqual([]);
+    expect(h.routeSegments.length).toBe(3);
+    // Every branch's middle point sits on the shared junction y, so the
+    // junction y appears identical across every routeSegment.
+    const middleYs = h.routeSegments.map((segment) => segment[1]?.y);
+    expect(new Set(middleYs).size).toBe(1);
+  });
+
+  // Simple edges keep using `bendPoints` (no routeSegments).
+  it('leaves routeSegments empty for simple one-source / one-target edges', async () => {
+    const graph = fromJson({
+      id: 'root',
+      children: [
+        { id: 'a', width: 40, height: 30 },
+        { id: 'b', width: 40, height: 30 },
+      ],
+      edges: [{ id: 'e', sources: ['a'], targets: ['b'] }],
+    } satisfies IJsonGraph);
+
+    await buildEngine().layout(graph);
+    expect(findEdge(graph, 'e').routeSegments).toEqual([]);
   });
 });

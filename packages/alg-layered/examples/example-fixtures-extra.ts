@@ -35,6 +35,26 @@ export const CARDS: IJsonGraph = {
   ],
 };
 
+// A merge step: three event producers all feed one consumer via a single
+// hyperedge (3 sources, 1 target). Exercises the junction-style
+// hyperedge routing — the orthogonal router emits one route segment
+// per branch instead of a single polyline.
+export const HYPEREDGE_MERGE: IJsonGraph = {
+  id: 'root',
+  children: [
+    { id: 'producer_a', width: 80, height: 30, labels: [{ text: 'Producer A' }] },
+    { id: 'producer_b', width: 80, height: 30, labels: [{ text: 'Producer B' }] },
+    { id: 'producer_c', width: 80, height: 30, labels: [{ text: 'Producer C' }] },
+    { id: 'consumer_x', width: 80, height: 30, labels: [{ text: 'Consumer X' }] },
+    { id: 'consumer_y', width: 80, height: 30, labels: [{ text: 'Consumer Y' }] },
+    { id: 'merge', width: 80, height: 40, labels: [{ text: 'Merge' }] },
+  ],
+  edges: [
+    { id: 'fan_in', sources: ['producer_a', 'producer_b', 'producer_c'], targets: ['merge'] },
+    { id: 'fan_out', sources: ['merge'], targets: ['consumer_x', 'consumer_y'] },
+  ],
+};
+
 // A small mesh: every node connects to its neighbors. Stress majorization
 // should resolve this into a roughly round, evenly-spaced arrangement
 // where every neighbor pair sits at the desired edge length.

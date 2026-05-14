@@ -159,9 +159,21 @@ export class SvgRenderer {
   }
 
   private renderEdge(edge: IEdge, container: INode): string {
+    const style = this.resolveEdgeStyle(edge);
+    if (edge.routeSegments.length > 0) {
+      return edge.routeSegments
+        .map((segment) => this.renderPolyline(segment, style))
+        .join('');
+    }
     const points = this.computeEdgePoints(edge, container);
     if (points === undefined) return '';
-    const style = this.resolveEdgeStyle(edge);
+    return this.renderPolyline(points, style);
+  }
+
+  private renderPolyline(
+    points: readonly { x: number; y: number }[],
+    style: IResolvedEdgeStyle,
+  ): string {
     const attr = points.map((p) => `${String(p.x)},${String(p.y)}`).join(' ');
     return (
       `<polyline points="${attr}" fill="none" stroke="${style.stroke}" ` +

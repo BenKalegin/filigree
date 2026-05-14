@@ -32,6 +32,15 @@ export interface IEdge extends IGraphElement {
    * edge has `bendPoints = []`.
    */
   readonly bendPoints: readonly IPoint[];
+  /**
+   * For hyperedges (multiple sources or multiple targets), the router emits
+   * one polyline per endpoint-to-junction branch instead of a single
+   * source-to-target polyline. Each segment is a self-contained list of
+   * points the renderer draws as its own polyline. Empty for simple
+   * one-source-one-target edges, which use `bendPoints` instead.
+   */
+  readonly routeSegments: readonly (readonly IPoint[])[];
 
   setBendPoints(points: readonly IPoint[]): void;
+  setRouteSegments(segments: readonly (readonly IPoint[])[]): void;
 }

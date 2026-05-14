@@ -24,6 +24,7 @@ Regenerate with `pnpm --filter @filigree/alg-layered generate-docs`.
 - [Layered + human hint (same layer)](#layered-same-layer)
 - [Layered + human hint (order before)](#layered-order-before)
 - [Layered + human hint (group)](#layered-group)
+- [Layered + hyperedges (multi-source / multi-target)](#layered-hyperedge)
 - [Rectpacking (shelf packing)](#rectpacking-cards)
 - [Stress (majorization)](#stress-mesh)
 
@@ -122,6 +123,12 @@ Same flowchart. A `orderBefore('no_branch', 'yes_branch')` hint flips the two `d
 A five-task fan-out / fan-in pipeline. A `group(['task_a', 'task_c', 'task_e'])` hint clusters the three odd-named tasks together in their layer — `HintAwareCrossingMinimizer` re-packs the layer after barycenter so group members occupy a contiguous run starting at the leftmost member's slot. Useful for keeping related siblings together when the algorithm has no other reason to favor that arrangement.
 
 ![Layered + human hint (group)](examples/layered-group.svg)
+
+## Layered + hyperedges (multi-source / multi-target)
+
+Three producers fan into one merge step via a single hyperedge (`sources: ['producer_a', 'producer_b', 'producer_c']`), and the merge fans out to two consumers via another hyperedge. The orthogonal router emits one route segment per branch — every branch meets at a shared junction point on the y-midline between the source and target layers. Simple one-to-one edges still use the classic two-bend route.
+
+![Layered + hyperedges (multi-source / multi-target)](examples/layered-hyperedge.svg)
 
 ## Rectpacking (shelf packing)
 

@@ -104,6 +104,13 @@ export class DefaultLayoutEngine implements ILayoutEngine {
     }
     for (const edge of container.containedEdges) {
       edge.setBendPoints(edge.bendPoints.map((p) => ({ x: p.x + shiftX, y: p.y + shiftY })));
+      if (edge.routeSegments.length > 0) {
+        edge.setRouteSegments(
+          edge.routeSegments.map((segment) =>
+            segment.map((p) => ({ x: p.x + shiftX, y: p.y + shiftY })),
+          ),
+        );
+      }
     }
     container.setSize(box.width + padding * 2, box.height + padding * 2);
   }

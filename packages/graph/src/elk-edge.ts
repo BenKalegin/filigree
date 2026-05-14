@@ -33,6 +33,7 @@ export class ElkEdge extends PropertyHolder implements IEdge {
   public readonly targets: readonly IEdgeEndpoint[];
   public readonly labels: readonly ElkLabel[];
   public bendPoints: readonly IPoint[];
+  public routeSegments: readonly (readonly IPoint[])[] = [];
 
   constructor(input: IElkEdgeInput) {
     super();
@@ -45,5 +46,9 @@ export class ElkEdge extends PropertyHolder implements IEdge {
 
   public setBendPoints(points: readonly IPoint[]): void {
     this.bendPoints = points;
+  }
+
+  public setRouteSegments(segments: readonly (readonly IPoint[])[]): void {
+    this.routeSegments = segments;
   }
 }

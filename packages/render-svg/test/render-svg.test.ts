@@ -145,6 +145,41 @@ describe('renderSvg', () => {
     expect(svg).toContain('stroke-dasharray="6 2"');
   });
 
+  it('renders one polyline per routeSegment for hyperedges', () => {
+    const graph = fromJson({
+      id: 'root',
+      width: 200,
+      height: 200,
+      children: [
+        { id: 'a', x: 0, y: 0, width: 30, height: 30 },
+        { id: 'b', x: 50, y: 0, width: 30, height: 30 },
+        { id: 'merge', x: 25, y: 100, width: 30, height: 30 },
+      ],
+      edges: [{ id: 'h', sources: ['a', 'b'], targets: ['merge'] }],
+    });
+    // Simulate router output: three route segments meeting at a junction.
+    const h = graph.containedEdges.find((e) => e.id === 'h')!;
+    h.setRouteSegments([
+      [
+        { x: 15, y: 30 },
+        { x: 15, y: 60 },
+        { x: 40, y: 60 },
+      ],
+      [
+        { x: 65, y: 30 },
+        { x: 65, y: 60 },
+        { x: 40, y: 60 },
+      ],
+      [
+        { x: 40, y: 60 },
+        { x: 40, y: 100 },
+      ],
+    ]);
+    const svg = renderSvg(graph);
+    const polylines = svg.match(/<polyline /gu) ?? [];
+    expect(polylines.length).toBe(3);
+  });
+
   it('returning undefined from a style callback falls back to defaults', () => {
     const graph = fromJson(layoutMockSimple());
     const svg = renderSvg(graph, {
