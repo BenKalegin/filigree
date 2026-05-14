@@ -8,7 +8,7 @@
 import { describe, expect, it } from 'vitest';
 import { fromJson, type IJsonGraph } from '@filigree/graph';
 
-import { applyHints, pinPosition } from '../src/index.js';
+import { applyHints, focus, pinPosition } from '../src/index.js';
 
 const GRAPH: IJsonGraph = {
   id: 'root',
@@ -47,6 +47,46 @@ describe('applyHints', () => {
     applyHints(graph, []);
     const a = graph.children.find((n) => n.id === 'a');
     expect(a?.x).toBe(10);
+  });
+
+  it('translates every node and edge bend point when a Focus hint is applied', () => {
+    const graph = fromJson({
+      id: 'root',
+      children: [
+        { id: 'a', x: 10, y: 10, width: 20, height: 20 },
+        { id: 'b', x: 60, y: 110, width: 20, height: 20 },
+      ],
+      edges: [{ id: 'e', sources: ['a'], targets: ['b'], bendPoints: [{ x: 20, y: 60 }] }],
+    } satisfies IJsonGraph);
+    // Focus 'a' at origin. a's center is (20, 20), so dx=-20, dy=-20.
+    applyHints(graph, [focus('a', 0, 0)]);
+    const a = graph.children.find((n) => n.id === 'a');
+    const b = graph.children.find((n) => n.id === 'b');
+    expect(a?.x).toBe(-10);
+    expect(a?.y).toBe(-10);
+    expect(b?.x).toBe(40);
+    expect(b?.y).toBe(90);
+    // Edge bend point translated by the same delta.
+    expect(graph.containedEdges[0]?.bendPoints[0]).toEqual({ x: 0, y: 40 });
+  });
+
+  it('Focus is a no-op when the named node is already centered', () => {
+    const graph = fromJson({
+      id: 'root',
+      children: [{ id: 'a', x: -10, y: -10, width: 20, height: 20 }],
+    } satisfies IJsonGraph);
+    applyHints(graph, [focus('a', 0, 0)]);
+    const a = graph.children.find((n) => n.id === 'a');
+    expect(a?.x).toBe(-10);
+    expect(a?.y).toBe(-10);
+  });
+
+  it('Focus silently ignores an unknown node id', () => {
+    const graph = fromJson(GRAPH);
+    applyHints(graph, [focus('ghost')]);
+    const a = graph.children.find((n) => n.id === 'a');
+    expect(a?.x).toBe(10);
+    expect(a?.y).toBe(10);
   });
 
   it('finds nodes inside compound children', () => {

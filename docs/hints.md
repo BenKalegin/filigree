@@ -80,9 +80,25 @@ await engine.layout(graph);
 - **Interaction with `OrderBefore`:** `Group` is applied first, `OrderBefore` second; explicit pair ordering overrides clustering.
 - **Ignored by:** force, radial, mrtree.
 
-### `Focus` — reserved
+### `Focus` — post-layout
 
-Listed on the roadmap for forward compatibility; no implementation yet.
+Translate the entire laid-out graph so a chosen node ends up centered at a specified position (default: origin). The relative geometry stays intact — every node position and every edge bend point gets the same translation.
+
+```typescript
+import { applyHints, focus } from '@filigree/hints';
+
+await engine.layout(graph);
+applyHints(graph, [focus('start')]);
+// 'start' is now centered at (0, 0); all other nodes and edge bend
+// points moved by the same delta.
+
+applyHints(graph, [focus('start', 100, 100)]);
+// Alternative anchor: 'start' centered at (100, 100).
+```
+
+- **Applies to:** any algorithm. Post-layout, like `PinPosition`.
+- **Useful for** "center the diagram around this node" rendering modes where the viewer pans/zooms around a focal point.
+- **No-op** when the focus node is already at the requested center, or when the named id doesn't exist.
 
 ## Combining hints
 

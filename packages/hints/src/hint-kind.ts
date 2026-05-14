@@ -23,4 +23,5 @@ export enum HintKind {
   SameLayer = 'same-layer',
   OrderBefore = 'order-before',
   Group = 'group',
+  Focus = 'focus',
 }

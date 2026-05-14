@@ -30,5 +30,6 @@ export { type IPinPositionHint, pinPosition } from './pin-position-hint.js';
 export { type ISameLayerHint, sameLayer } from './same-layer-hint.js';
 export { type IOrderBeforeHint, orderBefore } from './order-before-hint.js';
 export { type IGroupHint, group } from './group-hint.js';
+export { type IFocusHint, focus } from './focus-hint.js';
 export { attachHints, getHints } from './hints-option.js';
 export { applyHints } from './apply-hints.js';
