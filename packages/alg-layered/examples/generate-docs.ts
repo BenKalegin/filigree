@@ -28,9 +28,6 @@ import { EXAMPLES, type IExample } from './example-list.js';
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DOCS_DIR = path.resolve(SCRIPT_DIR, '../../../docs');
 
-/** Light background that works on both light and dark page themes. */
-const DOCS_BACKGROUND = '#f8f9fa';
-
 const renderExample = async (example: IExample): Promise<void> => {
   const graph = fromJson(example.graph);
   if (example.preLayoutHints !== undefined) {
@@ -38,7 +35,7 @@ const renderExample = async (example: IExample): Promise<void> => {
   }
   await example.buildEngine().layout(graph);
   applyExampleHints(graph, example.hints);
-  const svg = renderSvg(graph, { background: DOCS_BACKGROUND, ...example.renderOptions });
+  const svg = renderSvg(graph, example.renderOptions ?? {});
   writeFileSync(path.join(DOCS_DIR, 'examples', `${example.slug}.svg`), svg, 'utf8');
 };
 
