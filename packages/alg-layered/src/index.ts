@@ -14,9 +14,10 @@ export type { IPhase } from './i-phase.js';
 export type { ICycleBreaker } from './i-cycle-breaker.js';
 export type { ILayerAssigner } from './i-layer-assigner.js';
 export type { ICrossingMinimizer } from './i-crossing-minimizer.js';
+export type { ILongEdgeProcessor } from './i-long-edge-processor.js';
 export type { INodePlacer } from './i-node-placer.js';
 export type { IEdgeRouter } from './i-edge-router.js';
-export { LNode } from './model/l-node.js';
+export { LNode, LNodeKind } from './model/l-node.js';
 export { LayeredContext, type ILayeredContextInput } from './model/layered-context.js';
 export { LayeredContextBuilder } from './model/layered-context-builder.js';
 export { appendUnique } from './model/adjacency.js';
@@ -39,4 +40,6 @@ export { LinearNodePlacer } from './phases/node-placement/linear-node-placer.js'
 export { BalancedNodePlacer } from './phases/node-placement/balanced-node-placer.js';
 export { BrandesKopfNodePlacer } from './phases/node-placement/brandes-kopf-node-placer.js';
 export { OrthogonalEdgeRouter } from './phases/edge-routing/orthogonal-edge-router.js';
+export { DummyLongEdgeProcessor } from './phases/long-edge/dummy-long-edge-processor.js';
+export { NullLongEdgeProcessor } from './phases/long-edge/null-long-edge-processor.js';
 export { createDefaultLayeredAlgorithm } from './composition.js';

@@ -16,7 +16,7 @@
 import { type LNode } from './l-node.js';
 
 export const layerHeight = (layer: readonly LNode[]): number =>
-  layer.reduce((max, n) => Math.max(max, n.elkNode.height), 0);
+  layer.reduce((max, n) => Math.max(max, n.height), 0);
 
 export const placeNodesLinearly = (
   layers: readonly (readonly LNode[])[],
@@ -28,7 +28,7 @@ export const placeNodesLinearly = (
     let x = 0;
     for (const node of layer) {
       node.setPosition(x, currentY);
-      x += node.elkNode.width + nodeGap;
+      x += node.width + nodeGap;
     }
     currentY += layerHeight(layer) + layerGap;
   }

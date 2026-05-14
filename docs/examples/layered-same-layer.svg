@@ -27,7 +27,7 @@
 </g>
 <polyline points="100,50 100,90 50,90 50,130" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
 <polyline points="100,50 100,90 150,90 150,130" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
-<polyline points="50,160 50,350" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
+<polyline points="50,160 50,200 20,200 20,295 50,295 50,350" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
 <polyline points="150,160 150,240" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
 <polyline points="150,270 150,350" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#elk-ts-arrow)"/>
 </g>

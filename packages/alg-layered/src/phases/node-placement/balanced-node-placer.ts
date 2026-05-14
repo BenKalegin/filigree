@@ -44,7 +44,7 @@ export class BalancedNodePlacer implements INodePlacer {
       const desiredX = this.computeDesiredX(node, context);
       const newX = Math.max(desiredX, leftBound);
       node.setPosition(newX, node.y);
-      leftBound = newX + node.elkNode.width + nodeGap;
+      leftBound = newX + node.width + nodeGap;
     }
   }
 
@@ -53,8 +53,8 @@ export class BalancedNodePlacer implements INodePlacer {
     if (neighbors.length === 0) {
       return node.x;
     }
-    const totalCenter = neighbors.reduce((sum, n) => sum + n.x + n.elkNode.width / 2, 0);
+    const totalCenter = neighbors.reduce((sum, n) => sum + n.x + n.width / 2, 0);
     const avgCenter = totalCenter / neighbors.length;
-    return avgCenter - node.elkNode.width / 2;
+    return avgCenter - node.width / 2;
   }
 }

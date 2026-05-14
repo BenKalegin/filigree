@@ -24,7 +24,7 @@ import { LNode } from './l-node.js';
 export class LayeredContextBuilder {
   public build(base: ILayoutContext): LayeredContext {
     const children = base.graph.children as readonly ElkNode[];
-    const nodes = children.map((elkNode) => new LNode(elkNode));
+    const nodes = children.map((elkNode) => LNode.regular(elkNode));
     const lookup = this.buildLookup(nodes);
     const { successors, predecessors } = this.buildAdjacency(
       base.graph.containedEdges as readonly ElkEdge[],

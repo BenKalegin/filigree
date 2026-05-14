@@ -15,6 +15,7 @@ import { type LayeredContext } from './model/layered-context.js';
 export class LayeredResultApplier {
   public apply(context: LayeredContext): void {
     for (const node of context.nodes) {
+      if (!node.isRegular()) continue;
       node.elkNode.setPosition(node.x, node.y);
     }
   }

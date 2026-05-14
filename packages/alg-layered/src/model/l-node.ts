@@ -9,9 +9,12 @@
  * Layered-algorithm-internal node wrapper.
  *
  * Phases reassign `layer`, `indexInLayer`, and the coordinate pair as they run.
- * The wrapped `elkNode` is the read-only link back to the user's graph — the
- * `LayeredResultApplier` is the only code that copies positions from `LNode`
- * back to `ElkNode`.
+ * Regular nodes wrap an `elkNode` from the user's graph; dummy nodes are
+ * placeholders created by `LongEdgeSplitter` to give long edges a presence on
+ * each intermediate layer (so crossing minimization treats them like a chain
+ * of short edges). Only the `LayeredResultApplier` copies positions from
+ * regular `LNode`s back to their `ElkNode`s — dummies have no user-visible
+ * counterpart.
  */
 
 import { type ElkNode } from '@filigree/graph';
@@ -19,13 +22,48 @@ import { type ElkNode } from '@filigree/graph';
 const UNSET_LAYER = -1;
 const UNSET_INDEX = -1;
 
+export enum LNodeKind {
+  Regular = 'regular',
+  Dummy = 'dummy',
+}
+
 export class LNode {
   public layer: number = UNSET_LAYER;
   public indexInLayer: number = UNSET_INDEX;
   public x = 0;
   public y = 0;
 
-  constructor(public readonly elkNode: ElkNode) {}
+  private constructor(
+    public readonly kind: LNodeKind,
+    private readonly elkNodeOrUndefined: ElkNode | undefined,
+  ) {}
+
+  public static regular(elkNode: ElkNode): LNode {
+    return new LNode(LNodeKind.Regular, elkNode);
+  }
+
+  public static dummy(): LNode {
+    return new LNode(LNodeKind.Dummy, undefined);
+  }
+
+  public get elkNode(): ElkNode {
+    if (this.elkNodeOrUndefined === undefined) {
+      throw new Error('Dummy LNodes have no ElkNode — guard with isRegular() first.');
+    }
+    return this.elkNodeOrUndefined;
+  }
+
+  public get width(): number {
+    return this.elkNodeOrUndefined?.width ?? 0;
+  }
+
+  public get height(): number {
+    return this.elkNodeOrUndefined?.height ?? 0;
+  }
+
+  public isRegular(): boolean {
+    return this.kind === LNodeKind.Regular;
+  }
 
   public hasLayerAssigned(): boolean {
     return this.layer !== UNSET_LAYER;

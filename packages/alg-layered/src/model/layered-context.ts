@@ -12,9 +12,14 @@
  * intermediate structures phases mutate: a flat list of `LNode`s, the layer
  * partition, and adjacency. The class hands mutation power out via methods
  * so phases don't reach into private maps directly.
+ *
+ * Long-edge handling: `LongEdgeSplitter` inserts dummy `LNode`s for edges
+ * spanning multiple layers and records the dummy chain under the original
+ * edge. The edge router reads those chains to lay the original edge through
+ * the dummy positions.
  */
 
-import { InvalidGraphError, type INode } from '@filigree/graph';
+import { type IEdge, InvalidGraphError, type INode } from '@filigree/graph';
 import { type ILayoutContext, type IOptionResolver } from '@filigree/core';
 
 import { type LNode } from './l-node.js';
@@ -29,17 +34,22 @@ export interface ILayeredContextInput {
 export class LayeredContext {
   public readonly graph: INode;
   public readonly options: IOptionResolver;
-  public readonly nodes: readonly LNode[];
+  private readonly mutableNodes: LNode[];
   private layerPartition: LNode[][] = [];
   private successors: ReadonlyMap<LNode, readonly LNode[]>;
   private predecessors: ReadonlyMap<LNode, readonly LNode[]>;
+  private readonly longEdges = new Map<IEdge, readonly LNode[]>();
 
   constructor(input: ILayeredContextInput) {
     this.graph = input.base.graph;
     this.options = input.base.options;
-    this.nodes = input.nodes;
+    this.mutableNodes = [...input.nodes];
     this.successors = input.successors;
     this.predecessors = input.predecessors;
+  }
+
+  public get nodes(): readonly LNode[] {
+    return this.mutableNodes;
   }
 
   public get layers(): readonly (readonly LNode[])[] {
@@ -59,11 +69,6 @@ export class LayeredContext {
   }
 
   /**
-   * Replaces one layer's contents and re-assigns `indexInLayer` on each node.
-   * Crossing minimization calls this once per sweep; doing the index update
-   * here keeps the invariant `layers[L][i].indexInLayer === i` in one place.
-   */
-  /**
    * Replace the successor/predecessor adjacency wholesale.
    * Cycle breaking uses this after computing a reversed adjacency.
    */
@@ -75,6 +80,11 @@ export class LayeredContext {
     this.predecessors = predecessors;
   }
 
+  /**
+   * Replaces one layer's contents and re-assigns `indexInLayer` on each node.
+   * Crossing minimization calls this once per sweep; doing the index update
+   * here keeps the invariant `layers[L][i].indexInLayer === i` in one place.
+   */
   public reorderLayer(layerIndex: number, newOrder: readonly LNode[]): void {
     if (layerIndex < 0 || layerIndex >= this.layerPartition.length) {
       throw new InvalidGraphError(
@@ -85,5 +95,26 @@ export class LayeredContext {
     for (const [idx, node] of newOrder.entries()) {
       node.setIndexInLayer(idx);
     }
+  }
+
+  /**
+   * Register a dummy chain for a long edge plus the post-split adjacency.
+   * `LongEdgeSplitter` calls this once for every multi-layer edge so the
+   * edge router can later read positions off the dummies.
+   */
+  public registerLongEdge(
+    edge: IEdge,
+    dummies: readonly LNode[],
+    successors: ReadonlyMap<LNode, readonly LNode[]>,
+    predecessors: ReadonlyMap<LNode, readonly LNode[]>,
+  ): void {
+    this.longEdges.set(edge, dummies);
+    this.mutableNodes.push(...dummies);
+    this.successors = successors;
+    this.predecessors = predecessors;
+  }
+
+  public dummyChainFor(edge: IEdge): readonly LNode[] | undefined {
+    return this.longEdges.get(edge);
   }
 }

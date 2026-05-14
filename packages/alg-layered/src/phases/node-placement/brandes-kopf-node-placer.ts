@@ -175,7 +175,7 @@ export class BrandesKopfNodePlacer implements INodePlacer {
           blockX.set(root, required);
           changed = true;
         }
-        prevRight = required + v.elkNode.width + nodeGap;
+        prevRight = required + v.width + nodeGap;
       }
     }
     return changed;

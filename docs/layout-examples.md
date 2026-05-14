@@ -22,6 +22,7 @@ Regenerate with `pnpm --filter @filigree/alg-layered generate-docs`.
 - [Layered + human hint (pin position)](#layered-pinned)
 - [Layered + human hint (same layer)](#layered-same-layer)
 - [Layered + human hint (order before)](#layered-order-before)
+- [Layered + human hint (group)](#layered-group)
 
 ## Layered (default)
 
@@ -106,3 +107,9 @@ Two branches of unequal length share a root. Longest-path places `left_leaf` one
 Same flowchart. A `orderBefore('no_branch', 'yes_branch')` hint flips the two `decision` children so 'No' shows up on the left. `HintAwareCrossingMinimizer` wraps barycenter; the swap happens after the barycenter sweep, overriding whichever order minimization picked.
 
 ![Layered + human hint (order before)](examples/layered-order-before.svg)
+
+## Layered + human hint (group)
+
+A five-task fan-out / fan-in pipeline. A `group(['task_a', 'task_c', 'task_e'])` hint clusters the three odd-named tasks together in their layer — `HintAwareCrossingMinimizer` re-packs the layer after barycenter so group members occupy a contiguous run starting at the leftmost member's slot. Useful for keeping related siblings together when the algorithm has no other reason to favor that arrangement.
+
+![Layered + human hint (group)](examples/layered-group.svg)

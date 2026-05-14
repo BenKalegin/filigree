@@ -65,6 +65,7 @@ const applySameLayer = (context: LayeredContext, hints: readonly ISameLayerHint[
 const indexById = (context: LayeredContext): ReadonlyMap<string, LNode> => {
   const map = new Map<string, LNode>();
   for (const node of context.nodes) {
+    if (!node.isRegular()) continue;
     map.set(node.elkNode.id, node);
   }
   return map;

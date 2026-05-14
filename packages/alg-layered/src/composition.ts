@@ -23,6 +23,7 @@ import { OrthogonalEdgeRouter } from './phases/edge-routing/orthogonal-edge-rout
 import { BrandesKopfNodePlacer } from './phases/node-placement/brandes-kopf-node-placer.js';
 import { HintAwareLayerer } from './phases/layer-assignment/hint-aware-layerer.js';
 import { LongestPathLayerer } from './phases/layer-assignment/longest-path-layerer.js';
+import { DummyLongEdgeProcessor } from './phases/long-edge/dummy-long-edge-processor.js';
 
 export const createDefaultLayeredAlgorithm = (): LayeredAlgorithm =>
   new LayeredAlgorithm({
@@ -31,6 +32,7 @@ export const createDefaultLayeredAlgorithm = (): LayeredAlgorithm =>
     // Wrapped so SameLayer / OrderBefore hints attached to the graph
     // get honored. The decorators no-op when no hints are present.
     layerAssigner: new HintAwareLayerer(new LongestPathLayerer()),
+    longEdgeProcessor: new DummyLongEdgeProcessor(),
     crossingMinimizer: new HintAwareCrossingMinimizer(new BarycenterCrossingMinimizer()),
     nodePlacer: new BrandesKopfNodePlacer(),
     edgeRouter: new OrthogonalEdgeRouter(),

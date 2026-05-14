@@ -26,6 +26,7 @@ import {
 import {
   BarycenterCrossingMinimizer,
   BrandesKopfNodePlacer,
+  DummyLongEdgeProcessor,
   GreedyCycleBreaker,
   HintAwareCrossingMinimizer,
   HintAwareLayerer,
@@ -44,6 +45,7 @@ export const buildLayeredEngine = (nodePlacer: INodePlacer): ILayoutEngine => {
       contextBuilder: new LayeredContextBuilder(),
       cycleBreaker: new GreedyCycleBreaker(),
       layerAssigner: new LongestPathLayerer(),
+      longEdgeProcessor: new DummyLongEdgeProcessor(),
       crossingMinimizer: new BarycenterCrossingMinimizer(),
       nodePlacer,
       edgeRouter: new OrthogonalEdgeRouter(),
@@ -60,6 +62,7 @@ export const buildHintAwareLayeredEngine = (): ILayoutEngine => {
       contextBuilder: new LayeredContextBuilder(),
       cycleBreaker: new GreedyCycleBreaker(),
       layerAssigner: new HintAwareLayerer(new LongestPathLayerer()),
+      longEdgeProcessor: new DummyLongEdgeProcessor(),
       crossingMinimizer: new HintAwareCrossingMinimizer(new BarycenterCrossingMinimizer()),
       nodePlacer: new BrandesKopfNodePlacer(),
       edgeRouter: new OrthogonalEdgeRouter(),

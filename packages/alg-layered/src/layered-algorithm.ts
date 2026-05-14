@@ -8,9 +8,9 @@
 /**
  * The layered algorithm.
  *
- * Composes the 5 phases in fixed order:
- *   1. cycle breaking → 2. layer assignment → 3. crossing minimization
- *   4. node placement → 5. edge routing
+ * Composes the pipeline in fixed order:
+ *   1. cycle breaking → 2. layer assignment → 2.5 long-edge splitting →
+ *   3. crossing minimization → 4. node placement → 5. edge routing
  *
  * Each phase is injected. Swapping a phase is a constructor change, never a
  * pipeline change — that is the entire reason for the IPhase interface.
@@ -22,6 +22,7 @@ import { type ICrossingMinimizer } from './i-crossing-minimizer.js';
 import { type ICycleBreaker } from './i-cycle-breaker.js';
 import { type IEdgeRouter } from './i-edge-router.js';
 import { type ILayerAssigner } from './i-layer-assigner.js';
+import { type ILongEdgeProcessor } from './i-long-edge-processor.js';
 import { type INodePlacer } from './i-node-placer.js';
 import { type LayeredContextBuilder } from './model/layered-context-builder.js';
 import { type LayeredResultApplier } from './layered-result-applier.js';
@@ -33,6 +34,7 @@ export interface ILayeredAlgorithmDeps {
   readonly contextBuilder: LayeredContextBuilder;
   readonly cycleBreaker: ICycleBreaker;
   readonly layerAssigner: ILayerAssigner;
+  readonly longEdgeProcessor: ILongEdgeProcessor;
   readonly crossingMinimizer: ICrossingMinimizer;
   readonly nodePlacer: INodePlacer;
   readonly edgeRouter: IEdgeRouter;
@@ -49,6 +51,7 @@ export class LayeredAlgorithm implements ILayoutAlgorithm {
     const layered = this.deps.contextBuilder.build(context);
     this.deps.cycleBreaker.execute(layered);
     this.deps.layerAssigner.execute(layered);
+    this.deps.longEdgeProcessor.process(layered);
     this.deps.crossingMinimizer.execute(layered);
     this.deps.nodePlacer.execute(layered);
     // Result applier writes node positions back to the user graph BEFORE the
