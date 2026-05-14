@@ -8,10 +8,22 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "files": ["dist", "src", "README.md"],
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist",
     "generate-docs": "tsx examples/generate-docs.ts"
+  },
+  "publishConfig": {
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
   },
   "dependencies": {
     "@filigree/core": "workspace:*",
