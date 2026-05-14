@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2026 Ben Kalegin.
+ *
+ * Licensed under the Eclipse Public License 2.0.
+ * SPDX-License-Identifier: EPL-2.0
+ */
+
 /**
  * One-call entry point: parse an elkjs-style JSON graph, lay it out with the
  * algorithm requested via the `algorithm` option (or `elk.algorithm` on the

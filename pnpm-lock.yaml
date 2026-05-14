@@ -71,6 +71,9 @@ importers:
       '@filigree/graph':
         specifier: workspace:*
         version: link:../graph
+      '@filigree/hints':
+        specifier: workspace:*
+        version: link:../hints
       '@filigree/util-geometry':
         specifier: workspace:*
         version: link:../util-geometry
@@ -87,9 +90,6 @@ importers:
       '@filigree/alg-radial':
         specifier: workspace:*
         version: link:../alg-radial
-      '@filigree/hints':
-        specifier: workspace:*
-        version: link:../hints
       '@filigree/render-svg':
         specifier: workspace:*
         version: link:../render-svg

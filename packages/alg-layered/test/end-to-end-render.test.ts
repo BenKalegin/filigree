@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2026 Ben Kalegin.
+ *
+ * Licensed under the Eclipse Public License 2.0.
+ * SPDX-License-Identifier: EPL-2.0
+ */
+
 /**
  * Full pipeline integration: build a flowchart in JSON, lay it out with the
  * default layered algorithm, render the result to SVG, then assert the SVG
