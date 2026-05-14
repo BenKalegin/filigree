@@ -1,6 +1,6 @@
 {
   "name": "@filigree/alg-layered",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "main": "./src/index.ts",
@@ -8,7 +8,11 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "files": ["dist", "src", "README.md"],
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "tsc -p tsconfig.build.json",
@@ -16,6 +20,7 @@
     "generate-docs": "tsx examples/generate-docs.ts"
   },
   "publishConfig": {
+    "access": "public",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "exports": {
@@ -39,5 +44,24 @@
     "@filigree/alg-rectpacking": "workspace:*",
     "@filigree/alg-stress": "workspace:*",
     "@filigree/render-svg": "workspace:*"
-  }
+  },
+  "description": "Sugiyama-style top-to-bottom layered graph layout for filigree.",
+  "license": "EPL-2.0",
+  "author": "Ben Kalegin",
+  "homepage": "https://github.com/BenKalegin/filigree#readme",
+  "bugs": "https://github.com/BenKalegin/filigree/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BenKalegin/filigree.git",
+    "directory": "packages/alg-layered"
+  },
+  "keywords": [
+    "graph-layout",
+    "elk",
+    "layout",
+    "typescript",
+    "diagram",
+    "layered",
+    "sugiyama"
+  ]
 }
