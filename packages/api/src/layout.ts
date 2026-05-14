@@ -12,7 +12,7 @@
  *
  * Accepts either an elkjs-style JSON shape (lifted via `fromJson`) or an
  * already-built `ElkGraph`. Use the latter when you need to attach
- * `@filigree/hints` before layout runs — those hints sit on the graph as
+ * `@benkalegin/filigree-hints` before layout runs — those hints sit on the graph as
  * a property and can't be expressed in raw JSON.
  *
  * Built atop a singleton default engine that registers every algorithm
@@ -20,20 +20,20 @@
  * should build their own `DefaultLayoutEngine` directly.
  */
 
-import { createDefaultForceAlgorithm } from '@filigree/alg-force';
-import { createDefaultLayeredAlgorithm } from '@filigree/alg-layered';
-import { createDefaultMrTreeAlgorithm } from '@filigree/alg-mrtree';
-import { createDefaultRadialAlgorithm } from '@filigree/alg-radial';
-import { createDefaultRectPackingAlgorithm } from '@filigree/alg-rectpacking';
-import { createDefaultStressAlgorithm } from '@filigree/alg-stress';
+import { createDefaultForceAlgorithm } from '@benkalegin/filigree-alg-force';
+import { createDefaultLayeredAlgorithm } from '@benkalegin/filigree-alg-layered';
+import { createDefaultMrTreeAlgorithm } from '@benkalegin/filigree-alg-mrtree';
+import { createDefaultRadialAlgorithm } from '@benkalegin/filigree-alg-radial';
+import { createDefaultRectPackingAlgorithm } from '@benkalegin/filigree-alg-rectpacking';
+import { createDefaultStressAlgorithm } from '@benkalegin/filigree-alg-stress';
 import {
   DefaultAlgorithmRegistry,
   DefaultLayoutEngine,
   DefaultOptionResolver,
   type ILayoutEngine,
-} from '@filigree/core';
-import { defineProperty, ElkGraph, fromJson, type IJsonGraph } from '@filigree/graph';
-import { attachHints, parseJsonHints } from '@filigree/hints';
+} from '@benkalegin/filigree-core';
+import { defineProperty, ElkGraph, fromJson, type IJsonGraph } from '@benkalegin/filigree-graph';
+import { attachHints, parseJsonHints } from '@benkalegin/filigree-hints';
 
 const ALGORITHM_OPTION_KEY = 'elk.algorithm';
 

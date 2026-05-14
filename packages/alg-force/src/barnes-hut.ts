@@ -21,7 +21,7 @@
  * regime where Barnes-Hut matters.
  */
 
-import { type INode } from '@filigree/graph';
+import { type INode } from '@benkalegin/filigree-graph';
 
 import { buildQuadTree, type IQuadPoint, type QuadTree } from './quadtree.js';
 

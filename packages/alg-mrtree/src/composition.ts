@@ -6,7 +6,7 @@
  */
 
 /**
- * Composition root for @filigree/alg-mrtree.
+ * Composition root for @benkalegin/filigree-alg-mrtree.
  */
 
 import { MrTreeAlgorithm } from './mrtree-algorithm.js';

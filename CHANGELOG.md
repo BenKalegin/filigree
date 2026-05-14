@@ -10,14 +10,14 @@ First public release. The package versions across the workspace move together.
 
 ### Algorithms
 
-- **Layered** (`@filigree/alg-layered`) — greedy cycle breaker, longest-path layerer (plus an opt-in `NetworkSimplexLayerer` for tighter layers), dummy-node long-edge splitter (handles forward *and* reversed back edges), barycenter crossing minimization, full 4-alignment Brandes-Köpf node placement with median combine, two-bend orthogonal edge routing (with junction-style routing for hyperedges).
-- **Force-directed** (`@filigree/alg-force`) — Fruchterman-Reingold with a deterministic golden-angle spiral start. Optional Barnes-Hut O(n log n) repulsion via a quadtree.
-- **Mr.Tree** (`@filigree/alg-mrtree`) — Reingold-Tilford-style tree placement.
-- **Radial** (`@filigree/alg-radial`) — concentric-tree layout.
-- **Rectpacking** (`@filigree/alg-rectpacking`) — shelf-packing for edge-free rectangle collections.
-- **Stress** (`@filigree/alg-stress`) — stress majorization with hop-distance targets; disconnected components handled.
+- **Layered** (`@benkalegin/filigree-alg-layered`) — greedy cycle breaker, longest-path layerer (plus an opt-in `NetworkSimplexLayerer` for tighter layers), dummy-node long-edge splitter (handles forward *and* reversed back edges), barycenter crossing minimization, full 4-alignment Brandes-Köpf node placement with median combine, two-bend orthogonal edge routing (with junction-style routing for hyperedges).
+- **Force-directed** (`@benkalegin/filigree-alg-force`) — Fruchterman-Reingold with a deterministic golden-angle spiral start. Optional Barnes-Hut O(n log n) repulsion via a quadtree.
+- **Mr.Tree** (`@benkalegin/filigree-alg-mrtree`) — Reingold-Tilford-style tree placement.
+- **Radial** (`@benkalegin/filigree-alg-radial`) — concentric-tree layout.
+- **Rectpacking** (`@benkalegin/filigree-alg-rectpacking`) — shelf-packing for edge-free rectangle collections.
+- **Stress** (`@benkalegin/filigree-alg-stress`) — stress majorization with hop-distance targets; disconnected components handled.
 
-### Human hint subsystem (`@filigree/hints`)
+### Human hint subsystem (`@benkalegin/filigree-hints`)
 
 Filigree's deliberate divergence from upstream ELK. Five hint kinds:
 
@@ -28,10 +28,10 @@ Hints inherit through the compound parent chain so a host can attach them once a
 
 ### Infrastructure
 
-- **Engine** (`@filigree/core`) — `DefaultLayoutEngine`, `IAlgorithmRegistry`, `IOptionResolver`, `ILayoutObserver` dispatch (algorithm-start / algorithm-completed + per-phase events for the layered pipeline).
-- **Graph model** (`@filigree/graph`) — nodes / edges / ports / labels with elkjs-compatible JSON I/O, branded ids, property holders, hyperedge `routeSegments`.
-- **Renderer** (`@filigree/render-svg`) — self-contained SVG output, per-element `nodeStyle` / `edgeStyle` callback hooks, dashed lines, corner radius, label backgrounds.
-- **Facade** (`@filigree/api`) — single-call `layout()` with every algorithm registered.
+- **Engine** (`@benkalegin/filigree-core`) — `DefaultLayoutEngine`, `IAlgorithmRegistry`, `IOptionResolver`, `ILayoutObserver` dispatch (algorithm-start / algorithm-completed + per-phase events for the layered pipeline).
+- **Graph model** (`@benkalegin/filigree-graph`) — nodes / edges / ports / labels with elkjs-compatible JSON I/O, branded ids, property holders, hyperedge `routeSegments`.
+- **Renderer** (`@benkalegin/filigree-render-svg`) — self-contained SVG output, per-element `nodeStyle` / `edgeStyle` callback hooks, dashed lines, corner radius, label backgrounds.
+- **Facade** (`@benkalegin/filigree-api`) — single-call `layout()` with every algorithm registered.
 
 ### Quality
 

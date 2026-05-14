@@ -1,5 +1,5 @@
 {
-  "name": "@filigree/util-solver",
+  "name": "@benkalegin/filigree-util-solver",
   "version": "0.1.0",
   "type": "module",
   "main": "./src/index.ts",
@@ -26,7 +26,8 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
-    }
+    },
+    "registry": "https://npm.pkg.github.com"
   },
   "description": "Linear-solver interface stubs shared across filigree packages.",
   "license": "EPL-2.0",

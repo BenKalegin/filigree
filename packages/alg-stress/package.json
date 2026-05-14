@@ -1,5 +1,5 @@
 {
-  "name": "@filigree/alg-stress",
+  "name": "@benkalegin/filigree-alg-stress",
   "version": "0.1.0",
   "type": "module",
   "main": "./src/index.ts",
@@ -26,11 +26,12 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
-    }
+    },
+    "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
-    "@filigree/core": "workspace:*",
-    "@filigree/graph": "workspace:*"
+    "@benkalegin/filigree-core": "workspace:*",
+    "@benkalegin/filigree-graph": "workspace:*"
   },
   "description": "Stress-majorization graph layout for filigree.",
   "license": "EPL-2.0",

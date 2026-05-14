@@ -6,7 +6,7 @@
  */
 
 /**
- * Public surface of @filigree/alg-force.
+ * Public surface of @benkalegin/filigree-alg-force.
  */
 
 export {

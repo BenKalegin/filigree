@@ -21,8 +21,8 @@ import {
   type ILayoutAlgorithm,
   LayoutPhaseEvent,
   type PhaseId,
-} from '@filigree/core';
-import { fromJson, type IJsonGraph } from '@filigree/graph';
+} from '@benkalegin/filigree-core';
+import { fromJson, type IJsonGraph } from '@benkalegin/filigree-graph';
 
 import { createDefaultLayeredAlgorithm } from '../src/composition.js';
 import { LayeredPhase } from '../src/enums.js';

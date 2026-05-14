@@ -29,7 +29,7 @@
  * semantic as the code-level hint applicators.
  */
 
-import { type IJsonHint } from '@filigree/graph';
+import { type IJsonHint } from '@benkalegin/filigree-graph';
 
 import { focus, type IFocusHint } from './focus-hint.js';
 import { group, type IGroupHint } from './group-hint.js';

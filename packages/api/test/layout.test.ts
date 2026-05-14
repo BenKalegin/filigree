@@ -6,8 +6,8 @@
  */
 
 import { describe, expect, it } from 'vitest';
-import { fromJson } from '@filigree/graph';
-import { attachHints, orderBefore } from '@filigree/hints';
+import { fromJson } from '@benkalegin/filigree-graph';
+import { attachHints, orderBefore } from '@benkalegin/filigree-hints';
 
 import { layout } from '../src/layout.js';
 

@@ -1,4 +1,4 @@
-# @filigree/alg-force
+# @benkalegin/filigree-alg-force
 
 Fruchterman-Reingold force-directed graph layout for [filigree](https://github.com/BenKalegin/filigree).
 
@@ -9,14 +9,14 @@ Optional Barnes-Hut approximation (`elk.force.useBarnesHut: true`) replaces the 
 ## Install
 
 ```bash
-pnpm add @filigree/alg-force @filigree/core @filigree/graph
+pnpm add @benkalegin/filigree-alg-force @benkalegin/filigree-core @benkalegin/filigree-graph
 ```
 
 ## Use
 
 ```ts
-import { createDefaultForceAlgorithm } from '@filigree/alg-force';
-import { DefaultAlgorithmRegistry, DefaultLayoutEngine, DefaultOptionResolver } from '@filigree/core';
+import { createDefaultForceAlgorithm } from '@benkalegin/filigree-alg-force';
+import { DefaultAlgorithmRegistry, DefaultLayoutEngine, DefaultOptionResolver } from '@benkalegin/filigree-core';
 
 const registry = new DefaultAlgorithmRegistry();
 registry.register(createDefaultForceAlgorithm());

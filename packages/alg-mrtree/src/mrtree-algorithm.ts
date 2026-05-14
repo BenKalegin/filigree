@@ -32,8 +32,8 @@
  * subtrees.
  */
 
-import { type ILayoutAlgorithm, type ILayoutContext } from '@filigree/core';
-import { type IEdge, type INode, isNode } from '@filigree/graph';
+import { type ILayoutAlgorithm, type ILayoutContext } from '@benkalegin/filigree-core';
+import { type IEdge, type INode, isNode } from '@benkalegin/filigree-graph';
 
 import { MrTreeOptions } from './mrtree-options.js';
 

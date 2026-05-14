@@ -6,7 +6,7 @@
  */
 
 /**
- * Public surface of `@filigree/api`.
+ * Public surface of `@benkalegin/filigree-api`.
  *
  * Single import for the common case: parse a JSON graph, lay it out, render
  * to SVG. Power users can still import the underlying packages directly to
@@ -37,7 +37,7 @@ export {
   fromJson,
   toJson,
   GraphFactory,
-} from '@filigree/graph';
+} from '@benkalegin/filigree-graph';
 
 export {
   DefaultAlgorithmRegistry,
@@ -49,18 +49,18 @@ export {
   type IAlgorithmRegistry,
   type IOption,
   type IOptionResolver,
-} from '@filigree/core';
+} from '@benkalegin/filigree-core';
 
 export {
   renderSvg,
   type IRenderOptions,
   type INodeStyleOverride,
   type IEdgeStyleOverride,
-} from '@filigree/render-svg';
+} from '@benkalegin/filigree-render-svg';
 
-export { LAYERED_ALGORITHM_ID } from '@filigree/alg-layered';
-export { FORCE_ALGORITHM_ID } from '@filigree/alg-force';
-export { MRTREE_ALGORITHM_ID } from '@filigree/alg-mrtree';
-export { RADIAL_ALGORITHM_ID } from '@filigree/alg-radial';
-export { RECTPACKING_ALGORITHM_ID } from '@filigree/alg-rectpacking';
-export { STRESS_ALGORITHM_ID } from '@filigree/alg-stress';
+export { LAYERED_ALGORITHM_ID } from '@benkalegin/filigree-alg-layered';
+export { FORCE_ALGORITHM_ID } from '@benkalegin/filigree-alg-force';
+export { MRTREE_ALGORITHM_ID } from '@benkalegin/filigree-alg-mrtree';
+export { RADIAL_ALGORITHM_ID } from '@benkalegin/filigree-alg-radial';
+export { RECTPACKING_ALGORITHM_ID } from '@benkalegin/filigree-alg-rectpacking';
+export { STRESS_ALGORITHM_ID } from '@benkalegin/filigree-alg-stress';

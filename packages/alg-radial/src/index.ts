@@ -6,7 +6,7 @@
  */
 
 /**
- * Public surface of @filigree/alg-radial.
+ * Public surface of @benkalegin/filigree-alg-radial.
  */
 
 export { RadialAlgorithm, RADIAL_ALGORITHM_ID, RADIAL_DISPLAY_NAME } from './radial-algorithm.js';

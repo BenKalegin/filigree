@@ -6,7 +6,7 @@
  */
 
 /**
- * Public surface of @filigree/render-svg.
+ * Public surface of @benkalegin/filigree-render-svg.
  */
 
 export { renderSvg } from './render-svg.js';

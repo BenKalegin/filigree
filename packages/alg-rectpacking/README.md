@@ -1,4 +1,4 @@
-# @filigree/alg-rectpacking
+# @benkalegin/filigree-alg-rectpacking
 
 Shelf-packing layout for edge-free rectangle collections — [filigree](https://github.com/BenKalegin/filigree)'s "card grid" algorithm.
 
@@ -9,14 +9,14 @@ Far simpler than ELK's full three-phase rectpacking (width approximation → pac
 ## Install
 
 ```bash
-pnpm add @filigree/alg-rectpacking @filigree/core @filigree/graph
+pnpm add @benkalegin/filigree-alg-rectpacking @benkalegin/filigree-core @benkalegin/filigree-graph
 ```
 
 ## Use
 
 ```ts
-import { createDefaultRectPackingAlgorithm } from '@filigree/alg-rectpacking';
-import { DefaultAlgorithmRegistry, DefaultLayoutEngine, DefaultOptionResolver } from '@filigree/core';
+import { createDefaultRectPackingAlgorithm } from '@benkalegin/filigree-alg-rectpacking';
+import { DefaultAlgorithmRegistry, DefaultLayoutEngine, DefaultOptionResolver } from '@benkalegin/filigree-core';
 
 const registry = new DefaultAlgorithmRegistry();
 registry.register(createDefaultRectPackingAlgorithm());

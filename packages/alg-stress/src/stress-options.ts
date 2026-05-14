@@ -9,8 +9,8 @@
  * Options the stress algorithm reads at runtime.
  */
 
-import { defineProperty } from '@filigree/graph';
-import { type IOption, OptionScope } from '@filigree/core';
+import { defineProperty } from '@benkalegin/filigree-graph';
+import { type IOption, OptionScope } from '@benkalegin/filigree-core';
 
 const DEFAULT_DESIRED_EDGE_LENGTH = 80;
 const DEFAULT_ITERATIONS = 80;

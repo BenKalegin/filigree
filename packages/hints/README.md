@@ -1,4 +1,4 @@
-# @filigree/hints
+# @benkalegin/filigree-hints
 
 Human hint subsystem for [filigree](https://github.com/BenKalegin/filigree) — a way for an end user authoring a diagram to nudge specific layout decisions without writing algorithm code. Filigree's deliberate divergence from upstream ELK.
 
@@ -15,14 +15,14 @@ Hints are soft constraints — algorithms that don't recognize a kind silently i
 ## Install
 
 ```bash
-pnpm add @filigree/hints
+pnpm add @benkalegin/filigree-hints
 ```
 
 ## Use
 
 ```ts
-import { attachHints, sameLayer, orderBefore } from '@filigree/hints';
-import { fromJson } from '@filigree/graph';
+import { attachHints, sameLayer, orderBefore } from '@benkalegin/filigree-hints';
+import { fromJson } from '@benkalegin/filigree-graph';
 
 const graph = fromJson({ id: 'root', children: [...], edges: [...] });
 attachHints(graph, [

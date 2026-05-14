@@ -6,7 +6,7 @@
  */
 
 /**
- * Composition root for @filigree/alg-force.
+ * Composition root for @benkalegin/filigree-alg-force.
  */
 
 import { ForceDirectedAlgorithm } from './force-directed-algorithm.js';

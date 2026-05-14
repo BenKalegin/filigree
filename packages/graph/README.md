@@ -1,4 +1,4 @@
-# @filigree/graph
+# @benkalegin/filigree-graph
 
 TypeScript graph model for [filigree](https://github.com/BenKalegin/filigree): nodes, edges, ports, labels, branded ids, property holders, and elkjs-compatible JSON I/O.
 
@@ -7,13 +7,13 @@ The shape every other filigree package consumes. Algorithms mutate this graph in
 ## Install
 
 ```bash
-pnpm add @filigree/graph
+pnpm add @benkalegin/filigree-graph
 ```
 
 ## Use
 
 ```ts
-import { fromJson, toJson } from '@filigree/graph';
+import { fromJson, toJson } from '@benkalegin/filigree-graph';
 
 const graph = fromJson({
   id: 'root',

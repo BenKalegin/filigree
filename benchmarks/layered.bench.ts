@@ -23,9 +23,9 @@ import {
   DefaultAlgorithmRegistry,
   DefaultLayoutEngine,
   DefaultOptionResolver,
-} from '@filigree/core';
-import { fromJson } from '@filigree/graph';
-import { createDefaultLayeredAlgorithm } from '@filigree/alg-layered';
+} from '@benkalegin/filigree-core';
+import { fromJson } from '@benkalegin/filigree-graph';
+import { createDefaultLayeredAlgorithm } from '@benkalegin/filigree-alg-layered';
 
 import { chain, grid, randomDag } from './fixtures.js';
 

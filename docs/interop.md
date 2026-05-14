@@ -4,7 +4,7 @@ What filigree promises about the input you pass in and the output you get back. 
 
 ## Pre-set port positions
 
-The layered algorithm **respects pre-set port `(x, y)` and dimensions**. If you populate `IPort.x` / `IPort.y` / `width` / `height` (or the equivalent JSON fields) before calling `layout`, the port stays at that position in its owning node's local frame after layout, and the edge router uses the port's center as the endpoint anchor (`endpointAnchor` in `@filigree/graph/anchors.ts`).
+The layered algorithm **respects pre-set port `(x, y)` and dimensions**. If you populate `IPort.x` / `IPort.y` / `width` / `height` (or the equivalent JSON fields) before calling `layout`, the port stays at that position in its owning node's local frame after layout, and the edge router uses the port's center as the endpoint anchor (`endpointAnchor` in `@benkalegin/filigree-graph/anchors.ts`).
 
 What filigree does **not** read yet: `IPort.side` (north / east / south / west). The anchor logic anchors at the port's geometric center regardless of `side` (see the comment in `anchors.ts:8` — "Port-side-aware anchoring is a future iteration").
 
@@ -33,7 +33,7 @@ After `layout(graph)`, every `IEdge.bendPoints` for layered-routed edges is the 
 
 ## Async / sync model
 
-`@filigree/api`'s `layout(graph)` returns a `Promise<ElkGraph>`. Internally:
+`@benkalegin/filigree-api`'s `layout(graph)` returns a `Promise<ElkGraph>`. Internally:
 
 - Every shipped algorithm is **CPU-only and synchronous**. No I/O, no Web Workers, no timers. `LayeredAlgorithm.run` literally ends with `return Promise.resolve()` — the same microtask that called `layout` resolves to the laid-out graph.
 - The `async` return is a forward-compatibility contract, not a hint that work is offloaded. If a future algorithm wants a worker, the signature won't have to change.

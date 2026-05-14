@@ -24,7 +24,7 @@ The set is closed and lives in `HintKind` (`packages/hints/src/hint-kind.ts`).
 Pin a node to a specific absolute position. After the algorithm finishes, the pinned node's computed `(x, y)` is overridden with the hint's coordinates.
 
 ```typescript
-import { applyHints, pinPosition } from '@filigree/hints';
+import { applyHints, pinPosition } from '@benkalegin/filigree-hints';
 
 await engine.layout(graph);
 applyHints(graph, [pinPosition('start', 0, 0)]);
@@ -38,7 +38,7 @@ applyHints(graph, [pinPosition('start', 0, 0)]);
 Force two nodes onto the same layer in a layered layout.
 
 ```typescript
-import { attachHints, sameLayer } from '@filigree/hints';
+import { attachHints, sameLayer } from '@benkalegin/filigree-hints';
 
 attachHints(graph, [sameLayer('a', 'b')]);
 await engine.layout(graph);
@@ -53,7 +53,7 @@ await engine.layout(graph);
 Force `nodeA` to sit to the left of `nodeB` within their layer.
 
 ```typescript
-import { attachHints, orderBefore } from '@filigree/hints';
+import { attachHints, orderBefore } from '@benkalegin/filigree-hints';
 
 attachHints(graph, [orderBefore('a', 'b')]);
 await engine.layout(graph);
@@ -69,7 +69,7 @@ await engine.layout(graph);
 Keep a set of nodes visually clustered.
 
 ```typescript
-import { attachHints, group } from '@filigree/hints';
+import { attachHints, group } from '@benkalegin/filigree-hints';
 
 attachHints(graph, [group(['task_a', 'task_c', 'task_e'])]);
 await engine.layout(graph);
@@ -85,7 +85,7 @@ await engine.layout(graph);
 Translate the entire laid-out graph so a chosen node ends up centered at a specified position (default: origin). The relative geometry stays intact — every node position and every edge bend point gets the same translation.
 
 ```typescript
-import { applyHints, focus } from '@filigree/hints';
+import { applyHints, focus } from '@benkalegin/filigree-hints';
 
 await engine.layout(graph);
 applyHints(graph, [focus('start')]);
@@ -120,7 +120,7 @@ This case is covered by `packages/alg-layered/test/hint-aware.test.ts`.
 Instead of building an `ElkGraph` and calling `attachHints`, you can declare hints inline on the JSON object you pass to `layout`:
 
 ```typescript
-import { layout } from '@filigree/api';
+import { layout } from '@benkalegin/filigree-api';
 
 await layout({
   id: 'root',
@@ -146,7 +146,7 @@ Field names match the kind:
 | `PinPosition`  | `node`, `x`, `y`           | —                         |
 | `Focus`        | `node`                     | `centerX`, `centerY` (default 0) |
 
-Malformed entries (missing fields, wrong types, unknown `kind`) are dropped silently — same soft-constraint semantic as the code-level applicators. The bare `fromJson` from `@filigree/graph` ignores `filigreeHints`; the field is interpreted by `@filigree/api`'s `layout`. If you build an `ElkGraph` directly, use `attachHints` instead.
+Malformed entries (missing fields, wrong types, unknown `kind`) are dropped silently — same soft-constraint semantic as the code-level applicators. The bare `fromJson` from `@benkalegin/filigree-graph` ignores `filigreeHints`; the field is interpreted by `@benkalegin/filigree-api`'s `layout`. If you build an `ElkGraph` directly, use `attachHints` instead.
 
 ## Hints under `elk.direction`
 
@@ -171,7 +171,7 @@ The semantic is "source-order in the layer's perpendicular axis", which is stabl
 `attachHints` writes the hint list onto a graph property keyed `filigree.hints`. `getHints(graph)` returns the list (or an empty list if none are attached). Algorithms that recognize a hint kind read this property during their phase and filter by `kind`.
 
 ```typescript
-import { attachHints, getHints } from '@filigree/hints';
+import { attachHints, getHints } from '@benkalegin/filigree-hints';
 
 attachHints(graph, [pinPosition('a', 10, 20)]);
 getHints(graph); // readonly IHint[]

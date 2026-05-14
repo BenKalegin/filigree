@@ -8,7 +8,7 @@
 /**
  * Pluggable registry of layout algorithms.
  *
- * The default implementation (in @filigree/core) is a simple map. Hosts that want
+ * The default implementation (in @benkalegin/filigree-core) is a simple map. Hosts that want
  * dynamic discovery (lazy imports, plugin loading) implement their own and
  * inject it into the engine. There are no extension points — composition is
  * explicit at construction time.

@@ -6,7 +6,7 @@
  */
 
 /**
- * Public surface of @filigree/hints — the human hint subsystem.
+ * Public surface of @benkalegin/filigree-hints — the human hint subsystem.
  *
  * Filigree's deliberate divergence from upstream ELK. A hint is a soft
  * constraint that lets a human authoring the diagram nudge a specific

@@ -1,5 +1,5 @@
 {
-  "name": "@filigree/graph",
+  "name": "@benkalegin/filigree-graph",
   "version": "0.1.0",
   "type": "module",
   "main": "./src/index.ts",
@@ -26,7 +26,8 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
-    }
+    },
+    "registry": "https://npm.pkg.github.com"
   },
   "description": "TypeScript graph model: nodes, edges, ports, labels, JSON I/O, property holders.",
   "license": "EPL-2.0",

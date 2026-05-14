@@ -6,7 +6,7 @@
  */
 
 /**
- * Public surface of @filigree/alg-rectpacking.
+ * Public surface of @benkalegin/filigree-alg-rectpacking.
  */
 
 export {

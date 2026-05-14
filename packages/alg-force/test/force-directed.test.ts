@@ -11,8 +11,8 @@ import {
   DefaultLayoutEngine,
   DefaultOptionResolver,
   type ILayoutEngine,
-} from '@filigree/core';
-import { type ElkNode, fromJson, type IJsonGraph } from '@filigree/graph';
+} from '@benkalegin/filigree-core';
+import { type ElkNode, fromJson, type IJsonGraph } from '@benkalegin/filigree-graph';
 
 import { createDefaultForceAlgorithm } from '../src/composition.js';
 import { FORCE_ALGORITHM_ID } from '../src/force-directed-algorithm.js';

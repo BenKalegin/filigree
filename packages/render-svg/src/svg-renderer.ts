@@ -28,7 +28,7 @@ import {
   type IGraph,
   type INode,
   isNode,
-} from '@filigree/graph';
+} from '@benkalegin/filigree-graph';
 
 import { escapeXml } from './escape-xml.js';
 import {
@@ -65,11 +65,17 @@ export class SvgRenderer {
     return [
       this.openSvg(width, height),
       this.renderDefs(),
+      this.renderBackground(width, height),
       `<g transform="translate(${String(this.options.padding)}, ${String(this.options.padding)})">`,
       this.renderNodeContents(graph),
       '</g>',
       '</svg>',
     ].join('\n');
+  }
+
+  private renderBackground(width: number, height: number): string {
+    if (this.options.background === undefined) return '';
+    return `<rect x="0" y="0" width="${String(width)}" height="${String(height)}" fill="${this.options.background}"/>`;
   }
 
   private openSvg(width: number, height: number): string {

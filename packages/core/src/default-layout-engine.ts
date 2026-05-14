@@ -16,7 +16,7 @@
  * wants).
  */
 
-import { type IGraph, type INode, type IRect } from '@filigree/graph';
+import { type IGraph, type INode, type IRect } from '@benkalegin/filigree-graph';
 
 import { EventDispatcher } from './event-dispatcher.js';
 import { AlgorithmNotFoundError } from './errors.js';

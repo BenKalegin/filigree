@@ -23,7 +23,7 @@ import {
   HintKind,
   type IGroupHint,
   type IOrderBeforeHint,
-} from '@filigree/hints';
+} from '@benkalegin/filigree-hints';
 
 import { LayeredPhase } from '../../enums.js';
 import { type ICrossingMinimizer } from '../../i-crossing-minimizer.js';

@@ -29,8 +29,8 @@
  * seeded RNG for "natural-looking" starts.
  */
 
-import { type IEdge, type INode, isNode } from '@filigree/graph';
-import { type ILayoutAlgorithm, type ILayoutContext } from '@filigree/core';
+import { type IEdge, type INode, isNode } from '@benkalegin/filigree-graph';
+import { type ILayoutAlgorithm, type ILayoutContext } from '@benkalegin/filigree-core';
 
 import { applyBarnesHutRepulsion } from './barnes-hut.js';
 import { ForceOptions } from './force-options.js';

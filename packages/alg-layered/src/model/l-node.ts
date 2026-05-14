@@ -17,7 +17,7 @@
  * counterpart.
  */
 
-import { type ElkNode } from '@filigree/graph';
+import { type ElkNode } from '@benkalegin/filigree-graph';
 
 const UNSET_LAYER = -1;
 const UNSET_INDEX = -1;

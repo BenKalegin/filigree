@@ -6,7 +6,7 @@
  */
 
 /**
- * Public surface of @filigree/alg-layered.
+ * Public surface of @benkalegin/filigree-alg-layered.
  */
 
 export { LayeredPhase } from './enums.js';

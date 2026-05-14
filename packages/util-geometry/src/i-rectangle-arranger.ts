@@ -12,7 +12,7 @@
  * Concrete arrangers (shelf-packer, polyomino-packer, …) implement this.
  */
 
-import { type IDimensions, type IRect } from '@filigree/graph';
+import { type IDimensions, type IRect } from '@benkalegin/filigree-graph';
 
 export interface IRectangleArranger {
   arrange(rectangles: readonly IRect[], targetSize: IDimensions): readonly IRect[];

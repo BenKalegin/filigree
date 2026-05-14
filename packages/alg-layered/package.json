@@ -1,5 +1,5 @@
 {
-  "name": "@filigree/alg-layered",
+  "name": "@benkalegin/filigree-alg-layered",
   "version": "0.1.0",
   "type": "module",
   "main": "./src/index.ts",
@@ -27,22 +27,23 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
-    }
+    },
+    "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
-    "@filigree/core": "workspace:*",
-    "@filigree/graph": "workspace:*",
-    "@filigree/hints": "workspace:*",
-    "@filigree/util-geometry": "workspace:*",
-    "@filigree/util-solver": "workspace:*"
+    "@benkalegin/filigree-core": "workspace:*",
+    "@benkalegin/filigree-graph": "workspace:*",
+    "@benkalegin/filigree-hints": "workspace:*",
+    "@benkalegin/filigree-util-geometry": "workspace:*",
+    "@benkalegin/filigree-util-solver": "workspace:*"
   },
   "devDependencies": {
-    "@filigree/alg-force": "workspace:*",
-    "@filigree/alg-mrtree": "workspace:*",
-    "@filigree/alg-radial": "workspace:*",
-    "@filigree/alg-rectpacking": "workspace:*",
-    "@filigree/alg-stress": "workspace:*",
-    "@filigree/render-svg": "workspace:*"
+    "@benkalegin/filigree-alg-force": "workspace:*",
+    "@benkalegin/filigree-alg-mrtree": "workspace:*",
+    "@benkalegin/filigree-alg-radial": "workspace:*",
+    "@benkalegin/filigree-alg-rectpacking": "workspace:*",
+    "@benkalegin/filigree-alg-stress": "workspace:*",
+    "@benkalegin/filigree-render-svg": "workspace:*"
   },
   "description": "Sugiyama-style top-to-bottom layered graph layout for filigree.",
   "license": "EPL-2.0",

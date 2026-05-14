@@ -1,5 +1,5 @@
 {
-  "name": "@filigree/benchmarks",
+  "name": "@benkalegin/filigree-benchmarks",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -7,13 +7,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@filigree/alg-force": "workspace:*",
-    "@filigree/alg-layered": "workspace:*",
-    "@filigree/alg-mrtree": "workspace:*",
-    "@filigree/alg-radial": "workspace:*",
-    "@filigree/alg-rectpacking": "workspace:*",
-    "@filigree/alg-stress": "workspace:*",
-    "@filigree/core": "workspace:*",
-    "@filigree/graph": "workspace:*"
+    "@benkalegin/filigree-alg-force": "workspace:*",
+    "@benkalegin/filigree-alg-layered": "workspace:*",
+    "@benkalegin/filigree-alg-mrtree": "workspace:*",
+    "@benkalegin/filigree-alg-radial": "workspace:*",
+    "@benkalegin/filigree-alg-rectpacking": "workspace:*",
+    "@benkalegin/filigree-alg-stress": "workspace:*",
+    "@benkalegin/filigree-core": "workspace:*",
+    "@benkalegin/filigree-graph": "workspace:*"
   }
 }

@@ -11,8 +11,8 @@ import {
   DefaultLayoutEngine,
   DefaultOptionResolver,
   type ILayoutEngine,
-} from '@filigree/core';
-import { type ElkNode, fromJson, type IJsonGraph } from '@filigree/graph';
+} from '@benkalegin/filigree-core';
+import { type ElkNode, fromJson, type IJsonGraph } from '@benkalegin/filigree-graph';
 
 import { createDefaultLayeredAlgorithm } from '../src/composition.js';
 import { expectAllPositioned, expectLayerAfter, expectSameLayer } from './layout-assertions.js';

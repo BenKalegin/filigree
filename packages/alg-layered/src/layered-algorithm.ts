@@ -28,8 +28,8 @@ import {
   normalizeDirection,
   normalizeEdgeRouting,
   toPhaseId,
-} from '@filigree/core';
-import { EdgeRoutingStyle, LayoutDirection } from '@filigree/graph';
+} from '@benkalegin/filigree-core';
+import { EdgeRoutingStyle, LayoutDirection } from '@benkalegin/filigree-graph';
 
 import {
   flipContainerX,

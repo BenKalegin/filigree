@@ -1,13 +1,13 @@
-# @filigree/core
+# @benkalegin/filigree-core
 
 Layout engine, algorithm registry, option resolver, and observer dispatch for [filigree](https://github.com/BenKalegin/filigree).
 
-This is the substrate every algorithm package plugs into. Most users want `@filigree/api` instead — this package is for hosts that need to compose a custom engine.
+This is the substrate every algorithm package plugs into. Most users want `@benkalegin/filigree-api` instead — this package is for hosts that need to compose a custom engine.
 
 ## Install
 
 ```bash
-pnpm add @filigree/core @filigree/graph
+pnpm add @benkalegin/filigree-core @benkalegin/filigree-graph
 ```
 
 ## Use
@@ -17,8 +17,8 @@ import {
   DefaultAlgorithmRegistry,
   DefaultLayoutEngine,
   DefaultOptionResolver,
-} from '@filigree/core';
-import { createDefaultLayeredAlgorithm } from '@filigree/alg-layered';
+} from '@benkalegin/filigree-core';
+import { createDefaultLayeredAlgorithm } from '@benkalegin/filigree-alg-layered';
 
 const registry = new DefaultAlgorithmRegistry();
 registry.register(createDefaultLayeredAlgorithm());

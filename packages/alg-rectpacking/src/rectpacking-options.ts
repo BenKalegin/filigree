@@ -9,8 +9,8 @@
  * Options the rectpacking algorithm reads at runtime.
  */
 
-import { defineProperty } from '@filigree/graph';
-import { type IOption, OptionScope } from '@filigree/core';
+import { defineProperty } from '@benkalegin/filigree-graph';
+import { type IOption, OptionScope } from '@benkalegin/filigree-core';
 
 const DEFAULT_NODE_GAP = 10;
 const DEFAULT_ASPECT_RATIO = 1.6;

@@ -12,7 +12,7 @@
  * here are the minimum the engine needs to dispatch a layout.
  */
 
-import { defineProperty, EdgeRoutingStyle, LayoutDirection } from '@filigree/graph';
+import { defineProperty, EdgeRoutingStyle, LayoutDirection } from '@benkalegin/filigree-graph';
 
 import { OptionScope } from './enums.js';
 import { type IOption } from './i-option.js';

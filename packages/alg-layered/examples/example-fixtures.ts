@@ -12,7 +12,7 @@
  * (e.g. the flowchart is rendered with three different node placers).
  */
 
-import { type IJsonGraph } from '@filigree/graph';
+import { type IJsonGraph } from '@benkalegin/filigree-graph';
 
 export const FLOWCHART: IJsonGraph = {
   id: 'root',

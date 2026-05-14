@@ -1,5 +1,5 @@
 {
-  "name": "@filigree/core",
+  "name": "@benkalegin/filigree-core",
   "version": "0.1.0",
   "type": "module",
   "main": "./src/index.ts",
@@ -26,10 +26,11 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
-    }
+    },
+    "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
-    "@filigree/graph": "workspace:*"
+    "@benkalegin/filigree-graph": "workspace:*"
   },
   "description": "Layout engine, algorithm registry, option resolver, and observer dispatch for filigree.",
   "license": "EPL-2.0",

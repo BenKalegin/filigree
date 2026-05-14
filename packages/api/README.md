@@ -1,4 +1,4 @@
-# @filigree/api
+# @benkalegin/filigree-api
 
 Single-call layout facade for [filigree](https://github.com/BenKalegin/filigree) — a TypeScript port of the Eclipse Layout Kernel (ELK) with a first-class human hint system.
 
@@ -7,13 +7,13 @@ Registers every shipped algorithm (`layered`, `force`, `mrtree`, `radial`, `rect
 ## Install
 
 ```bash
-pnpm add @filigree/api
+pnpm add @benkalegin/filigree-api
 ```
 
 ## Use
 
 ```ts
-import { layout } from '@filigree/api';
+import { layout } from '@benkalegin/filigree-api';
 
 const graph = await layout({
   id: 'root',

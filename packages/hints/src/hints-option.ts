@@ -22,7 +22,7 @@
  * hint applicator), so over-inheriting is safe.
  */
 
-import { defineProperty, type INode, type IPropertyHolder } from '@filigree/graph';
+import { defineProperty, type INode, type IPropertyHolder } from '@benkalegin/filigree-graph';
 
 import { type IHint } from './i-hint.js';
 

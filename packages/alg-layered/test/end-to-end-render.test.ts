@@ -18,9 +18,9 @@ import {
   DefaultLayoutEngine,
   DefaultOptionResolver,
   type ILayoutEngine,
-} from '@filigree/core';
-import { fromJson, type IJsonGraph } from '@filigree/graph';
-import { renderSvg } from '@filigree/render-svg';
+} from '@benkalegin/filigree-core';
+import { fromJson, type IJsonGraph } from '@benkalegin/filigree-graph';
+import { renderSvg } from '@benkalegin/filigree-render-svg';
 
 import { createDefaultLayeredAlgorithm } from '../src/composition.js';
 

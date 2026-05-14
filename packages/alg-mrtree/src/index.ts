@@ -6,7 +6,7 @@
  */
 
 /**
- * Public surface of @filigree/alg-mrtree.
+ * Public surface of @benkalegin/filigree-alg-mrtree.
  */
 
 export { MrTreeAlgorithm, MRTREE_ALGORITHM_ID, MRTREE_DISPLAY_NAME } from './mrtree-algorithm.js';

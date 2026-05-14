@@ -56,149 +56,149 @@ importers:
 
   benchmarks:
     dependencies:
-      '@filigree/alg-force':
+      '@benkalegin/filigree-alg-force':
         specifier: workspace:*
         version: link:../packages/alg-force
-      '@filigree/alg-layered':
+      '@benkalegin/filigree-alg-layered':
         specifier: workspace:*
         version: link:../packages/alg-layered
-      '@filigree/alg-mrtree':
+      '@benkalegin/filigree-alg-mrtree':
         specifier: workspace:*
         version: link:../packages/alg-mrtree
-      '@filigree/alg-radial':
+      '@benkalegin/filigree-alg-radial':
         specifier: workspace:*
         version: link:../packages/alg-radial
-      '@filigree/alg-rectpacking':
+      '@benkalegin/filigree-alg-rectpacking':
         specifier: workspace:*
         version: link:../packages/alg-rectpacking
-      '@filigree/alg-stress':
+      '@benkalegin/filigree-alg-stress':
         specifier: workspace:*
         version: link:../packages/alg-stress
-      '@filigree/core':
+      '@benkalegin/filigree-core':
         specifier: workspace:*
         version: link:../packages/core
-      '@filigree/graph':
+      '@benkalegin/filigree-graph':
         specifier: workspace:*
         version: link:../packages/graph
 
   packages/alg-force:
     dependencies:
-      '@filigree/core':
+      '@benkalegin/filigree-core':
         specifier: workspace:*
         version: link:../core
-      '@filigree/graph':
+      '@benkalegin/filigree-graph':
         specifier: workspace:*
         version: link:../graph
 
   packages/alg-layered:
     dependencies:
-      '@filigree/core':
+      '@benkalegin/filigree-core':
         specifier: workspace:*
         version: link:../core
-      '@filigree/graph':
+      '@benkalegin/filigree-graph':
         specifier: workspace:*
         version: link:../graph
-      '@filigree/hints':
+      '@benkalegin/filigree-hints':
         specifier: workspace:*
         version: link:../hints
-      '@filigree/util-geometry':
+      '@benkalegin/filigree-util-geometry':
         specifier: workspace:*
         version: link:../util-geometry
-      '@filigree/util-solver':
+      '@benkalegin/filigree-util-solver':
         specifier: workspace:*
         version: link:../util-solver
     devDependencies:
-      '@filigree/alg-force':
+      '@benkalegin/filigree-alg-force':
         specifier: workspace:*
         version: link:../alg-force
-      '@filigree/alg-mrtree':
+      '@benkalegin/filigree-alg-mrtree':
         specifier: workspace:*
         version: link:../alg-mrtree
-      '@filigree/alg-radial':
+      '@benkalegin/filigree-alg-radial':
         specifier: workspace:*
         version: link:../alg-radial
-      '@filigree/alg-rectpacking':
+      '@benkalegin/filigree-alg-rectpacking':
         specifier: workspace:*
         version: link:../alg-rectpacking
-      '@filigree/alg-stress':
+      '@benkalegin/filigree-alg-stress':
         specifier: workspace:*
         version: link:../alg-stress
-      '@filigree/render-svg':
+      '@benkalegin/filigree-render-svg':
         specifier: workspace:*
         version: link:../render-svg
 
   packages/alg-mrtree:
     dependencies:
-      '@filigree/core':
+      '@benkalegin/filigree-core':
         specifier: workspace:*
         version: link:../core
-      '@filigree/graph':
+      '@benkalegin/filigree-graph':
         specifier: workspace:*
         version: link:../graph
 
   packages/alg-radial:
     dependencies:
-      '@filigree/core':
+      '@benkalegin/filigree-core':
         specifier: workspace:*
         version: link:../core
-      '@filigree/graph':
+      '@benkalegin/filigree-graph':
         specifier: workspace:*
         version: link:../graph
 
   packages/alg-rectpacking:
     dependencies:
-      '@filigree/core':
+      '@benkalegin/filigree-core':
         specifier: workspace:*
         version: link:../core
-      '@filigree/graph':
+      '@benkalegin/filigree-graph':
         specifier: workspace:*
         version: link:../graph
 
   packages/alg-stress:
     dependencies:
-      '@filigree/core':
+      '@benkalegin/filigree-core':
         specifier: workspace:*
         version: link:../core
-      '@filigree/graph':
+      '@benkalegin/filigree-graph':
         specifier: workspace:*
         version: link:../graph
 
   packages/api:
     dependencies:
-      '@filigree/alg-force':
+      '@benkalegin/filigree-alg-force':
         specifier: workspace:*
         version: link:../alg-force
-      '@filigree/alg-layered':
+      '@benkalegin/filigree-alg-layered':
         specifier: workspace:*
         version: link:../alg-layered
-      '@filigree/alg-mrtree':
+      '@benkalegin/filigree-alg-mrtree':
         specifier: workspace:*
         version: link:../alg-mrtree
-      '@filigree/alg-radial':
+      '@benkalegin/filigree-alg-radial':
         specifier: workspace:*
         version: link:../alg-radial
-      '@filigree/alg-rectpacking':
+      '@benkalegin/filigree-alg-rectpacking':
         specifier: workspace:*
         version: link:../alg-rectpacking
-      '@filigree/alg-stress':
+      '@benkalegin/filigree-alg-stress':
         specifier: workspace:*
         version: link:../alg-stress
-      '@filigree/core':
+      '@benkalegin/filigree-core':
         specifier: workspace:*
         version: link:../core
-      '@filigree/graph':
+      '@benkalegin/filigree-graph':
         specifier: workspace:*
         version: link:../graph
-      '@filigree/hints':
+      '@benkalegin/filigree-hints':
         specifier: workspace:*
         version: link:../hints
-      '@filigree/render-svg':
+      '@benkalegin/filigree-render-svg':
         specifier: workspace:*
         version: link:../render-svg
 
   packages/core:
     dependencies:
-      '@filigree/graph':
+      '@benkalegin/filigree-graph':
         specifier: workspace:*
         version: link:../graph
 
@@ -206,19 +206,19 @@ importers:
 
   packages/hints:
     dependencies:
-      '@filigree/graph':
+      '@benkalegin/filigree-graph':
         specifier: workspace:*
         version: link:../graph
 
   packages/render-svg:
     dependencies:
-      '@filigree/graph':
+      '@benkalegin/filigree-graph':
         specifier: workspace:*
         version: link:../graph
 
   packages/util-geometry:
     dependencies:
-      '@filigree/graph':
+      '@benkalegin/filigree-graph':
         specifier: workspace:*
         version: link:../graph
 

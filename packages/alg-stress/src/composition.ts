@@ -6,7 +6,7 @@
  */
 
 /**
- * Composition root for @filigree/alg-stress.
+ * Composition root for @benkalegin/filigree-alg-stress.
  */
 
 import { StressAlgorithm } from './stress-algorithm.js';

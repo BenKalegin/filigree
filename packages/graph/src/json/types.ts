@@ -59,11 +59,11 @@ export interface IJsonNode extends IJsonDimensions, IJsonLayoutOptions {
  * Loose shape of a hint in the JSON graph. `kind` discriminates which hint
  * (e.g. `'OrderBefore'`, `'SameLayer'`, `'Group'`, `'PinPosition'`,
  * `'Focus'`); the remaining fields depend on the kind. See
- * `@filigree/hints` for the full per-kind schema.
+ * `@benkalegin/filigree-hints` for the full per-kind schema.
  *
  * The graph package itself doesn't parse hints — it just carries the JSON
- * shape so downstream tooling (`@filigree/api`'s `layout`) can hand the
- * array to `@filigree/hints` for `attachHints`. Keeping the type loose
+ * shape so downstream tooling (`@benkalegin/filigree-api`'s `layout`) can hand the
+ * array to `@benkalegin/filigree-hints` for `attachHints`. Keeping the type loose
  * avoids a graph → hints dependency.
  */
 export interface IJsonHint {
@@ -74,7 +74,7 @@ export interface IJsonHint {
 export interface IJsonGraph extends IJsonNode {
   /**
    * Hints attached to the graph in JSON form. Equivalent to calling
-   * `attachHints(graph, …)` post-`fromJson`. Parsed by `@filigree/api`'s
+   * `attachHints(graph, …)` post-`fromJson`. Parsed by `@benkalegin/filigree-api`'s
    * `layout` entry point — the bare `fromJson` ignores this field.
    */
   readonly filigreeHints?: readonly IJsonHint[];

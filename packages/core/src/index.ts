@@ -6,7 +6,7 @@
  */
 
 /**
- * Public surface of @filigree/core.
+ * Public surface of @benkalegin/filigree-core.
  */
 
 export { OptionScope, LayoutPhaseEvent } from './enums.js';

@@ -18,7 +18,7 @@
  * .bench.ts files.
  */
 
-import { type IJsonGraph } from '@filigree/graph';
+import { type IJsonGraph } from '@benkalegin/filigree-graph';
 
 const NODE_W = 40;
 const NODE_H = 30;

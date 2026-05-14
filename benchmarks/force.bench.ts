@@ -19,9 +19,9 @@ import {
   DefaultAlgorithmRegistry,
   DefaultLayoutEngine,
   DefaultOptionResolver,
-} from '@filigree/core';
-import { fromJson, type IJsonGraph } from '@filigree/graph';
-import { createDefaultForceAlgorithm } from '@filigree/alg-force';
+} from '@benkalegin/filigree-core';
+import { fromJson, type IJsonGraph } from '@benkalegin/filigree-graph';
+import { createDefaultForceAlgorithm } from '@benkalegin/filigree-alg-force';
 
 import { randomMesh } from './fixtures.js';
 

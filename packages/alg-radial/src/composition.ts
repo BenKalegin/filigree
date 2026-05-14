@@ -6,7 +6,7 @@
  */
 
 /**
- * Composition root for @filigree/alg-radial.
+ * Composition root for @benkalegin/filigree-alg-radial.
  */
 
 import { RadialAlgorithm } from './radial-algorithm.js';

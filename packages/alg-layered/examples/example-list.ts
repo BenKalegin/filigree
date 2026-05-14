@@ -13,18 +13,18 @@
  * fixture + engine factory + (optional) hint sets and render overrides.
  */
 
-import { type ILayoutEngine } from '@filigree/core';
+import { type ILayoutEngine } from '@benkalegin/filigree-core';
 import {
   type IEdge,
   type IJsonGraph,
   type INode,
-} from '@filigree/graph';
-import { group, type IHint, orderBefore, pinPosition, sameLayer } from '@filigree/hints';
+} from '@benkalegin/filigree-graph';
+import { group, type IHint, orderBefore, pinPosition, sameLayer } from '@benkalegin/filigree-hints';
 import {
   type IEdgeStyleOverride,
   type INodeStyleOverride,
   type IRenderOptions,
-} from '@filigree/render-svg';
+} from '@benkalegin/filigree-render-svg';
 
 import {
   BalancedNodePlacer,

@@ -20,7 +20,7 @@
  * engine recurses into each one independently.
  */
 
-import { type IEdge, type INode, type IPort } from '@filigree/graph';
+import { type IEdge, type INode, type IPort } from '@benkalegin/filigree-graph';
 
 export const transposeContainer = (container: INode): void => {
   for (const child of container.children) {

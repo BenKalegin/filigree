@@ -1,4 +1,4 @@
-# @filigree/util-geometry
+# @benkalegin/filigree-util-geometry
 
 Geometry interface stubs shared across [filigree](https://github.com/BenKalegin/filigree) packages.
 
@@ -7,7 +7,7 @@ Holds interface shapes (rectangle arranger, etc.) that concrete implementations 
 ## Install
 
 ```bash
-pnpm add @filigree/util-geometry
+pnpm add @benkalegin/filigree-util-geometry
 ```
 
 ## License

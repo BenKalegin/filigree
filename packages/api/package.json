@@ -1,5 +1,5 @@
 {
-  "name": "@filigree/api",
+  "name": "@benkalegin/filigree-api",
   "version": "0.1.0",
   "type": "module",
   "main": "./src/index.ts",
@@ -26,19 +26,20 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
-    }
+    },
+    "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
-    "@filigree/alg-force": "workspace:*",
-    "@filigree/alg-layered": "workspace:*",
-    "@filigree/alg-mrtree": "workspace:*",
-    "@filigree/alg-radial": "workspace:*",
-    "@filigree/alg-rectpacking": "workspace:*",
-    "@filigree/alg-stress": "workspace:*",
-    "@filigree/core": "workspace:*",
-    "@filigree/graph": "workspace:*",
-    "@filigree/hints": "workspace:*",
-    "@filigree/render-svg": "workspace:*"
+    "@benkalegin/filigree-alg-force": "workspace:*",
+    "@benkalegin/filigree-alg-layered": "workspace:*",
+    "@benkalegin/filigree-alg-mrtree": "workspace:*",
+    "@benkalegin/filigree-alg-radial": "workspace:*",
+    "@benkalegin/filigree-alg-rectpacking": "workspace:*",
+    "@benkalegin/filigree-alg-stress": "workspace:*",
+    "@benkalegin/filigree-core": "workspace:*",
+    "@benkalegin/filigree-graph": "workspace:*",
+    "@benkalegin/filigree-hints": "workspace:*",
+    "@benkalegin/filigree-render-svg": "workspace:*"
   },
   "description": "Single-call layout facade for filigree — registers every shipped algorithm.",
   "license": "EPL-2.0",

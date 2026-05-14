@@ -21,7 +21,7 @@
 
 import * as fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
-import { type ElkNode, fromJson } from '@filigree/graph';
+import { type ElkNode, fromJson } from '@benkalegin/filigree-graph';
 
 import { applyHints, focus, pinPosition } from '../src/index.js';
 

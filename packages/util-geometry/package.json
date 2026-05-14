@@ -1,5 +1,5 @@
 {
-  "name": "@filigree/util-geometry",
+  "name": "@benkalegin/filigree-util-geometry",
   "version": "0.1.0",
   "type": "module",
   "main": "./src/index.ts",
@@ -26,10 +26,11 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
-    }
+    },
+    "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
-    "@filigree/graph": "workspace:*"
+    "@benkalegin/filigree-graph": "workspace:*"
   },
   "description": "Geometry interface stubs shared across filigree packages.",
   "license": "EPL-2.0",

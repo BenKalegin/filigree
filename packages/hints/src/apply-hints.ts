@@ -14,7 +14,7 @@
  * surprising for the typical use case.
  */
 
-import { type IEdge, type INode } from '@filigree/graph';
+import { type IEdge, type INode } from '@benkalegin/filigree-graph';
 
 import { type IFocusHint } from './focus-hint.js';
 import { HintKind } from './hint-kind.js';

@@ -32,8 +32,8 @@
  * shape. The full algorithm is a future iteration.
  */
 
-import { type ILayoutAlgorithm, type ILayoutContext } from '@filigree/core';
-import { type INode } from '@filigree/graph';
+import { type ILayoutAlgorithm, type ILayoutContext } from '@benkalegin/filigree-core';
+import { type INode } from '@benkalegin/filigree-graph';
 
 import { RectPackingOptions } from './rectpacking-options.js';
 

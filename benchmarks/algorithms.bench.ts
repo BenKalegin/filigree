@@ -23,14 +23,14 @@ import {
   DefaultLayoutEngine,
   DefaultOptionResolver,
   type ILayoutAlgorithm,
-} from '@filigree/core';
-import { fromJson, type IJsonGraph } from '@filigree/graph';
-import { createDefaultForceAlgorithm } from '@filigree/alg-force';
-import { createDefaultLayeredAlgorithm } from '@filigree/alg-layered';
-import { createDefaultMrTreeAlgorithm } from '@filigree/alg-mrtree';
-import { createDefaultRadialAlgorithm } from '@filigree/alg-radial';
-import { createDefaultRectPackingAlgorithm } from '@filigree/alg-rectpacking';
-import { createDefaultStressAlgorithm } from '@filigree/alg-stress';
+} from '@benkalegin/filigree-core';
+import { fromJson, type IJsonGraph } from '@benkalegin/filigree-graph';
+import { createDefaultForceAlgorithm } from '@benkalegin/filigree-alg-force';
+import { createDefaultLayeredAlgorithm } from '@benkalegin/filigree-alg-layered';
+import { createDefaultMrTreeAlgorithm } from '@benkalegin/filigree-alg-mrtree';
+import { createDefaultRadialAlgorithm } from '@benkalegin/filigree-alg-radial';
+import { createDefaultRectPackingAlgorithm } from '@benkalegin/filigree-alg-rectpacking';
+import { createDefaultStressAlgorithm } from '@benkalegin/filigree-alg-stress';
 
 import { balancedTree, cards, randomDag, randomMesh } from './fixtures.js';
 

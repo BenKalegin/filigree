@@ -19,7 +19,7 @@
  * lives behind `ILayoutAlgorithm`.
  */
 
-import { type IGraph } from '@filigree/graph';
+import { type IGraph } from '@benkalegin/filigree-graph';
 
 export interface ILayoutEngine {
   layout(graph: IGraph): Promise<IGraph>;

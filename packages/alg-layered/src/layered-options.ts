@@ -13,8 +13,8 @@
  * payoff: adding a new algorithm doesn't touch core, only its own module.
  */
 
-import { defineProperty } from '@filigree/graph';
-import { type IOption, OptionScope } from '@filigree/core';
+import { defineProperty } from '@benkalegin/filigree-graph';
+import { type IOption, OptionScope } from '@benkalegin/filigree-core';
 
 const DEFAULT_NODE_NODE_SPACING = 40;
 const DEFAULT_LAYER_SPACING = 80;

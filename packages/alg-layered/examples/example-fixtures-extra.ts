@@ -11,7 +11,7 @@
  * file in two.
  */
 
-import { type IJsonGraph } from '@filigree/graph';
+import { type IJsonGraph } from '@benkalegin/filigree-graph';
 
 // Twelve cards of varied size — typical input for rectpacking, which
 // ignores edges entirely. Mix of widths and heights so the shelf packer

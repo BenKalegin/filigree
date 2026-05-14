@@ -6,7 +6,7 @@
  */
 
 import { describe, expect, it } from 'vitest';
-import { fromJson, type IJsonGraph } from '@filigree/graph';
+import { fromJson, type IJsonGraph } from '@benkalegin/filigree-graph';
 
 import { applyHints, focus, pinPosition } from '../src/index.js';
 

@@ -22,7 +22,7 @@
  * Hints referencing unknown node ids are silently ignored.
  */
 
-import { getHints, HintKind, type ISameLayerHint } from '@filigree/hints';
+import { getHints, HintKind, type ISameLayerHint } from '@benkalegin/filigree-hints';
 
 import { LayeredPhase } from '../../enums.js';
 import { type ILayerAssigner } from '../../i-layer-assigner.js';

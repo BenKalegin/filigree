@@ -7,7 +7,7 @@
 
 /**
  * Generates `docs/layout-examples.md` and the SVG files under `docs/examples/`
- * that it references. Run via `pnpm --filter @filigree/alg-layered generate-docs`.
+ * that it references. Run via `pnpm --filter @benkalegin/filigree-alg-layered generate-docs`.
  *
  * Each example pairs a graph fixture (from `example-fixtures.ts`) with an
  * engine wiring that registers a specific algorithm or strategy. The script
@@ -19,14 +19,17 @@ import { writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { type ElkGraph, fromJson } from '@filigree/graph';
-import { applyHints, attachHints, type IHint } from '@filigree/hints';
-import { renderSvg } from '@filigree/render-svg';
+import { type ElkGraph, fromJson } from '@benkalegin/filigree-graph';
+import { applyHints, attachHints, type IHint } from '@benkalegin/filigree-hints';
+import { renderSvg } from '@benkalegin/filigree-render-svg';
 
 import { EXAMPLES, type IExample } from './example-list.js';
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DOCS_DIR = path.resolve(SCRIPT_DIR, '../../../docs');
+
+/** Light background that works on both light and dark page themes. */
+const DOCS_BACKGROUND = '#f8f9fa';
 
 const renderExample = async (example: IExample): Promise<void> => {
   const graph = fromJson(example.graph);
@@ -35,7 +38,7 @@ const renderExample = async (example: IExample): Promise<void> => {
   }
   await example.buildEngine().layout(graph);
   applyExampleHints(graph, example.hints);
-  const svg = renderSvg(graph, example.renderOptions ?? {});
+  const svg = renderSvg(graph, { background: DOCS_BACKGROUND, ...example.renderOptions });
   writeFileSync(path.join(DOCS_DIR, 'examples', `${example.slug}.svg`), svg, 'utf8');
 };
 
@@ -52,7 +55,7 @@ const generateMarkdown = (examples: readonly IExample[]): string => {
     '',
     'Single documented repo of layout approaches. Each section names an algorithm or strategy, explains what it does, and shows the rendered output as an inline image. The SVG files live next to this doc under `examples/` — they are referenced, not duplicated.',
     '',
-    'Regenerate with `pnpm --filter @filigree/alg-layered generate-docs`.',
+    'Regenerate with `pnpm --filter @benkalegin/filigree-alg-layered generate-docs`.',
     '',
     '<!-- Generated file — do not edit by hand. -->',
     '',
@@ -62,7 +65,7 @@ const generateMarkdown = (examples: readonly IExample[]): string => {
     '',
   ];
   const sections = examples.map(
-    (e) => `## ${e.title}\n\n${e.description}\n\n![${e.title}](examples/${e.slug}.svg)\n`,
+    (e) => `## ${e.title} {#${e.slug}}\n\n${e.description}\n\n![${e.title}](examples/${e.slug}.svg)\n`,
   );
   return [...intro, ...sections].join('\n');
 };

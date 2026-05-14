@@ -1,4 +1,4 @@
-# @filigree/alg-radial
+# @benkalegin/filigree-alg-radial
 
 Radial concentric-tree layout for [filigree](https://github.com/BenKalegin/filigree).
 
@@ -7,14 +7,14 @@ The root sits at the centre; each subsequent level lives on a circle of increasi
 ## Install
 
 ```bash
-pnpm add @filigree/alg-radial @filigree/core @filigree/graph
+pnpm add @benkalegin/filigree-alg-radial @benkalegin/filigree-core @benkalegin/filigree-graph
 ```
 
 ## Use
 
 ```ts
-import { createDefaultRadialAlgorithm } from '@filigree/alg-radial';
-import { DefaultAlgorithmRegistry, DefaultLayoutEngine, DefaultOptionResolver } from '@filigree/core';
+import { createDefaultRadialAlgorithm } from '@benkalegin/filigree-alg-radial';
+import { DefaultAlgorithmRegistry, DefaultLayoutEngine, DefaultOptionResolver } from '@benkalegin/filigree-core';
 
 const registry = new DefaultAlgorithmRegistry();
 registry.register(createDefaultRadialAlgorithm());

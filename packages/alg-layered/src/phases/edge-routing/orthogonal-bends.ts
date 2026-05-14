@@ -18,7 +18,7 @@
  *     dummy-node positions.
  */
 
-import { type IPoint } from '@filigree/graph';
+import { type IPoint } from '@benkalegin/filigree-graph';
 
 const PARALLEL_DETOUR_Y_MARGIN = 0.2;
 

@@ -55,15 +55,15 @@ cd filigree
 pnpm install
 ```
 
-The workspace is split into scoped packages: graph model (`@filigree/graph`), engine + options (`@filigree/core`), algorithms (`@filigree/alg-layered`, `@filigree/alg-force`, `@filigree/alg-mrtree`, `@filigree/alg-radial`, `@filigree/alg-rectpacking`, `@filigree/alg-stress`), hints (`@filigree/hints`), renderer (`@filigree/render-svg`), and a one-call facade (`@filigree/api`). Every source file carries an EPL-2.0 header — files derived from a specific ELK Java class preserve the original Kiel University copyright per EPL §3.1(c).
+The workspace is split into scoped packages: graph model (`@benkalegin/filigree-graph`), engine + options (`@benkalegin/filigree-core`), algorithms (`@benkalegin/filigree-alg-layered`, `@benkalegin/filigree-alg-force`, `@benkalegin/filigree-alg-mrtree`, `@benkalegin/filigree-alg-radial`, `@benkalegin/filigree-alg-rectpacking`, `@benkalegin/filigree-alg-stress`), hints (`@benkalegin/filigree-hints`), renderer (`@benkalegin/filigree-render-svg`), and a one-call facade (`@benkalegin/filigree-api`). Every source file carries an EPL-2.0 header — files derived from a specific ELK Java class preserve the original Kiel University copyright per EPL §3.1(c).
 
 ## Usage
 
-The simplest entry point is the `@filigree/api` facade:
+The simplest entry point is the `@benkalegin/filigree-api` facade:
 
 ```typescript
-import { layout } from "@filigree/api";
-import { renderSvg } from "@filigree/render-svg";
+import { layout } from "@benkalegin/filigree-api";
+import { renderSvg } from "@benkalegin/filigree-render-svg";
 
 const graph = await layout({
   id: "root",
@@ -83,7 +83,7 @@ Select a different algorithm via `layoutOptions: { 'elk.algorithm': 'force' }` (
 Attach human hints before layout — either as JSON…
 
 ```typescript
-import { layout } from "@filigree/api";
+import { layout } from "@benkalegin/filigree-api";
 
 await layout({
   id: "root",
@@ -100,9 +100,9 @@ await layout({
 …or in code, when you want type-safe factories:
 
 ```typescript
-import { attachHints, group, orderBefore, sameLayer } from "@filigree/hints";
-import { fromJson } from "@filigree/graph";
-import { layout } from "@filigree/api";
+import { attachHints, group, orderBefore, sameLayer } from "@benkalegin/filigree-hints";
+import { fromJson } from "@benkalegin/filigree-graph";
+import { layout } from "@benkalegin/filigree-api";
 
 const graph = fromJson({ id: "root", children: [...], edges: [...] });
 attachHints(graph, [
@@ -136,7 +136,7 @@ If you need a non-EPL implementation, a clean-room rewrite from ELK's published 
 - `pnpm typecheck` — strict TS check across all packages plus benchmarks.
 - `pnpm lint` — ESLint with the conventions enforced in [`docs/conventions.md`](./docs/conventions.md).
 - `pnpm bench` — performance benchmarks (vitest `bench`) across layered / force / stress / mrtree / radial / rectpacking. Fixtures live in [`benchmarks/`](./benchmarks/).
-- `pnpm --filter @filigree/alg-layered generate-docs` — regenerate `docs/layout-examples.md` + the SVGs it references.
+- `pnpm --filter @benkalegin/filigree-alg-layered generate-docs` — regenerate `docs/layout-examples.md` + the SVGs it references.
 - `pnpm build` — emit `dist/` per package via `tsc -p tsconfig.build.json`.
 
 ## Releasing

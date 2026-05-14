@@ -18,9 +18,9 @@ import {
   DefaultLayoutEngine,
   DefaultOptionResolver,
   type ILayoutEngine,
-} from '@filigree/core';
-import { type ElkNode, fromJson, type IJsonGraph } from '@filigree/graph';
-import { attachHints, group, orderBefore, sameLayer } from '@filigree/hints';
+} from '@benkalegin/filigree-core';
+import { type ElkNode, fromJson, type IJsonGraph } from '@benkalegin/filigree-graph';
+import { attachHints, group, orderBefore, sameLayer } from '@benkalegin/filigree-hints';
 
 import { createDefaultLayeredAlgorithm } from '../src/composition.js';
 import {

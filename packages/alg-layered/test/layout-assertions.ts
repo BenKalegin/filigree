@@ -18,7 +18,7 @@
  * algorithm with direction=DOWN places later layers at higher y values.
  */
 
-import { type ElkNode } from '@filigree/graph';
+import { type ElkNode } from '@benkalegin/filigree-graph';
 import { expect } from 'vitest';
 
 const Y_SAME_LAYER_TOLERANCE = 1;

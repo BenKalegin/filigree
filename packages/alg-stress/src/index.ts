@@ -6,7 +6,7 @@
  */
 
 /**
- * Public surface of @filigree/alg-stress.
+ * Public surface of @benkalegin/filigree-alg-stress.
  */
 
 export {

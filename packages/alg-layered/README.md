@@ -1,4 +1,4 @@
-# @filigree/alg-layered
+# @benkalegin/filigree-alg-layered
 
 Sugiyama-style top-to-bottom layered layout for [filigree](https://github.com/BenKalegin/filigree). The default composition runs:
 
@@ -14,14 +14,14 @@ Each phase is injected. Swap any of them in `LayeredAlgorithm`'s constructor wit
 ## Install
 
 ```bash
-pnpm add @filigree/alg-layered @filigree/core @filigree/graph
+pnpm add @benkalegin/filigree-alg-layered @benkalegin/filigree-core @benkalegin/filigree-graph
 ```
 
 ## Use
 
 ```ts
-import { createDefaultLayeredAlgorithm } from '@filigree/alg-layered';
-import { DefaultAlgorithmRegistry, DefaultLayoutEngine, DefaultOptionResolver } from '@filigree/core';
+import { createDefaultLayeredAlgorithm } from '@benkalegin/filigree-alg-layered';
+import { DefaultAlgorithmRegistry, DefaultLayoutEngine, DefaultOptionResolver } from '@benkalegin/filigree-core';
 
 const registry = new DefaultAlgorithmRegistry();
 registry.register(createDefaultLayeredAlgorithm());
@@ -29,9 +29,9 @@ const engine = new DefaultLayoutEngine(registry, new DefaultOptionResolver());
 await engine.layout(graph);
 ```
 
-Or set `layoutOptions: { 'elk.algorithm': 'layered' }` on the graph and use the `@filigree/api` facade.
+Or set `layoutOptions: { 'elk.algorithm': 'layered' }` on the graph and use the `@benkalegin/filigree-api` facade.
 
-The default composition is also hint-aware — see [`@filigree/hints`](https://www.npmjs.com/package/@filigree/hints).
+The default composition is also hint-aware — see [`@benkalegin/filigree-hints`](https://www.npmjs.com/package/@benkalegin/filigree-hints).
 
 ## License
 

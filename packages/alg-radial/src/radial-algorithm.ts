@@ -25,8 +25,8 @@
  * nodes with multiple incoming edges keep only the first traversal path.
  */
 
-import { type ILayoutAlgorithm, type ILayoutContext } from '@filigree/core';
-import { type IEdge, type INode, isNode } from '@filigree/graph';
+import { type ILayoutAlgorithm, type ILayoutContext } from '@benkalegin/filigree-core';
+import { type IEdge, type INode, isNode } from '@benkalegin/filigree-graph';
 
 import { RadialOptions } from './radial-options.js';
 

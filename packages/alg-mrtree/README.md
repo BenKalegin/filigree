@@ -1,4 +1,4 @@
-# @filigree/alg-mrtree
+# @benkalegin/filigree-alg-mrtree
 
 Reingold-Tilford-style tree layout (Mr.Tree) for [filigree](https://github.com/BenKalegin/filigree).
 
@@ -9,14 +9,14 @@ Not a full Reingold-Tilford yet — subtree-overlap correction is a future itera
 ## Install
 
 ```bash
-pnpm add @filigree/alg-mrtree @filigree/core @filigree/graph
+pnpm add @benkalegin/filigree-alg-mrtree @benkalegin/filigree-core @benkalegin/filigree-graph
 ```
 
 ## Use
 
 ```ts
-import { createDefaultMrTreeAlgorithm } from '@filigree/alg-mrtree';
-import { DefaultAlgorithmRegistry, DefaultLayoutEngine, DefaultOptionResolver } from '@filigree/core';
+import { createDefaultMrTreeAlgorithm } from '@benkalegin/filigree-alg-mrtree';
+import { DefaultAlgorithmRegistry, DefaultLayoutEngine, DefaultOptionResolver } from '@benkalegin/filigree-core';
 
 const registry = new DefaultAlgorithmRegistry();
 registry.register(createDefaultMrTreeAlgorithm());

@@ -13,17 +13,17 @@
  * examples never share mutable registry state.
  */
 
-import { createDefaultForceAlgorithm } from '@filigree/alg-force';
-import { createDefaultMrTreeAlgorithm } from '@filigree/alg-mrtree';
-import { createDefaultRadialAlgorithm } from '@filigree/alg-radial';
-import { createDefaultRectPackingAlgorithm } from '@filigree/alg-rectpacking';
-import { createDefaultStressAlgorithm } from '@filigree/alg-stress';
+import { createDefaultForceAlgorithm } from '@benkalegin/filigree-alg-force';
+import { createDefaultMrTreeAlgorithm } from '@benkalegin/filigree-alg-mrtree';
+import { createDefaultRadialAlgorithm } from '@benkalegin/filigree-alg-radial';
+import { createDefaultRectPackingAlgorithm } from '@benkalegin/filigree-alg-rectpacking';
+import { createDefaultStressAlgorithm } from '@benkalegin/filigree-alg-stress';
 import {
   DefaultAlgorithmRegistry,
   DefaultLayoutEngine,
   DefaultOptionResolver,
   type ILayoutEngine,
-} from '@filigree/core';
+} from '@benkalegin/filigree-core';
 
 import {
   BarycenterCrossingMinimizer,

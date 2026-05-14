@@ -12,8 +12,8 @@
  * graph-level layout options reading these `IOption`s through the resolver.
  */
 
-import { defineProperty } from '@filigree/graph';
-import { type IOption, OptionScope } from '@filigree/core';
+import { defineProperty } from '@benkalegin/filigree-graph';
+import { type IOption, OptionScope } from '@benkalegin/filigree-core';
 
 const DEFAULT_ITERATIONS = 100;
 const DEFAULT_AREA = 90_000;

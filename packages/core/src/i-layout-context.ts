@@ -14,7 +14,7 @@
  * idempotent and makes them testable in isolation.
  */
 
-import { type INode } from '@filigree/graph';
+import { type INode } from '@benkalegin/filigree-graph';
 
 import { type EventDispatcher } from './event-dispatcher.js';
 import { type IOptionResolver } from './i-option.js';

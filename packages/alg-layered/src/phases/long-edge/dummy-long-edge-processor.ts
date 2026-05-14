@@ -22,7 +22,7 @@
  * them too.
  */
 
-import { type ElkNode, type IEdge, type IEdgeEndpoint } from '@filigree/graph';
+import { type ElkNode, type IEdge, type IEdgeEndpoint } from '@benkalegin/filigree-graph';
 
 import { type ILongEdgeProcessor } from '../../i-long-edge-processor.js';
 import { appendUnique } from '../../model/adjacency.js';

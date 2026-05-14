@@ -9,7 +9,7 @@
  * Structural geometric types shared across the graph model.
  *
  * Operations on these types (intersection, projection, distance, …) live in
- * `@filigree/util-geometry`. This module declares shape only — no functions —
+ * `@benkalegin/filigree-util-geometry`. This module declares shape only — no functions —
  * so that algorithm consumers can read the graph without pulling in geometry math.
  */
 

@@ -20,7 +20,7 @@
  * graph and have descendants inherit is the standard ELK semantic.
  */
 
-import { type IGraphElement, isNode } from '@filigree/graph';
+import { type IGraphElement, isNode } from '@benkalegin/filigree-graph';
 
 import { type IOption, type IOptionResolver } from './i-option.js';
 

@@ -6,7 +6,7 @@
  */
 
 /**
- * Public surface of @filigree/util-solver.
+ * Public surface of @benkalegin/filigree-util-solver.
  */
 
 export type {

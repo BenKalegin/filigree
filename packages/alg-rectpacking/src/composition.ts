@@ -6,7 +6,7 @@
  */
 
 /**
- * Composition root for @filigree/alg-rectpacking.
+ * Composition root for @benkalegin/filigree-alg-rectpacking.
  */
 
 import { RectPackingAlgorithm } from './rectpacking-algorithm.js';

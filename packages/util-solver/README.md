@@ -1,4 +1,4 @@
-# @filigree/util-solver
+# @benkalegin/filigree-util-solver
 
 Linear-solver interface stubs shared across [filigree](https://github.com/BenKalegin/filigree) packages.
 
@@ -7,7 +7,7 @@ Holds the `ILinearSolver` shape so layout algorithms that need a solver can depe
 ## Install
 
 ```bash
-pnpm add @filigree/util-solver
+pnpm add @benkalegin/filigree-util-solver
 ```
 
 ## License

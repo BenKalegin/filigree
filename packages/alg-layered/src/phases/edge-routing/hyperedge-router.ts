@@ -37,7 +37,7 @@ import {
   type INode,
   type IPoint,
   isNode,
-} from '@filigree/graph';
+} from '@benkalegin/filigree-graph';
 
 interface IResolvedEndpoint {
   readonly endpoint: IEdgeEndpoint;

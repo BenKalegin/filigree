@@ -1,4 +1,4 @@
-# @filigree/alg-stress
+# @benkalegin/filigree-alg-stress
 
 Stress-majorization graph layout for [filigree](https://github.com/BenKalegin/filigree).
 
@@ -9,14 +9,14 @@ Disconnected components handled by clamping infinite hop distances to the diamet
 ## Install
 
 ```bash
-pnpm add @filigree/alg-stress @filigree/core @filigree/graph
+pnpm add @benkalegin/filigree-alg-stress @benkalegin/filigree-core @benkalegin/filigree-graph
 ```
 
 ## Use
 
 ```ts
-import { createDefaultStressAlgorithm } from '@filigree/alg-stress';
-import { DefaultAlgorithmRegistry, DefaultLayoutEngine, DefaultOptionResolver } from '@filigree/core';
+import { createDefaultStressAlgorithm } from '@benkalegin/filigree-alg-stress';
+import { DefaultAlgorithmRegistry, DefaultLayoutEngine, DefaultOptionResolver } from '@benkalegin/filigree-core';
 
 const registry = new DefaultAlgorithmRegistry();
 registry.register(createDefaultStressAlgorithm());

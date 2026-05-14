@@ -19,8 +19,8 @@
  * the dummy positions.
  */
 
-import { type IEdge, InvalidGraphError, type INode } from '@filigree/graph';
-import { type ILayoutContext, type IOptionResolver } from '@filigree/core';
+import { type IEdge, InvalidGraphError, type INode } from '@benkalegin/filigree-graph';
+import { type ILayoutContext, type IOptionResolver } from '@benkalegin/filigree-core';
 
 import { type LNode } from './l-node.js';
 

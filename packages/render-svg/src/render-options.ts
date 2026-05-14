@@ -14,7 +14,7 @@
  * for theming individual nodes or edges based on their data.
  */
 
-import { type IEdge, type INode } from '@filigree/graph';
+import { type IEdge, type INode } from '@benkalegin/filigree-graph';
 
 export interface INodeStyleOverride {
   readonly fill?: string;
@@ -32,6 +32,13 @@ export interface IEdgeStyleOverride {
 
 export interface IRenderOptions {
   readonly padding: number;
+  /**
+   * Optional background color for the entire SVG. Renders a filled rect
+   * behind all content. Useful for ensuring diagrams look consistent on
+   * both light and dark page themes. `undefined` (default) renders no
+   * background (transparent).
+   */
+  readonly background: string | undefined;
   readonly nodeFill: string;
   readonly nodeStroke: string;
   readonly nodeStrokeWidth: number;
@@ -68,6 +75,7 @@ export interface IRenderOptions {
 
 export const DEFAULT_RENDER_OPTIONS: IRenderOptions = {
   padding: 12,
+  background: undefined,
   nodeFill: '#ffffff',
   nodeStroke: '#1f2937',
   nodeStrokeWidth: 1.5,

@@ -6,7 +6,7 @@
  */
 
 /**
- * Public surface of @filigree/graph. External consumers may import only what this file re-exports.
+ * Public surface of @benkalegin/filigree-graph. External consumers may import only what this file re-exports.
  */
 
 export { NodeKind, PortSide, LayoutDirection, EdgeRoutingStyle } from './enums.js';
