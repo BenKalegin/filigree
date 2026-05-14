@@ -21,6 +21,7 @@ import {
   type ILayoutEngine,
 } from '@filigree/core';
 import { type ElkNode, fromJson, type IJsonGraph } from '@filigree/graph';
+import { attachHints, orderBefore, sameLayer } from '@filigree/hints';
 
 import { createDefaultLayeredAlgorithm } from '../src/composition.js';
 import { expectAllPositioned } from './layout-assertions.js';
@@ -173,6 +174,32 @@ describe('elk.direction', () => {
     expect(outPort.y).toBe(10);
     expect(inPort.x).toBe(0);
     expect(inPort.y).toBe(10);
+  });
+
+  // OrderBefore + direction interaction: the hint is "first in layer's
+  // perpendicular axis". For DOWN that's "left of". For RIGHT (90° rotation
+  // of the internal TB result) it's "above".
+  it('OrderBefore under direction=RIGHT puts the first node above the second', async () => {
+    const graph = fromJson({
+      id: 'root',
+      layoutOptions: { 'elk.direction': 'RIGHT' },
+      children: [
+        { id: 'src', width: 40, height: 20 },
+        { id: 'a', width: 40, height: 20 },
+        { id: 'b', width: 40, height: 20 },
+      ],
+      edges: [
+        { id: 'e1', sources: ['src'], targets: ['a'] },
+        { id: 'e2', sources: ['src'], targets: ['b'] },
+      ],
+    } satisfies IJsonGraph);
+    attachHints(graph, [sameLayer('a', 'b'), orderBefore('b', 'a')]);
+    await buildEngine().layout(graph);
+    const a = findById(graph, 'a');
+    const b = findById(graph, 'b');
+    // OrderBefore(b, a) — b comes first in the perpendicular axis. Under
+    // RIGHT, "perpendicular to flow" = vertical, so b sits above a.
+    expect(b.y).toBeLessThan(a.y);
   });
 
   it('honors direction set on a compound — outer DOWN, inner RIGHT', async () => {

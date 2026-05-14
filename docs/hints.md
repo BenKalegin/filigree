@@ -115,6 +115,57 @@ await engine.layout(graph);
 
 This case is covered by `packages/alg-layered/test/hint-aware.test.ts`.
 
+## Attaching hints from JSON
+
+Instead of building an `ElkGraph` and calling `attachHints`, you can declare hints inline on the JSON object you pass to `layout`:
+
+```typescript
+import { layout } from '@filigree/api';
+
+await layout({
+  id: 'root',
+  children: [...],
+  edges: [...],
+  filigreeHints: [
+    { kind: 'OrderBefore',  before: 'n1', after: 'n2' },
+    { kind: 'SameLayer',    nodes: ['n3', 'n4'] },
+    { kind: 'Group',        nodes: ['task_a', 'task_c', 'task_e'] },
+    { kind: 'PinPosition',  node: 'start', x: 0, y: 0 },
+    { kind: 'Focus',        node: 'main', centerX: 0, centerY: 0 },
+  ],
+});
+```
+
+Field names match the kind:
+
+| `kind`         | Required fields            | Optional fields           |
+| -------------- | -------------------------- | ------------------------- |
+| `OrderBefore`  | `before`, `after`          | —                         |
+| `SameLayer`    | `nodes` (exactly two ids)  | —                         |
+| `Group`        | `nodes` (≥ 1 id)           | —                         |
+| `PinPosition`  | `node`, `x`, `y`           | —                         |
+| `Focus`        | `node`                     | `centerX`, `centerY` (default 0) |
+
+Malformed entries (missing fields, wrong types, unknown `kind`) are dropped silently — same soft-constraint semantic as the code-level applicators. The bare `fromJson` from `@filigree/graph` ignores `filigreeHints`; the field is interpreted by `@filigree/api`'s `layout`. If you build an `ElkGraph` directly, use `attachHints` instead.
+
+## Hints under `elk.direction`
+
+The in-layout hints describe positions **in the layered algorithm's internal frame**, not the user-visible frame. The internal frame is always top-to-bottom; the algorithm rotates the result for `RIGHT` / `LEFT` / `UP` directions (see `docs/interop.md`).
+
+What that means per hint kind:
+
+- **`SameLayer`** — independent of direction. "Same layer" means "same step in the flow direction": same row for TB / BT, same column for LR / RL.
+- **`Group`** — independent of direction. The cluster is contiguous within whichever axis is perpendicular to the flow.
+- **`OrderBefore(a, b)`** — always means *"a comes earlier than b in the perpendicular-to-flow direction"*. Concretely:
+  - `direction: DOWN` — `a` is to the **left** of `b` within the layer.
+  - `direction: RIGHT` — `a` is **above** `b` within the layer.
+  - `direction: UP` — `a` is to the **left** of `b` within the layer (UP flips y, not x).
+  - `direction: LEFT` — `a` is **above** `b` within the layer (LEFT mirrors x; relative within-layer order along the perpendicular axis is preserved).
+
+The semantic is "source-order in the layer's perpendicular axis", which is stable across directions — write the hint once, and the visual outcome rotates with the diagram.
+
+`PinPosition` and `Focus` are post-layout and operate in the user-visible frame; their coordinates mean whatever they say after rotation.
+
 ## How hints are stored
 
 `attachHints` writes the hint list onto a graph property keyed `filigree.hints`. `getHints(graph)` returns the list (or an empty list if none are attached). Algorithms that recognize a hint kind read this property during their phase and filter by `kind`.

@@ -38,10 +38,8 @@
     "@filigree/alg-stress": "workspace:*",
     "@filigree/core": "workspace:*",
     "@filigree/graph": "workspace:*",
+    "@filigree/hints": "workspace:*",
     "@filigree/render-svg": "workspace:*"
-  },
-  "devDependencies": {
-    "@filigree/hints": "workspace:*"
   },
   "description": "Single-call layout facade for filigree — registers every shipped algorithm.",
   "license": "EPL-2.0",

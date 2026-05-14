@@ -41,6 +41,7 @@ export {
   type IFromJsonOptions,
   type IJsonEdge,
   type IJsonGraph,
+  type IJsonHint,
   type IJsonLabel,
   type IJsonNode,
   type IJsonPort,

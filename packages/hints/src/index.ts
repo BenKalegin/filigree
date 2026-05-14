@@ -33,3 +33,4 @@ export { type IGroupHint, group } from './group-hint.js';
 export { type IFocusHint, focus } from './focus-hint.js';
 export { attachHints, getHints } from './hints-option.js';
 export { applyHints } from './apply-hints.js';
+export { parseJsonHints } from './json-hints.js';

@@ -51,6 +51,39 @@ describe('layout (single-call facade)', () => {
     expect((s2?.x ?? 0) < (s1?.x ?? 0)).toBe(true);
   });
 
+  it('parses filigreeHints from JSON and attaches them before layout', async () => {
+    const graph = await layout({
+      id: 'root',
+      children: [
+        { id: 'parent', width: 30, height: 30 },
+        { id: 's1', width: 30, height: 30 },
+        { id: 's2', width: 30, height: 30 },
+      ],
+      edges: [
+        { id: 'e1', sources: ['parent'], targets: ['s1'] },
+        { id: 'e2', sources: ['parent'], targets: ['s2'] },
+      ],
+      filigreeHints: [{ kind: 'OrderBefore', before: 's2', after: 's1' }],
+    });
+    const s1 = graph.children.find((n) => n.id === 's1');
+    const s2 = graph.children.find((n) => n.id === 's2');
+    expect((s2?.x ?? 0) < (s1?.x ?? 0)).toBe(true);
+  });
+
+  it('drops malformed JSON hints silently', async () => {
+    // Malformed: missing `before`/`after`. Should not throw; layout proceeds.
+    const graph = await layout({
+      id: 'root',
+      children: [
+        { id: 'a', width: 30, height: 30 },
+        { id: 'b', width: 30, height: 30 },
+      ],
+      edges: [{ id: 'e', sources: ['a'], targets: ['b'] }],
+      filigreeHints: [{ kind: 'OrderBefore' }, { kind: 'NotARealHint', node: 'a' }],
+    });
+    expect(graph.children.length).toBe(2);
+  });
+
   it('routes through the force algorithm when requested', async () => {
     const graph = await layout(
       {

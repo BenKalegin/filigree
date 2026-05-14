@@ -44,7 +44,7 @@ The hint system is a **deliberate divergence** from upstream and is unique to `f
 | OGDF integration | _excluded_     | GPL-licensed, license incompatible                                                                                                                              |
 | libavoid routing | _excluded_     | LGPL C++, not portable                                                                                                                                          |
 
-See [`docs/layout-examples.md`](./docs/layout-examples.md) for rendered SVG previews of every algorithm and hint currently shipped.
+See [`docs/layout-examples.md`](./docs/layout-examples.md) for rendered SVG previews of every algorithm and hint currently shipped, and [`docs/interop.md`](./docs/interop.md) for input/output guarantees (port positions, bend-point shape, coordinate frame, async/sync model) — useful when migrating from `@dagrejs/dagre` or `elkjs`.
 
 ## Installation
 
@@ -78,9 +78,26 @@ const graph = await layout({
 const svg = renderSvg(graph);
 ```
 
-Select a different algorithm via `layoutOptions: { 'elk.algorithm': 'force' }` (`force` | `mrtree` | `radial` | `layered` | `rectpacking` | `stress`).
+Select a different algorithm via `layoutOptions: { 'elk.algorithm': 'force' }` (`force` | `mrtree` | `radial` | `layered` | `rectpacking` | `stress`). For layered, set the flow with `'elk.direction': 'DOWN' | 'RIGHT' | 'UP' | 'LEFT'` (ELK's `flowchart TB / LR / BT / RL`) and skip the orthogonal router with `'elk.edgeRouting': 'OFF'` when the host has its own router.
 
-Attach human hints before layout:
+Attach human hints before layout — either as JSON…
+
+```typescript
+import { layout } from "@filigree/api";
+
+await layout({
+  id: "root",
+  children: [...],
+  edges: [...],
+  filigreeHints: [
+    { kind: "SameLayer",   nodes: ["validate", "summarize"] },
+    { kind: "OrderBefore", before: "yes_branch", after: "no_branch" },
+    { kind: "Group",       nodes: ["task_a", "task_c", "task_e"] },
+  ],
+});
+```
+
+…or in code, when you want type-safe factories:
 
 ```typescript
 import { attachHints, group, orderBefore, sameLayer } from "@filigree/hints";

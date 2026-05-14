@@ -111,6 +111,84 @@ describe('hierarchical layout (compound nodes)', () => {
     expectLeftOf(s2, s1);
   });
 
+  // Two-level nesting: outer contains middle (compound), middle contains
+  // two leaves. The engine must lay out the leaves inside `middle`, size
+  // `middle` from its bbox + padding, then place `middle` and a sibling at
+  // the outer level. Every compound must end up with finite, sensible
+  // (x, y, width, height) — no zero-sized parents and no leaves leaking
+  // outside their compound.
+  it('positions every node correctly across two levels of compound nesting', async () => {
+    const graph = fromJson({
+      id: 'root',
+      children: [
+        {
+          id: 'outer',
+          children: [
+            {
+              id: 'middle',
+              children: [
+                { id: 'leaf-a', width: 30, height: 20 },
+                { id: 'leaf-b', width: 30, height: 20 },
+              ],
+              edges: [{ id: 'm-edge', sources: ['leaf-a'], targets: ['leaf-b'] }],
+            },
+            { id: 'outer-sibling', width: 40, height: 30 },
+          ],
+          edges: [{ id: 'o-edge', sources: ['middle'], targets: ['outer-sibling'] }],
+        },
+        { id: 'root-sibling', width: 40, height: 30 },
+      ],
+      edges: [{ id: 'r-edge', sources: ['outer'], targets: ['root-sibling'] }],
+    } satisfies IJsonGraph);
+
+    await buildEngine().layout(graph);
+
+    const outer = findById(graph, 'outer');
+    const middle = findById(outer, 'middle');
+    const leafA = findById(middle, 'leaf-a');
+    const leafB = findById(middle, 'leaf-b');
+    const outerSibling = findById(outer, 'outer-sibling');
+    const rootSibling = findById(graph, 'root-sibling');
+
+    // Every level is positioned and finitely sized.
+    expectAllPositioned([outer, rootSibling]);
+    expectAllPositioned([middle, outerSibling]);
+    expectAllPositioned([leafA, leafB]);
+
+    // Compounds grew to fit their contents.
+    expect(outer.width).toBeGreaterThan(0);
+    expect(outer.height).toBeGreaterThan(0);
+    expect(middle.width).toBeGreaterThan(0);
+    expect(middle.height).toBeGreaterThan(0);
+
+    // Leaves are laid out vertically inside `middle` (default direction).
+    expectLayerAfter(leafB, leafA);
+
+    // Each leaf sits inside its compound's bounding box. Coordinates are in
+    // the compound's local frame, so the leaf's box [x, x+w] × [y, y+h]
+    // must lie within [0, w_middle] × [0, h_middle].
+    for (const leaf of [leafA, leafB]) {
+      expect(leaf.x).toBeGreaterThanOrEqual(0);
+      expect(leaf.y).toBeGreaterThanOrEqual(0);
+      expect(leaf.x + leaf.width).toBeLessThanOrEqual(middle.width);
+      expect(leaf.y + leaf.height).toBeLessThanOrEqual(middle.height);
+    }
+
+    // `middle` and `outer-sibling` sit inside `outer`. Same containment check
+    // in the outer compound's local frame.
+    for (const node of [middle, outerSibling]) {
+      expect(node.x).toBeGreaterThanOrEqual(0);
+      expect(node.y).toBeGreaterThanOrEqual(0);
+      expect(node.x + node.width).toBeLessThanOrEqual(outer.width);
+      expect(node.y + node.height).toBeLessThanOrEqual(outer.height);
+    }
+
+    // Outer flow: outer-sibling sits below middle (within outer's frame).
+    expectLayerAfter(outerSibling, middle);
+    // Root flow: root-sibling sits below outer.
+    expectLayerAfter(rootSibling, outer);
+  });
+
   it('leaves leaf nodes untouched by the recursion', async () => {
     const graph = fromJson({
       id: 'root',

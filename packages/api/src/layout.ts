@@ -33,6 +33,7 @@ import {
   type ILayoutEngine,
 } from '@filigree/core';
 import { defineProperty, ElkGraph, fromJson, type IJsonGraph } from '@filigree/graph';
+import { attachHints, parseJsonHints } from '@filigree/hints';
 
 const ALGORITHM_OPTION_KEY = 'elk.algorithm';
 
@@ -71,8 +72,15 @@ export const layout = async (
   const graph =
     input instanceof ElkGraph
       ? withAlgorithmAttached(input, options.algorithm)
-      : fromJson(applyAlgorithmOption(input, options.algorithm));
+      : fromJsonWithHints(applyAlgorithmOption(input, options.algorithm));
   await getDefaultEngine().layout(graph);
+  return graph;
+};
+
+const fromJsonWithHints = (input: IJsonGraph): ElkGraph => {
+  const graph = fromJson(input);
+  const parsedHints = parseJsonHints(input.filigreeHints);
+  if (parsedHints.length > 0) attachHints(graph, parsedHints);
   return graph;
 };
 

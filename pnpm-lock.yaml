@@ -189,13 +189,12 @@ importers:
       '@filigree/graph':
         specifier: workspace:*
         version: link:../graph
-      '@filigree/render-svg':
-        specifier: workspace:*
-        version: link:../render-svg
-    devDependencies:
       '@filigree/hints':
         specifier: workspace:*
         version: link:../hints
+      '@filigree/render-svg':
+        specifier: workspace:*
+        version: link:../render-svg
 
   packages/core:
     dependencies:
