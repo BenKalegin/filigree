@@ -35,6 +35,7 @@ export enum LayoutDirection {
 
 export enum EdgeRoutingStyle {
   Undefined = 'undefined',
+  Off = 'off',
   Polyline = 'polyline',
   Orthogonal = 'orthogonal',
   Splines = 'splines',

@@ -30,7 +30,14 @@ export type {
 } from './i-layout-observer.js';
 export { EventDispatcher } from './event-dispatcher.js';
 export type { ILayoutEngine } from './i-layout-engine.js';
-export { AlgorithmOption, CompoundPaddingOption } from './well-known-options.js';
+export {
+  AlgorithmOption,
+  CompoundPaddingOption,
+  DirectionOption,
+  EdgeRoutingOption,
+  normalizeDirection,
+  normalizeEdgeRouting,
+} from './well-known-options.js';
 export { DefaultAlgorithmRegistry } from './default-algorithm-registry.js';
 export { DefaultOptionResolver } from './default-option-resolver.js';
 export { DefaultLayoutEngine } from './default-layout-engine.js';

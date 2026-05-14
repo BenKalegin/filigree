@@ -34,7 +34,7 @@ The hint system is a **deliberate divergence** from upstream and is unique to `f
 
 | Algorithm        | Status         | Notes                                                                                                                                                           |
 | ---------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ELK Layered      | _implemented_  | Greedy cycle breaker, longest-path layerer, barycenter crossing minimization, dummy-node long-edge routing, Brandes-Köpf placement, two-bend orthogonal router. |
+| ELK Layered      | _implemented_  | Greedy cycle breaker, longest-path layerer, barycenter crossing minimization, dummy-node long-edge routing, Brandes-Köpf placement, two-bend orthogonal router. Honors `elk.direction` (`DOWN` / `RIGHT` / `UP` / `LEFT`) and `elk.edgeRouting` (`ORTHOGONAL` / `OFF`). |
 | ELK Force        | _implemented_  | Fruchterman-Reingold; deterministic spiral start, 100 iterations with cooling.                                                                                  |
 | ELK Mr.Tree      | _implemented_  | Reingold-Tilford-style tree placement.                                                                                                                          |
 | ELK Radial       | _implemented_  | Hub-and-spoke concentric tree.                                                                                                                                  |

@@ -20,12 +20,23 @@
  */
 
 import {
+  DirectionOption,
+  EdgeRoutingOption,
   type ILayoutAlgorithm,
   type ILayoutContext,
   LayoutPhaseEvent,
+  normalizeDirection,
+  normalizeEdgeRouting,
   toPhaseId,
 } from '@filigree/core';
+import { EdgeRoutingStyle, LayoutDirection } from '@filigree/graph';
 
+import {
+  flipContainerX,
+  flipContainerY,
+  transposeContainer,
+  untransposeContainer,
+} from './direction-transform.js';
 import { LayeredPhase } from './enums.js';
 import { type ICrossingMinimizer } from './i-crossing-minimizer.js';
 import { type ICycleBreaker } from './i-cycle-breaker.js';
@@ -39,6 +50,16 @@ import { type LayeredResultApplier } from './layered-result-applier.js';
 
 export const LAYERED_ALGORITHM_ID = 'layered';
 export const LAYERED_DISPLAY_NAME = 'Layered';
+
+/**
+ * `OFF` and `POLYLINE` skip the router (renderer falls back to a straight
+ * line). `SPLINES` falls through to the orthogonal router until spline
+ * routing is ported.
+ */
+const ROUTING_STYLES_THAT_ROUTE: ReadonlySet<EdgeRoutingStyle> = new Set([
+  EdgeRoutingStyle.Orthogonal,
+  EdgeRoutingStyle.Splines,
+]);
 
 export interface ILayeredAlgorithmDeps {
   readonly contextBuilder: LayeredContextBuilder;
@@ -58,6 +79,11 @@ export class LayeredAlgorithm implements ILayoutAlgorithm {
   constructor(private readonly deps: ILayeredAlgorithmDeps) {}
 
   public run(context: ILayoutContext): Promise<void> {
+    const direction = normalizeDirection(context.options.resolve(DirectionOption, context.graph));
+    const edgeRouting = normalizeEdgeRouting(
+      context.options.resolve(EdgeRoutingOption, context.graph),
+    );
+    this.applyPreLayoutTransform(context, direction);
     const layered = this.deps.contextBuilder.build(context);
     this.runPhase(context, layered, LayeredPhase.CycleBreaking, (l) =>
       { this.deps.cycleBreaker.execute(l); },
@@ -78,10 +104,41 @@ export class LayeredAlgorithm implements ILayoutAlgorithm {
     // router runs so that the router reads positioned nodes (it routes
     // against the user graph's ElkNodes, not the intermediate LNodes).
     this.deps.resultApplier.apply(layered);
-    this.runPhase(context, layered, LayeredPhase.EdgeRouting, (l) =>
-      { this.deps.edgeRouter.execute(l); },
-    );
+    this.runPhase(context, layered, LayeredPhase.EdgeRouting, (l) => {
+      if (ROUTING_STYLES_THAT_ROUTE.has(edgeRouting)) {
+        this.deps.edgeRouter.execute(l);
+      }
+    });
+    this.applyPostLayoutTransform(context, direction);
     return Promise.resolve();
+  }
+
+  private applyPreLayoutTransform(context: ILayoutContext, direction: LayoutDirection): void {
+    if (direction === LayoutDirection.Right || direction === LayoutDirection.Left) {
+      transposeContainer(context.graph);
+    }
+  }
+
+  private applyPostLayoutTransform(context: ILayoutContext, direction: LayoutDirection): void {
+    switch (direction) {
+      case LayoutDirection.Right: {
+        untransposeContainer(context.graph);
+        break;
+      }
+      case LayoutDirection.Left: {
+        untransposeContainer(context.graph);
+        flipContainerX(context.graph);
+        break;
+      }
+      case LayoutDirection.Up: {
+        flipContainerY(context.graph);
+        break;
+      }
+      case LayoutDirection.Down:
+      case LayoutDirection.Undefined: {
+        break;
+      }
+    }
   }
 
   private runPhase(
