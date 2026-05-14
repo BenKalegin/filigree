@@ -33,6 +33,7 @@ export { LayeredOptions } from './layered-options.js';
 export { createNullPhase } from './null-phase.js';
 export { GreedyCycleBreaker } from './phases/cycle-breaking/greedy-cycle-breaker.js';
 export { LongestPathLayerer } from './phases/layer-assignment/longest-path-layerer.js';
+export { NetworkSimplexLayerer } from './phases/layer-assignment/network-simplex-layerer.js';
 export { HintAwareLayerer } from './phases/layer-assignment/hint-aware-layerer.js';
 export { BarycenterCrossingMinimizer } from './phases/crossing-minimization/barycenter-crossing-minimizer.js';
 export { HintAwareCrossingMinimizer } from './phases/crossing-minimization/hint-aware-crossing-minimizer.js';
