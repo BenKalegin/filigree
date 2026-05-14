@@ -9,17 +9,22 @@
  * Default engine that dispatches to a registered algorithm.
  *
  * Scope is intentionally narrow: pick an algorithm by id, build a context,
- * run it. No phase scheduling, no observer dispatch, no per-element option
- * pre-resolution — those belong inside the algorithm itself (which can be as
- * sophisticated as it wants).
+ * run it, and bracket the run with algorithm-start/complete observer
+ * events. Phase-level events fire from inside the algorithm via
+ * `context.dispatcher`. No per-element option pre-resolution — those
+ * belong inside the algorithm itself (which can be as sophisticated as it
+ * wants).
  */
 
 import { type IGraph, type INode, type IRect } from '@filigree/graph';
 
+import { EventDispatcher } from './event-dispatcher.js';
 import { AlgorithmNotFoundError } from './errors.js';
 import { type IAlgorithmRegistry } from './i-algorithm-registry.js';
+import { type ILayoutAlgorithm } from './i-layout-algorithm.js';
 import { type ILayoutContext } from './i-layout-context.js';
 import { type ILayoutEngine } from './i-layout-engine.js';
+import { type ILayoutObserver } from './i-layout-observer.js';
 import { type IOptionResolver } from './i-option.js';
 import { AlgorithmOption, CompoundPaddingOption } from './well-known-options.js';
 
@@ -35,10 +40,15 @@ import { AlgorithmOption, CompoundPaddingOption } from './well-known-options.js'
  * algorithms without engine changes.
  */
 export class DefaultLayoutEngine implements ILayoutEngine {
+  private readonly dispatcher: EventDispatcher;
+
   constructor(
     private readonly registry: IAlgorithmRegistry,
     private readonly optionResolver: IOptionResolver,
-  ) {}
+    observers: readonly ILayoutObserver[] = [],
+  ) {
+    this.dispatcher = new EventDispatcher(observers);
+  }
 
   public async layout(graph: IGraph): Promise<IGraph> {
     await this.layoutSubgraph(graph);
@@ -51,17 +61,21 @@ export class DefaultLayoutEngine implements ILayoutEngine {
         await this.layoutSubgraph(child);
       }
     }
-    if (container.children.length === 0) {
-      return;
-    }
+    if (container.children.length === 0) return;
     const algorithm = this.resolveAlgorithm(container);
-    const context: ILayoutContext = { graph: container, options: this.optionResolver };
+    const context: ILayoutContext = {
+      graph: container,
+      options: this.optionResolver,
+      dispatcher: this.dispatcher,
+    };
+    this.dispatcher.algorithmStarted(algorithm, context);
     await algorithm.run(context);
+    this.dispatcher.algorithmCompleted(algorithm, context);
     const padding = this.optionResolver.resolve(CompoundPaddingOption, container);
     this.fitContainerToChildren(container, padding);
   }
 
-  private resolveAlgorithm(container: INode): { run(context: ILayoutContext): Promise<void> } {
+  private resolveAlgorithm(container: INode): ILayoutAlgorithm {
     const algorithmId = this.optionResolver.resolve(AlgorithmOption, container);
     const algorithm = this.registry.get(algorithmId);
     if (algorithm === undefined) {

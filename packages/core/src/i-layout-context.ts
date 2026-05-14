@@ -16,6 +16,7 @@
 
 import { type INode } from '@filigree/graph';
 
+import { type EventDispatcher } from './event-dispatcher.js';
 import { type IOptionResolver } from './i-option.js';
 
 export interface ILayoutContext {
@@ -26,4 +27,12 @@ export interface ILayoutContext {
    */
   readonly graph: INode;
   readonly options: IOptionResolver;
+  /**
+   * Observer dispatcher. Algorithms fire phase events through it; the
+   * engine fires algorithm-start/complete around each `algorithm.run`.
+   * Always present (the engine constructs one even when no observers are
+   * attached — `EventDispatcher.hasObservers` short-circuits empty
+   * dispatch).
+   */
+  readonly dispatcher: EventDispatcher;
 }

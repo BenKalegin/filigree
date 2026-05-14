@@ -14,16 +14,26 @@
  *
  * Each phase is injected. Swapping a phase is a constructor change, never a
  * pipeline change — that is the entire reason for the IPhase interface.
+ *
+ * Phase boundaries fire `IPhaseObserver.onPhase(Started/Completed, …)` via
+ * the context's dispatcher so tooling can trace per-phase progress.
  */
 
-import { type ILayoutAlgorithm, type ILayoutContext } from '@filigree/core';
+import {
+  type ILayoutAlgorithm,
+  type ILayoutContext,
+  LayoutPhaseEvent,
+  toPhaseId,
+} from '@filigree/core';
 
+import { LayeredPhase } from './enums.js';
 import { type ICrossingMinimizer } from './i-crossing-minimizer.js';
 import { type ICycleBreaker } from './i-cycle-breaker.js';
 import { type IEdgeRouter } from './i-edge-router.js';
 import { type ILayerAssigner } from './i-layer-assigner.js';
 import { type ILongEdgeProcessor } from './i-long-edge-processor.js';
 import { type INodePlacer } from './i-node-placer.js';
+import { type LayeredContext } from './model/layered-context.js';
 import { type LayeredContextBuilder } from './model/layered-context-builder.js';
 import { type LayeredResultApplier } from './layered-result-applier.js';
 
@@ -49,16 +59,43 @@ export class LayeredAlgorithm implements ILayoutAlgorithm {
 
   public run(context: ILayoutContext): Promise<void> {
     const layered = this.deps.contextBuilder.build(context);
-    this.deps.cycleBreaker.execute(layered);
-    this.deps.layerAssigner.execute(layered);
-    this.deps.longEdgeProcessor.process(layered);
-    this.deps.crossingMinimizer.execute(layered);
-    this.deps.nodePlacer.execute(layered);
+    this.runPhase(context, layered, LayeredPhase.CycleBreaking, (l) =>
+      { this.deps.cycleBreaker.execute(l); },
+    );
+    this.runPhase(context, layered, LayeredPhase.LayerAssignment, (l) =>
+      { this.deps.layerAssigner.execute(l); },
+    );
+    this.runPhase(context, layered, LayeredPhase.LongEdgeProcessing, (l) =>
+      { this.deps.longEdgeProcessor.process(l); },
+    );
+    this.runPhase(context, layered, LayeredPhase.CrossingMinimization, (l) =>
+      { this.deps.crossingMinimizer.execute(l); },
+    );
+    this.runPhase(context, layered, LayeredPhase.NodePlacement, (l) =>
+      { this.deps.nodePlacer.execute(l); },
+    );
     // Result applier writes node positions back to the user graph BEFORE the
-    // router runs so that the router reads positioned nodes (it routes against
-    // the user graph's ElkNodes, not the intermediate LNodes).
+    // router runs so that the router reads positioned nodes (it routes
+    // against the user graph's ElkNodes, not the intermediate LNodes).
     this.deps.resultApplier.apply(layered);
-    this.deps.edgeRouter.execute(layered);
+    this.runPhase(context, layered, LayeredPhase.EdgeRouting, (l) =>
+      { this.deps.edgeRouter.execute(l); },
+    );
     return Promise.resolve();
+  }
+
+  private runPhase(
+    context: ILayoutContext,
+    layered: LayeredContext,
+    phase: LayeredPhase,
+    work: (layered: LayeredContext) => void,
+  ): void {
+    if (context.dispatcher.hasObservers) {
+      context.dispatcher.phase(LayoutPhaseEvent.Started, toPhaseId(phase), context);
+    }
+    work(layered);
+    if (context.dispatcher.hasObservers) {
+      context.dispatcher.phase(LayoutPhaseEvent.Completed, toPhaseId(phase), context);
+    }
   }
 }

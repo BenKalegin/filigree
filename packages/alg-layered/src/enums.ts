@@ -15,6 +15,7 @@
 export enum LayeredPhase {
   CycleBreaking = 'cycle-breaking',
   LayerAssignment = 'layer-assignment',
+  LongEdgeProcessing = 'long-edge-processing',
   CrossingMinimization = 'crossing-minimization',
   NodePlacement = 'node-placement',
   EdgeRouting = 'edge-routing',
