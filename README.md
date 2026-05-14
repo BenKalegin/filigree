@@ -36,8 +36,8 @@ The hint system is a **deliberate divergence** from upstream and is unique to `f
 | ELK Force        | _implemented_  | Fruchterman-Reingold; deterministic spiral start, 100 iterations with cooling.                                                                                  |
 | ELK Mr.Tree      | _implemented_  | Reingold-Tilford-style tree placement.                                                                                                                          |
 | ELK Radial       | _implemented_  | Hub-and-spoke concentric tree.                                                                                                                                  |
-| ELK Stress       | _planned_      |                                                                                                                                                                 |
-| ELK Rectpacking  | _planned_      |                                                                                                                                                                 |
+| ELK Stress       | _implemented_  | Stress majorization minimizing Σwᵢⱼ(‖xᵢ−xⱼ‖−dᵢⱼ)² with hop-distance targets. Disconnected components handled.                                                  |
+| ELK Rectpacking  | _implemented_  | Shelf packing — sort by descending area, place into rows under a target aspect ratio. Edge-free.                                                                |
 | Human hints      | _implemented_  | `PinPosition` (post-layout, any algorithm), `SameLayer` / `OrderBefore` / `Group` (in-layout, layered). See [`docs/hints.md`](./docs/hints.md). Not in upstream ELK. |
 | OGDF integration | _excluded_     | GPL-licensed, license incompatible                                                                                                                              |
 | libavoid routing | _excluded_     | LGPL C++, not portable                                                                                                                                          |
@@ -53,7 +53,7 @@ cd filigree
 pnpm install
 ```
 
-The workspace is split into scoped packages: graph model (`@filigree/graph`), engine + options (`@filigree/core`), algorithms (`@filigree/alg-layered`, `@filigree/alg-force`, `@filigree/alg-mrtree`, `@filigree/alg-radial`), hints (`@filigree/hints`), renderer (`@filigree/render-svg`), and a one-call facade (`@filigree/api`). Every source file carries an EPL-2.0 header — files derived from a specific ELK Java class preserve the original Kiel University copyright per EPL §3.1(c).
+The workspace is split into scoped packages: graph model (`@filigree/graph`), engine + options (`@filigree/core`), algorithms (`@filigree/alg-layered`, `@filigree/alg-force`, `@filigree/alg-mrtree`, `@filigree/alg-radial`, `@filigree/alg-rectpacking`, `@filigree/alg-stress`), hints (`@filigree/hints`), renderer (`@filigree/render-svg`), and a one-call facade (`@filigree/api`). Every source file carries an EPL-2.0 header — files derived from a specific ELK Java class preserve the original Kiel University copyright per EPL §3.1(c).
 
 ## Usage
 
@@ -76,7 +76,7 @@ const graph = await layout({
 const svg = renderSvg(graph);
 ```
 
-Select a different algorithm via `layoutOptions: { 'elk.algorithm': 'force' }` (`force` | `mrtree` | `radial` | `layered`).
+Select a different algorithm via `layoutOptions: { 'elk.algorithm': 'force' }` (`force` | `mrtree` | `radial` | `layered` | `rectpacking` | `stress`).
 
 Attach human hints before layout:
 

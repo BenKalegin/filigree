@@ -24,6 +24,8 @@ Regenerate with `pnpm --filter @filigree/alg-layered generate-docs`.
 - [Layered + human hint (same layer)](#layered-same-layer)
 - [Layered + human hint (order before)](#layered-order-before)
 - [Layered + human hint (group)](#layered-group)
+- [Rectpacking (shelf packing)](#rectpacking-cards)
+- [Stress (majorization)](#stress-mesh)
 
 ## Layered (default)
 
@@ -120,3 +122,15 @@ Same flowchart. A `orderBefore('no_branch', 'yes_branch')` hint flips the two `d
 A five-task fan-out / fan-in pipeline. A `group(['task_a', 'task_c', 'task_e'])` hint clusters the three odd-named tasks together in their layer — `HintAwareCrossingMinimizer` re-packs the layer after barycenter so group members occupy a contiguous run starting at the leftmost member's slot. Useful for keeping related siblings together when the algorithm has no other reason to favor that arrangement.
 
 ![Layered + human hint (group)](examples/layered-group.svg)
+
+## Rectpacking (shelf packing)
+
+Twelve cards of varied sizes packed into a compact rectangle. Edges are ignored — rectpacking only positions rectangles. Sort by descending area, then place each card on the current shelf if it fits within the target width (derived from `sqrt(totalArea × aspectRatio)`), otherwise start a new shelf below.
+
+![Rectpacking (shelf packing)](examples/rectpacking-cards.svg)
+
+## Stress (majorization)
+
+A small mesh of seven nodes laid out by stress majorization. Each iteration shifts every node toward a position that minimizes Σ wᵢⱼ(‖xᵢ−xⱼ‖−dᵢⱼ)², where dᵢⱼ is the graph-theoretic distance scaled by `desiredEdgeLength` and wᵢⱼ = 1/dᵢⱼ². Adjacent nodes end up close, multi-hop nodes spread out proportionally.
+
+![Stress (majorization)](examples/stress-mesh.svg)

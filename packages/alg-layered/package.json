@@ -36,6 +36,8 @@
     "@filigree/alg-force": "workspace:*",
     "@filigree/alg-mrtree": "workspace:*",
     "@filigree/alg-radial": "workspace:*",
+    "@filigree/alg-rectpacking": "workspace:*",
+    "@filigree/alg-stress": "workspace:*",
     "@filigree/render-svg": "workspace:*"
   }
 }

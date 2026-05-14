@@ -24,6 +24,8 @@ import { createDefaultForceAlgorithm } from '@filigree/alg-force';
 import { createDefaultLayeredAlgorithm } from '@filigree/alg-layered';
 import { createDefaultMrTreeAlgorithm } from '@filigree/alg-mrtree';
 import { createDefaultRadialAlgorithm } from '@filigree/alg-radial';
+import { createDefaultRectPackingAlgorithm } from '@filigree/alg-rectpacking';
+import { createDefaultStressAlgorithm } from '@filigree/alg-stress';
 import {
   DefaultAlgorithmRegistry,
   DefaultLayoutEngine,
@@ -38,7 +40,8 @@ export interface ILayoutOptions {
   /**
    * Layout algorithm id. Built-in choices: `'layered'` (default, top-to-
    * bottom Sugiyama), `'force'` (Fruchterman-Reingold), `'mrtree'`
-   * (Reingold-Tilford), `'radial'` (concentric tree). Anything else
+   * (Reingold-Tilford), `'radial'` (concentric tree), `'rectpacking'`
+   * (shelf packing), `'stress'` (stress majorization). Anything else
    * throws `AlgorithmNotFoundError` unless you've registered your own
    * algorithm via a custom engine.
    */
@@ -54,6 +57,8 @@ const getDefaultEngine = (): ILayoutEngine => {
     registry.register(createDefaultForceAlgorithm());
     registry.register(createDefaultMrTreeAlgorithm());
     registry.register(createDefaultRadialAlgorithm());
+    registry.register(createDefaultRectPackingAlgorithm());
+    registry.register(createDefaultStressAlgorithm());
     defaultEngine = new DefaultLayoutEngine(registry, new DefaultOptionResolver());
   }
   return defaultEngine;

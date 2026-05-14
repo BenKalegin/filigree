@@ -29,6 +29,8 @@
     "@filigree/alg-layered": "workspace:*",
     "@filigree/alg-mrtree": "workspace:*",
     "@filigree/alg-radial": "workspace:*",
+    "@filigree/alg-rectpacking": "workspace:*",
+    "@filigree/alg-stress": "workspace:*",
     "@filigree/core": "workspace:*",
     "@filigree/graph": "workspace:*",
     "@filigree/render-svg": "workspace:*"

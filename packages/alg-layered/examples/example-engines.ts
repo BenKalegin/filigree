@@ -16,6 +16,8 @@
 import { createDefaultForceAlgorithm } from '@filigree/alg-force';
 import { createDefaultMrTreeAlgorithm } from '@filigree/alg-mrtree';
 import { createDefaultRadialAlgorithm } from '@filigree/alg-radial';
+import { createDefaultRectPackingAlgorithm } from '@filigree/alg-rectpacking';
+import { createDefaultStressAlgorithm } from '@filigree/alg-stress';
 import {
   DefaultAlgorithmRegistry,
   DefaultLayoutEngine,
@@ -87,5 +89,17 @@ export const buildMrTreeEngine = (): ILayoutEngine => {
 export const buildRadialEngine = (): ILayoutEngine => {
   const registry = new DefaultAlgorithmRegistry();
   registry.register(createDefaultRadialAlgorithm());
+  return new DefaultLayoutEngine(registry, new DefaultOptionResolver());
+};
+
+export const buildRectPackingEngine = (): ILayoutEngine => {
+  const registry = new DefaultAlgorithmRegistry();
+  registry.register(createDefaultRectPackingAlgorithm());
+  return new DefaultLayoutEngine(registry, new DefaultOptionResolver());
+};
+
+export const buildStressEngine = (): ILayoutEngine => {
+  const registry = new DefaultAlgorithmRegistry();
+  registry.register(createDefaultStressAlgorithm());
   return new DefaultLayoutEngine(registry, new DefaultOptionResolver());
 };

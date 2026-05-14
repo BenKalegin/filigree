@@ -90,6 +90,12 @@ importers:
       '@filigree/alg-radial':
         specifier: workspace:*
         version: link:../alg-radial
+      '@filigree/alg-rectpacking':
+        specifier: workspace:*
+        version: link:../alg-rectpacking
+      '@filigree/alg-stress':
+        specifier: workspace:*
+        version: link:../alg-stress
       '@filigree/render-svg':
         specifier: workspace:*
         version: link:../render-svg
@@ -112,6 +118,24 @@ importers:
         specifier: workspace:*
         version: link:../graph
 
+  packages/alg-rectpacking:
+    dependencies:
+      '@filigree/core':
+        specifier: workspace:*
+        version: link:../core
+      '@filigree/graph':
+        specifier: workspace:*
+        version: link:../graph
+
+  packages/alg-stress:
+    dependencies:
+      '@filigree/core':
+        specifier: workspace:*
+        version: link:../core
+      '@filigree/graph':
+        specifier: workspace:*
+        version: link:../graph
+
   packages/api:
     dependencies:
       '@filigree/alg-force':
@@ -126,6 +150,12 @@ importers:
       '@filigree/alg-radial':
         specifier: workspace:*
         version: link:../alg-radial
+      '@filigree/alg-rectpacking':
+        specifier: workspace:*
+        version: link:../alg-rectpacking
+      '@filigree/alg-stress':
+        specifier: workspace:*
+        version: link:../alg-stress
       '@filigree/core':
         specifier: workspace:*
         version: link:../core

@@ -43,12 +43,15 @@ import {
   TREE,
   UNEVEN_BRANCHES,
 } from './example-fixtures.js';
+import { CARDS, MESH } from './example-fixtures-extra.js';
 import {
   buildForceEngine,
   buildHintAwareLayeredEngine,
   buildLayeredEngine,
   buildMrTreeEngine,
   buildRadialEngine,
+  buildRectPackingEngine,
+  buildStressEngine,
 } from './example-engines.js';
 
 export interface IExample {
@@ -219,5 +222,21 @@ export const EXAMPLES: readonly IExample[] = [
     graph: FAN_OUT,
     buildEngine: buildHintAwareLayeredEngine,
     preLayoutHints: [group(['task_a', 'task_c', 'task_e'])],
+  },
+  {
+    slug: 'rectpacking-cards',
+    title: 'Rectpacking (shelf packing)',
+    description:
+      'Twelve cards of varied sizes packed into a compact rectangle. Edges are ignored — rectpacking only positions rectangles. Sort by descending area, then place each card on the current shelf if it fits within the target width (derived from `sqrt(totalArea × aspectRatio)`), otherwise start a new shelf below.',
+    graph: CARDS,
+    buildEngine: buildRectPackingEngine,
+  },
+  {
+    slug: 'stress-mesh',
+    title: 'Stress (majorization)',
+    description:
+      'A small mesh of seven nodes laid out by stress majorization. Each iteration shifts every node toward a position that minimizes Σ wᵢⱼ(‖xᵢ−xⱼ‖−dᵢⱼ)², where dᵢⱼ is the graph-theoretic distance scaled by `desiredEdgeLength` and wᵢⱼ = 1/dᵢⱼ². Adjacent nodes end up close, multi-hop nodes spread out proportionally.',
+    graph: MESH,
+    buildEngine: buildStressEngine,
   },
 ];

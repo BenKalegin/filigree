@@ -60,3 +60,7 @@ export {
 
 export { LAYERED_ALGORITHM_ID } from '@filigree/alg-layered';
 export { FORCE_ALGORITHM_ID } from '@filigree/alg-force';
+export { MRTREE_ALGORITHM_ID } from '@filigree/alg-mrtree';
+export { RADIAL_ALGORITHM_ID } from '@filigree/alg-radial';
+export { RECTPACKING_ALGORITHM_ID } from '@filigree/alg-rectpacking';
+export { STRESS_ALGORITHM_ID } from '@filigree/alg-stress';
