@@ -32,6 +32,7 @@
 import { type IEdge, type INode, isNode } from '@filigree/graph';
 import { type ILayoutAlgorithm, type ILayoutContext } from '@filigree/core';
 
+import { applyBarnesHutRepulsion } from './barnes-hut.js';
 import { ForceOptions } from './force-options.js';
 
 export const FORCE_ALGORITHM_ID = 'force';
@@ -68,7 +69,7 @@ export class ForceDirectedAlgorithm implements ILayoutAlgorithm {
     let temperature = Math.sqrt(settings.area) * INITIAL_TEMPERATURE_FACTOR;
     for (let i = 0; i < settings.iterations; i++) {
       this.resetDisplacements(displacements);
-      this.addRepulsiveForces(nodes, displacements, settings.idealLength);
+      this.computeRepulsion(nodes, displacements, settings);
       this.addAttractiveForces(context.graph.containedEdges, displacements, settings.idealLength);
       this.applyDisplacements(nodes, displacements, temperature);
       temperature *= COOLING_RATE;
@@ -81,7 +82,21 @@ export class ForceDirectedAlgorithm implements ILayoutAlgorithm {
       iterations: context.options.resolve(ForceOptions.iterations, context.graph),
       area: context.options.resolve(ForceOptions.area, context.graph),
       idealLength: context.options.resolve(ForceOptions.idealLength, context.graph),
+      useBarnesHut: context.options.resolve(ForceOptions.useBarnesHut, context.graph),
+      barnesHutTheta: context.options.resolve(ForceOptions.barnesHutTheta, context.graph),
     };
+  }
+
+  private computeRepulsion(
+    nodes: readonly INode[],
+    displacements: ReadonlyMap<INode, IDisplacement>,
+    settings: IForceSettings,
+  ): void {
+    if (settings.useBarnesHut) {
+      applyBarnesHutRepulsion(nodes, displacements, settings.idealLength, settings.barnesHutTheta);
+      return;
+    }
+    this.addRepulsiveForces(nodes, displacements, settings.idealLength);
   }
 
   private placeInitial(nodes: readonly INode[], idealLength: number): void {
@@ -183,6 +198,8 @@ interface IForceSettings {
   readonly iterations: number;
   readonly area: number;
   readonly idealLength: number;
+  readonly useBarnesHut: boolean;
+  readonly barnesHutTheta: number;
 }
 
 const applyForce = (
