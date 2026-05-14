@@ -49,6 +49,16 @@ const applyExampleHints = (graph: ElkGraph, hints: readonly IHint[] | undefined)
   applyHints(graph, hints);
 };
 
+/**
+ * Converts a heading title to a GitHub-compatible anchor slug.
+ * GitHub's algorithm: lowercase, replace spaces with hyphens, remove most punctuation.
+ */
+const toAnchorSlug = (title: string): string =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-');
+
 const generateMarkdown = (examples: readonly IExample[]): string => {
   const intro = [
     '# Layout examples',
@@ -61,11 +71,11 @@ const generateMarkdown = (examples: readonly IExample[]): string => {
     '',
     '## Index',
     '',
-    ...examples.map((e) => `- [${e.title}](#${e.slug})`),
+    ...examples.map((e) => `- [${e.title}](#${toAnchorSlug(e.title)})`),
     '',
   ];
   const sections = examples.map(
-    (e) => `## ${e.title} {#${e.slug}}\n\n${e.description}\n\n![${e.title}](examples/${e.slug}.svg)\n`,
+    (e) => `## ${e.title}\n\n${e.description}\n\n![${e.title}](examples/${e.slug}.svg)\n`,
   );
   return [...intro, ...sections].join('\n');
 };

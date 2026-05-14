@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="224" height="424" viewBox="0 0 224 424">
 <defs><marker id="elk-ts-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#374151"/></marker></defs>
+<rect x="0" y="0" width="224" height="424" fill="#f8f9fa"/>
 <g transform="translate(12, 12)">
 <g transform="translate(70, 20)">
 <rect x="0" y="0" width="60" height="30" fill="#ffffff" stroke="#1f2937" stroke-width="1.5" rx="4"/>
