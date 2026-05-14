@@ -12,7 +12,7 @@
  * (same layer, left-of, layer-after), not pixel coordinates.
  */
 
-import { describe, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
   DefaultAlgorithmRegistry,
   DefaultLayoutEngine,
@@ -20,7 +20,7 @@ import {
   type ILayoutEngine,
 } from '@filigree/core';
 import { type ElkNode, fromJson, type IJsonGraph } from '@filigree/graph';
-import { attachHints, orderBefore, sameLayer } from '@filigree/hints';
+import { attachHints, group, orderBefore, sameLayer } from '@filigree/hints';
 
 import { createDefaultLayeredAlgorithm } from '../src/composition.js';
 import {
@@ -182,6 +182,63 @@ describe('HintAwareCrossingMinimizer: OrderBefore hint', () => {
     expectAllPositioned(graph.children);
     expectLayerAfter(findById(graph, 'b'), findById(graph, 'a'));
     expectLayerAfter(findById(graph, 'c'), findById(graph, 'b'));
+  });
+});
+
+describe('HintAwareCrossingMinimizer: Group hint', () => {
+  // A parent with four children. Without hints, barycenter keeps them in
+  // input order [c1, c2, c3, c4]. Group([c2, c4]) clusters them at c2's
+  // leftmost index ⇒ layer becomes [c1, c2, c4, c3].
+  it('clusters group members contiguously at the leftmost member index', async () => {
+    const graph = fromJson({
+      id: 'root',
+      children: [
+        { id: 'parent', width: 30, height: 30 },
+        { id: 'c1', width: 30, height: 30 },
+        { id: 'c2', width: 30, height: 30 },
+        { id: 'c3', width: 30, height: 30 },
+        { id: 'c4', width: 30, height: 30 },
+      ],
+      edges: [
+        { id: 'e1', sources: ['parent'], targets: ['c1'] },
+        { id: 'e2', sources: ['parent'], targets: ['c2'] },
+        { id: 'e3', sources: ['parent'], targets: ['c3'] },
+        { id: 'e4', sources: ['parent'], targets: ['c4'] },
+      ],
+    } satisfies IJsonGraph);
+
+    attachHints(graph, [group(['c2', 'c4'])]);
+
+    await buildEngine().layout(graph);
+
+    const c1 = findById(graph, 'c1');
+    const c2 = findById(graph, 'c2');
+    const c3 = findById(graph, 'c3');
+    const c4 = findById(graph, 'c4');
+    // c2 and c4 are now adjacent (no other node between them).
+    expectLeftOf(c2, c4);
+    const xs = [c1.x, c3.x];
+    const gapBetweenC2andC4 = c4.x - c2.x;
+    for (const x of xs) {
+      const isBetween = x > c2.x && x < c4.x;
+      expect(isBetween, `node x=${String(x)} should not sit between c2 and c4`).toBe(false);
+    }
+    expect(gapBetweenC2andC4).toBeGreaterThan(0);
+  });
+
+  it('ignores Group when fewer than two members exist on the same layer', async () => {
+    const graph = fromJson({
+      id: 'root',
+      children: [
+        { id: 'a', width: 30, height: 30 },
+        { id: 'b', width: 30, height: 30 },
+      ],
+      edges: [{ id: 'e1', sources: ['a'], targets: ['b'] }],
+    } satisfies IJsonGraph);
+
+    attachHints(graph, [group(['a', 'b'])]);
+    await buildEngine().layout(graph);
+    expectAllPositioned(graph.children);
   });
 });
 

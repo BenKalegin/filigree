@@ -15,7 +15,7 @@
 
 import { type ILayoutEngine } from '@filigree/core';
 import { type IJsonGraph } from '@filigree/graph';
-import { type IHint, orderBefore, pinPosition, sameLayer } from '@filigree/hints';
+import { group, type IHint, orderBefore, pinPosition, sameLayer } from '@filigree/hints';
 import { type IRenderOptions } from '@filigree/render-svg';
 
 import {
@@ -27,6 +27,7 @@ import {
   BIDIRECTIONAL,
   COMPOUND,
   CYCLIC,
+  FAN_OUT,
   FLOWCHART,
   ORGANIC,
   RADIAL_TREE,
@@ -174,5 +175,14 @@ export const EXAMPLES: readonly IExample[] = [
     graph: FLOWCHART,
     buildEngine: buildHintAwareLayeredEngine,
     preLayoutHints: [orderBefore('no_branch', 'yes_branch')],
+  },
+  {
+    slug: 'layered-group',
+    title: 'Layered + human hint (group)',
+    description:
+      "A five-task fan-out / fan-in pipeline. A `group(['task_a', 'task_c', 'task_e'])` hint clusters the three odd-named tasks together in their layer — `HintAwareCrossingMinimizer` re-packs the layer after barycenter so group members occupy a contiguous run starting at the leftmost member's slot. Useful for keeping related siblings together when the algorithm has no other reason to favor that arrangement.",
+    graph: FAN_OUT,
+    buildEngine: buildHintAwareLayeredEngine,
+    preLayoutHints: [group(['task_a', 'task_c', 'task_e'])],
   },
 ];

@@ -16,12 +16,12 @@
  *   - **Post-layout** — `PinPosition`. Applied by `applyHints(graph, …)`
  *     *after* the algorithm finishes; overrides the algorithm's chosen
  *     coordinates for the named node.
- *   - **In-layout** — `SameLayer`, `OrderBefore`. Honored by the layered
- *     algorithm's decorators during the appropriate phase. Attach them
- *     to the graph via `attachHints(graph, [...])` and the decorated
+ *   - **In-layout** — `SameLayer`, `OrderBefore`, `Group`. Honored by the
+ *     layered algorithm's decorators during the appropriate phase. Attach
+ *     them to the graph via `attachHints(graph, [...])` and the decorated
  *     pipeline reads them automatically.
  *
- * Planned: `Group`, `Focus`.
+ * Planned: `Focus`.
  */
 
 export { HintKind } from './hint-kind.js';
@@ -29,5 +29,6 @@ export type { IHint } from './i-hint.js';
 export { type IPinPositionHint, pinPosition } from './pin-position-hint.js';
 export { type ISameLayerHint, sameLayer } from './same-layer-hint.js';
 export { type IOrderBeforeHint, orderBefore } from './order-before-hint.js';
+export { type IGroupHint, group } from './group-hint.js';
 export { attachHints, getHints } from './hints-option.js';
 export { applyHints } from './apply-hints.js';

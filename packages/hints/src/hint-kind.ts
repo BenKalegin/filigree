@@ -22,4 +22,5 @@ export enum HintKind {
   PinPosition = 'pin-position',
   SameLayer = 'same-layer',
   OrderBefore = 'order-before',
+  Group = 'group',
 }

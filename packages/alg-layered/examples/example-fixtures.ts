@@ -177,6 +177,34 @@ export const RADIAL_TREE: IJsonGraph = {
   ],
 };
 
+// Fan-out + fan-in. A dispatcher feeds five tasks, every task reports to
+// a single collector. Useful for showing a `Group` hint clustering a
+// subset of the tasks together.
+export const FAN_OUT: IJsonGraph = {
+  id: 'root',
+  children: [
+    { id: 'dispatcher', width: 100, height: 40, labels: [{ text: 'Dispatcher' }] },
+    { id: 'task_a', width: 70, height: 30, labels: [{ text: 'Task A' }] },
+    { id: 'task_b', width: 70, height: 30, labels: [{ text: 'Task B' }] },
+    { id: 'task_c', width: 70, height: 30, labels: [{ text: 'Task C' }] },
+    { id: 'task_d', width: 70, height: 30, labels: [{ text: 'Task D' }] },
+    { id: 'task_e', width: 70, height: 30, labels: [{ text: 'Task E' }] },
+    { id: 'collector', width: 100, height: 40, labels: [{ text: 'Collector' }] },
+  ],
+  edges: [
+    { id: 'd_a', sources: ['dispatcher'], targets: ['task_a'] },
+    { id: 'd_b', sources: ['dispatcher'], targets: ['task_b'] },
+    { id: 'd_c', sources: ['dispatcher'], targets: ['task_c'] },
+    { id: 'd_d', sources: ['dispatcher'], targets: ['task_d'] },
+    { id: 'd_e', sources: ['dispatcher'], targets: ['task_e'] },
+    { id: 'a_c', sources: ['task_a'], targets: ['collector'] },
+    { id: 'b_c', sources: ['task_b'], targets: ['collector'] },
+    { id: 'c_c', sources: ['task_c'], targets: ['collector'] },
+    { id: 'd_col', sources: ['task_d'], targets: ['collector'] },
+    { id: 'e_c', sources: ['task_e'], targets: ['collector'] },
+  ],
+};
+
 // Two branches of unequal length sharing a root. Without hints the right
 // branch's leaf lands one layer below the left branch's leaf. A SameLayer
 // hint can pull them into the same row.

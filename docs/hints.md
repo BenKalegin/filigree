@@ -64,9 +64,25 @@ await engine.layout(graph);
 - **Conflict resolution:** multiple `OrderBefore` hints on the same layer are applied left-to-right; the last hint wins.
 - **Ignored by:** force, radial, mrtree.
 
-### `Group` — reserved
+### `Group` — in-layout (layered only)
 
-Listed in `HintKind` for forward compatibility, no implementation yet. `Focus` is on the same roadmap.
+Keep a set of nodes visually clustered.
+
+```typescript
+import { attachHints, group } from '@filigree/hints';
+
+attachHints(graph, [group(['task_a', 'task_c', 'task_e'])]);
+await engine.layout(graph);
+```
+
+- **Honored by:** `HintAwareCrossingMinimizer`. After the minimizer runs, for each layer that holds two or more group members, the members are packed into a contiguous run starting at the leftmost member's current index. Non-member ordering is preserved.
+- **Members on different layers** stay where they are — group is not promoted to a same-layer constraint. Combine with `SameLayer` if you also want a single row.
+- **Interaction with `OrderBefore`:** `Group` is applied first, `OrderBefore` second; explicit pair ordering overrides clustering.
+- **Ignored by:** force, radial, mrtree.
+
+### `Focus` — reserved
+
+Listed on the roadmap for forward compatibility; no implementation yet.
 
 ## Combining hints
 
@@ -121,5 +137,5 @@ Open/closed: add a kind without modifying any existing applicator.
 
 - `packages/hints/` — hint definitions and the post-layout dispatcher.
 - `packages/alg-layered/src/phases/layer-assignment/hint-aware-layerer.ts` — `SameLayer` decorator.
-- `packages/alg-layered/src/phases/crossing-minimization/hint-aware-crossing-minimizer.ts` — `OrderBefore` decorator.
+- `packages/alg-layered/src/phases/crossing-minimization/hint-aware-crossing-minimizer.ts` — `OrderBefore` + `Group` decorator.
 - `packages/alg-layered/src/composition.ts` — where the decorators wrap the default pipeline.
