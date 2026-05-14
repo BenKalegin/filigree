@@ -12,9 +12,17 @@
  * algorithms that know how to honor a specific `HintKind` filter the list
  * by kind and apply each one. Algorithms that don't recognize a hint kind
  * simply ignore it — hints are soft constraints, not hard preconditions.
+ *
+ * Hierarchical inheritance: hints attached to a compound's ancestor are
+ * visible to sub-layouts. `getHints(node)` aggregates the hints attached
+ * to `node` and every ancestor up to the root, which lets a user attach
+ * hints once at the root and have them apply to whichever sub-layout
+ * happens to contain the referenced ids. Hints that reference unknown
+ * ids in a given scope are silently ignored (existing behavior of every
+ * hint applicator), so over-inheriting is safe.
  */
 
-import { defineProperty, type IPropertyHolder } from '@filigree/graph';
+import { defineProperty, type INode, type IPropertyHolder } from '@filigree/graph';
 
 import { type IHint } from './i-hint.js';
 
@@ -30,6 +38,12 @@ export const attachHints = (holder: IPropertyHolder, hints: readonly IHint[]): v
   holder.setProperty(HintsProperty, hints);
 };
 
-export const getHints = (holder: IPropertyHolder): readonly IHint[] => {
-  return holder.getProperty(HintsProperty);
+export const getHints = (node: INode): readonly IHint[] => {
+  const aggregated: IHint[] = [];
+  let current: INode | null = node;
+  while (current !== null) {
+    aggregated.push(...current.getProperty(HintsProperty));
+    current = current.parent;
+  }
+  return aggregated;
 };

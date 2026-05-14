@@ -13,9 +13,10 @@ import {
   type ILayoutEngine,
 } from '@filigree/core';
 import { type ElkNode, fromJson, type IJsonGraph } from '@filigree/graph';
+import { attachHints, orderBefore } from '@filigree/hints';
 
 import { createDefaultLayeredAlgorithm } from '../src/composition.js';
-import { expectAllPositioned, expectLayerAfter } from './layout-assertions.js';
+import { expectAllPositioned, expectLayerAfter, expectLeftOf } from './layout-assertions.js';
 
 const buildEngine = (): ILayoutEngine => {
   const registry = new DefaultAlgorithmRegistry();
@@ -78,6 +79,36 @@ describe('hierarchical layout (compound nodes)', () => {
     // Outer layout: sibling is below group.
     const sibling = findById(graph, 'sibling');
     expectLayerAfter(sibling, group);
+  });
+
+  // Hints attached to the root must reach sub-layouts so a host can write
+  // them once at the top level. `getHints` walks the parent chain.
+  it('honors a hint attached at the root inside a compound sub-layout', async () => {
+    const graph = fromJson({
+      id: 'root',
+      children: [
+        {
+          id: 'group',
+          children: [
+            { id: 'parent', width: 30, height: 30 },
+            { id: 's1', width: 30, height: 30 },
+            { id: 's2', width: 30, height: 30 },
+          ],
+          edges: [
+            { id: 'p-s1', sources: ['parent'], targets: ['s1'] },
+            { id: 'p-s2', sources: ['parent'], targets: ['s2'] },
+          ],
+        },
+      ],
+    } satisfies IJsonGraph);
+    // Hint attached at the *root*, not the compound — sub-layout still sees it.
+    attachHints(graph, [orderBefore('s2', 's1')]);
+    await buildEngine().layout(graph);
+    const group = findById(graph, 'group');
+    const s1 = findById(group, 's1');
+    const s2 = findById(group, 's2');
+    // OrderBefore(s2, s1) ⇒ s2 sits left of s1 inside the group sub-layout.
+    expectLeftOf(s2, s1);
   });
 
   it('leaves leaf nodes untouched by the recursion', async () => {
