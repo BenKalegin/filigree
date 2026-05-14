@@ -13,6 +13,8 @@ export { renderSvg } from './render-svg.js';
 export { SvgRenderer } from './svg-renderer.js';
 export {
   type IRenderOptions,
+  type INodeStyleOverride,
+  type IEdgeStyleOverride,
   DEFAULT_RENDER_OPTIONS,
   mergeRenderOptions,
 } from './render-options.js';

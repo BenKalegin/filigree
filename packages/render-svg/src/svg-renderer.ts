@@ -13,10 +13,11 @@
  * coordinate system, exactly as ELK lays them out, so we just push a
  * translate for each level.
  *
- * No edge clipping, no anchor inference at port sides — the renderer draws
- * straight from the source's bottom-center to the first bend point (or to
- * the target's top-center if no bends) and on to the target. Good enough for
- * inspection; a router-aware renderer is a later iteration.
+ * Styling is layered: a set of global defaults from `IRenderOptions` defines
+ * fills/strokes/widths, and an optional per-element callback (`nodeStyle`
+ * / `edgeStyle`) returns overrides for individual elements. This is enough
+ * to drive both "single-theme" rendering and data-driven (e.g. node-kind
+ * specific) styling without changing the renderer.
  */
 
 import {
@@ -30,17 +31,30 @@ import {
 } from '@filigree/graph';
 
 import { escapeXml } from './escape-xml.js';
-import { type IRenderOptions } from './render-options.js';
+import {
+  type IEdgeStyleOverride,
+  type INodeStyleOverride,
+  type IRenderOptions,
+} from './render-options.js';
 
 const ARROW_MARKER_ID = 'elk-ts-arrow';
-// SVG `<text>` is anchored at the baseline; nudge down by ~¼ of the font size
-// so the visual centerline of the glyphs lines up with the node's y center.
 const TEXT_BASELINE_NUDGE_FACTOR = 0.25;
-// Rough character-width / font-size ratio for proportional fonts. Used to
-// estimate a label's pixel width when emitting a background rect; SVG has
-// no built-in measurement and a 10% overestimate is harmless.
 const AVERAGE_CHAR_WIDTH_RATIO = 0.6;
 const LABEL_BG_HORIZONTAL_PADDING = 4;
+
+interface IResolvedNodeStyle {
+  readonly fill: string;
+  readonly stroke: string;
+  readonly strokeWidth: number;
+  readonly cornerRadius: number;
+  readonly strokeDasharray: string | undefined;
+}
+
+interface IResolvedEdgeStyle {
+  readonly stroke: string;
+  readonly strokeWidth: number;
+  readonly strokeDasharray: string | undefined;
+}
 
 export class SvgRenderer {
   constructor(private readonly options: IRenderOptions) {}
@@ -82,14 +96,28 @@ export class SvgRenderer {
   }
 
   private renderNode(node: INode): string {
-    const opts = this.options;
     const open = `<g transform="translate(${String(node.x)}, ${String(node.y)})">`;
+    const style = this.resolveNodeStyle(node);
     const rect =
       `<rect x="0" y="0" width="${String(node.width)}" height="${String(node.height)}" ` +
-      `fill="${opts.nodeFill}" stroke="${opts.nodeStroke}" stroke-width="${String(opts.nodeStrokeWidth)}" rx="4"/>`;
+      `fill="${style.fill}" stroke="${style.stroke}" stroke-width="${String(style.strokeWidth)}" ` +
+      `rx="${String(style.cornerRadius)}"${dasharrayAttr(style.strokeDasharray)}/>`;
     const labels = node.labels.map((l) => this.renderNodeLabel(l.text, node)).join('');
     const inner = this.renderNodeContents(node);
     return [open, rect, labels, inner, '</g>'].filter((s) => s.length > 0).join('\n');
+  }
+
+  private resolveNodeStyle(node: INode): IResolvedNodeStyle {
+    const opts = this.options;
+    const base: IResolvedNodeStyle = {
+      fill: opts.nodeFill,
+      stroke: opts.nodeStroke,
+      strokeWidth: opts.nodeStrokeWidth,
+      cornerRadius: opts.nodeCornerRadius,
+      strokeDasharray: undefined,
+    };
+    const override = opts.nodeStyle?.(node);
+    return mergeNodeStyle(base, override);
   }
 
   private renderNodeLabel(text: string, node: INode): string {
@@ -106,9 +134,7 @@ export class SvgRenderer {
 
   private renderLabelBackground(text: string, cx: number, cy: number): string {
     const opts = this.options;
-    if (opts.labelBackground === undefined) {
-      return '';
-    }
+    if (opts.labelBackground === undefined) return '';
     const textWidth = text.length * opts.fontSize * AVERAGE_CHAR_WIDTH_RATIO;
     const rectW = textWidth + LABEL_BG_HORIZONTAL_PADDING * 2;
     const rectH = opts.fontSize + LABEL_BG_HORIZONTAL_PADDING;
@@ -128,23 +154,31 @@ export class SvgRenderer {
   private labelY(node: INode): number {
     const opts = this.options;
     const baselineNudge = opts.fontSize * TEXT_BASELINE_NUDGE_FACTOR;
-    if (node.children.length === 0) {
-      return node.height / 2 + baselineNudge;
-    }
+    if (node.children.length === 0) return node.height / 2 + baselineNudge;
     return opts.fontSize + baselineNudge;
   }
 
   private renderEdge(edge: IEdge, container: INode): string {
-    const opts = this.options;
     const points = this.computeEdgePoints(edge, container);
-    if (points === undefined) {
-      return '';
-    }
+    if (points === undefined) return '';
+    const style = this.resolveEdgeStyle(edge);
     const attr = points.map((p) => `${String(p.x)},${String(p.y)}`).join(' ');
     return (
-      `<polyline points="${attr}" fill="none" stroke="${opts.edgeStroke}" ` +
-      `stroke-width="${String(opts.edgeStrokeWidth)}" marker-end="url(#${ARROW_MARKER_ID})"/>`
+      `<polyline points="${attr}" fill="none" stroke="${style.stroke}" ` +
+      `stroke-width="${String(style.strokeWidth)}"${dasharrayAttr(style.strokeDasharray)} ` +
+      `marker-end="url(#${ARROW_MARKER_ID})"/>`
     );
+  }
+
+  private resolveEdgeStyle(edge: IEdge): IResolvedEdgeStyle {
+    const opts = this.options;
+    const base: IResolvedEdgeStyle = {
+      stroke: opts.edgeStroke,
+      strokeWidth: opts.edgeStrokeWidth,
+      strokeDasharray: opts.edgeStrokeDasharray,
+    };
+    const override = opts.edgeStyle?.(edge);
+    return mergeEdgeStyle(base, override);
   }
 
   private computeEdgePoints(
@@ -152,9 +186,7 @@ export class SvgRenderer {
     container: INode,
   ): readonly { x: number; y: number }[] | undefined {
     const resolved = resolveSimpleEdge(edge, container);
-    if (resolved === undefined) {
-      return undefined;
-    }
+    if (resolved === undefined) return undefined;
     const goingDown = resolved.sourceOwner.y <= resolved.targetOwner.y;
     const sourceSide = goingDown ? EdgeAnchorSide.Bottom : EdgeAnchorSide.Top;
     const targetSide = goingDown ? EdgeAnchorSide.Top : EdgeAnchorSide.Bottom;
@@ -174,23 +206,46 @@ interface IResolvedEdge {
 const resolveSimpleEdge = (edge: IEdge, container: INode): IResolvedEdge | undefined => {
   const [sourceEndpoint, ...moreSources] = edge.sources;
   const [targetEndpoint, ...moreTargets] = edge.targets;
-  if (sourceEndpoint === undefined || targetEndpoint === undefined) {
-    return undefined;
-  }
-  if (moreSources.length > 0 || moreTargets.length > 0) {
-    return undefined;
-  }
+  if (sourceEndpoint === undefined || targetEndpoint === undefined) return undefined;
+  if (moreSources.length > 0 || moreTargets.length > 0) return undefined;
   const sourceOwner = resolveOwner(sourceEndpoint, container);
   const targetOwner = resolveOwner(targetEndpoint, container);
-  if (sourceOwner === undefined || targetOwner === undefined) {
-    return undefined;
-  }
+  if (sourceOwner === undefined || targetOwner === undefined) return undefined;
   return { sourceEndpoint, sourceOwner, targetEndpoint, targetOwner };
 };
 
 const resolveOwner = (endpoint: IEdgeEndpoint, container: INode): INode | undefined => {
-  if (isNode(endpoint)) {
-    return endpoint;
-  }
+  if (isNode(endpoint)) return endpoint;
   return container.children.find((child) => child.ports.some((p) => p.id === endpoint.id));
+};
+
+const dasharrayAttr = (value: string | undefined): string => {
+  if (value === undefined) return '';
+  return ` stroke-dasharray="${escapeXml(value)}"`;
+};
+
+const mergeNodeStyle = (
+  base: IResolvedNodeStyle,
+  override: INodeStyleOverride | undefined,
+): IResolvedNodeStyle => {
+  if (override === undefined) return base;
+  return {
+    fill: override.fill ?? base.fill,
+    stroke: override.stroke ?? base.stroke,
+    strokeWidth: override.strokeWidth ?? base.strokeWidth,
+    cornerRadius: override.cornerRadius ?? base.cornerRadius,
+    strokeDasharray: override.strokeDasharray ?? base.strokeDasharray,
+  };
+};
+
+const mergeEdgeStyle = (
+  base: IResolvedEdgeStyle,
+  override: IEdgeStyleOverride | undefined,
+): IResolvedEdgeStyle => {
+  if (override === undefined) return base;
+  return {
+    stroke: override.stroke ?? base.stroke,
+    strokeWidth: override.strokeWidth ?? base.strokeWidth,
+    strokeDasharray: override.strokeDasharray ?? base.strokeDasharray,
+  };
 };

@@ -14,9 +14,17 @@
  */
 
 import { type ILayoutEngine } from '@filigree/core';
-import { type IJsonGraph } from '@filigree/graph';
+import {
+  type IEdge,
+  type IJsonGraph,
+  type INode,
+} from '@filigree/graph';
 import { group, type IHint, orderBefore, pinPosition, sameLayer } from '@filigree/hints';
-import { type IRenderOptions } from '@filigree/render-svg';
+import {
+  type IEdgeStyleOverride,
+  type INodeStyleOverride,
+  type IRenderOptions,
+} from '@filigree/render-svg';
 
 import {
   BalancedNodePlacer,
@@ -58,6 +66,20 @@ export interface IExample {
 
 const PINNED_X = 200;
 const PINNED_Y = 200;
+
+const styledNodes = (node: INode): INodeStyleOverride | undefined => {
+  if (node.id === 'decision') return { fill: '#fef3c7', stroke: '#b45309', strokeWidth: 2 };
+  if (node.id === 'end') return { fill: '#dcfce7', stroke: '#15803d', strokeWidth: 2 };
+  return undefined;
+};
+
+const styledEdges = (edge: IEdge): IEdgeStyleOverride | undefined => {
+  const targetId = edge.targets[0]?.id ?? '';
+  if (targetId === 'no_branch' || targetId === 'process_no') {
+    return { stroke: '#dc2626', strokeDasharray: '5 3' };
+  }
+  return undefined;
+};
 
 export const EXAMPLES: readonly IExample[] = [
   {
@@ -124,6 +146,19 @@ export const EXAMPLES: readonly IExample[] = [
     graph: FLOWCHART,
     buildEngine: () => buildLayeredEngine(new BrandesKopfNodePlacer()),
     renderOptions: { labelBackground: '#fef3c7' },
+  },
+  {
+    slug: 'layered-styled',
+    title: 'Render polish — corner radius, dashed edges, per-element theming',
+    description:
+      "Same flowchart, rendered with `nodeCornerRadius: 10` plus per-element `nodeStyle` / `edgeStyle` callbacks. The `decision` node draws in a warning palette, the `end` node in a success palette, and any edge whose target id starts with `no_` or `process_no` draws dashed to visually mark the error branch. The base style still applies to nodes/edges the callbacks don't touch.",
+    graph: FLOWCHART,
+    buildEngine: () => buildLayeredEngine(new BrandesKopfNodePlacer()),
+    renderOptions: {
+      nodeCornerRadius: 10,
+      nodeStyle: styledNodes,
+      edgeStyle: styledEdges,
+    },
   },
   {
     slug: 'mrtree-project',

@@ -16,6 +16,7 @@ Regenerate with `pnpm --filter @filigree/alg-layered generate-docs`.
 - [Parallel edges (bidirectional pair)](#layered-bidirectional)
 - [Compound with custom padding (elk.padding = 4)](#layered-compound-tight)
 - [Flowchart with label backgrounds](#layered-themed)
+- [Render polish — corner radius, dashed edges, per-element theming](#layered-styled)
 - [Mr.Tree (tree layout)](#mrtree-project)
 - [Radial (concentric tree)](#radial-architecture)
 - [Force-directed](#force-organic)
@@ -71,6 +72,12 @@ Same compound topology as above but the root sets `elk.padding: 4`. Inheritance 
 Same flowchart, rendered with `labelBackground: "#fef3c7"`. The renderer emits a backing rect behind every label so wider text remains readable over busy edges or narrow nodes.
 
 ![Flowchart with label backgrounds](examples/layered-themed.svg)
+
+## Render polish — corner radius, dashed edges, per-element theming
+
+Same flowchart, rendered with `nodeCornerRadius: 10` plus per-element `nodeStyle` / `edgeStyle` callbacks. The `decision` node draws in a warning palette, the `end` node in a success palette, and any edge whose target id starts with `no_` or `process_no` draws dashed to visually mark the error branch. The base style still applies to nodes/edges the callbacks don't touch.
+
+![Render polish — corner radius, dashed edges, per-element theming](examples/layered-styled.svg)
 
 ## Mr.Tree (tree layout)
 

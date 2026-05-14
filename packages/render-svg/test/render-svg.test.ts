@@ -21,6 +21,8 @@ const layoutMockSimple = (): IJsonGraph => ({
   edges: [{ id: 'e', sources: ['a'], targets: ['b'] }],
 });
 
+const noOverride = (): undefined => undefined;
+
 describe('renderSvg', () => {
   it('emits a valid <svg> root element with width / height / viewBox', () => {
     const graph = fromJson(layoutMockSimple());
@@ -97,5 +99,60 @@ describe('renderSvg', () => {
     const svg = renderSvg(graph, { nodeStroke: '#ff0000', edgeStroke: '#00ff00' });
     expect(svg).toContain('stroke="#ff0000"');
     expect(svg).toContain('stroke="#00ff00"');
+  });
+
+  it('honors nodeCornerRadius', () => {
+    const graph = fromJson(layoutMockSimple());
+    const svg = renderSvg(graph, { nodeCornerRadius: 0 });
+    expect(svg).toContain('rx="0"');
+    expect(svg).not.toContain('rx="4"');
+  });
+
+  it('applies edgeStrokeDasharray to every edge by default', () => {
+    const graph = fromJson(layoutMockSimple());
+    const svg = renderSvg(graph, { edgeStrokeDasharray: '4 3' });
+    expect(svg).toContain('stroke-dasharray="4 3"');
+  });
+
+  it('emits no stroke-dasharray when the option is undefined', () => {
+    const graph = fromJson(layoutMockSimple());
+    const svg = renderSvg(graph);
+    expect(svg).not.toContain('stroke-dasharray');
+  });
+
+  it('per-node nodeStyle callback overrides fill / cornerRadius / dash', () => {
+    const graph = fromJson(layoutMockSimple());
+    const svg = renderSvg(graph, {
+      nodeStyle: (node) =>
+        node.id === 'a'
+          ? { fill: '#fef3c7', cornerRadius: 12, strokeDasharray: '2 2' }
+          : undefined,
+    });
+    expect(svg).toContain('fill="#fef3c7"');
+    expect(svg).toContain('rx="12"');
+    // The dasharray applies only to node 'a' — node 'b' stays default (no dash).
+    const aRect = /<rect [^>]*fill="#fef3c7"[^>]*\/>/u.exec(svg)?.[0] ?? '';
+    expect(aRect).toContain('stroke-dasharray="2 2"');
+  });
+
+  it('per-edge edgeStyle callback overrides stroke + dasharray', () => {
+    const graph = fromJson(layoutMockSimple());
+    const svg = renderSvg(graph, {
+      edgeStyle: (edge) =>
+        edge.id === 'e' ? { stroke: '#dc2626', strokeDasharray: '6 2' } : undefined,
+    });
+    expect(svg).toContain('stroke="#dc2626"');
+    expect(svg).toContain('stroke-dasharray="6 2"');
+  });
+
+  it('returning undefined from a style callback falls back to defaults', () => {
+    const graph = fromJson(layoutMockSimple());
+    const svg = renderSvg(graph, {
+      nodeStyle: noOverride,
+      edgeStyle: noOverride,
+    });
+    // No overrides at all ⇒ default node fill is present.
+    expect(svg).toContain('fill="#ffffff"');
+    expect(svg).toContain('rx="4"');
   });
 });

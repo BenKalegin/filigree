@@ -51,7 +51,12 @@ export {
   type IOptionResolver,
 } from '@filigree/core';
 
-export { renderSvg, type IRenderOptions } from '@filigree/render-svg';
+export {
+  renderSvg,
+  type IRenderOptions,
+  type INodeStyleOverride,
+  type IEdgeStyleOverride,
+} from '@filigree/render-svg';
 
 export { LAYERED_ALGORITHM_ID } from '@filigree/alg-layered';
 export { FORCE_ALGORITHM_ID } from '@filigree/alg-force';
