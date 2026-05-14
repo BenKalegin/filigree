@@ -1,5 +1,7 @@
 # filigree
 
+[![CI](https://github.com/BenKalegin/filigree/actions/workflows/ci.yml/badge.svg)](https://github.com/BenKalegin/filigree/actions/workflows/ci.yml)
+
 A pure TypeScript port of the [Eclipse Layout Kernel (ELK)](https://eclipse.dev/elk/) — a collection of graph layout algorithms originally developed in Java at Kiel University — extended with a first-class human hint system.
 
 > **This is a derivative work.** All credit for the algorithms, architecture, and decades of research goes to the ELK project at the Eclipse Foundation and its predecessors (KIELER, KIML, KLay) at Kiel University. See [`NOTICE`](./NOTICE) for full attribution.
@@ -113,12 +115,29 @@ If you need a non-EPL implementation, a clean-room rewrite from ELK's published 
 
 ## Development
 
-- `pnpm test` — vitest test suite (110+ unit, integration, and property-based tests).
+- `pnpm test` — vitest test suite (120+ unit, integration, and property-based tests).
 - `pnpm typecheck` — strict TS check across all packages plus benchmarks.
 - `pnpm lint` — ESLint with the conventions enforced in [`docs/conventions.md`](./docs/conventions.md).
 - `pnpm bench` — performance benchmarks (vitest `bench`) across layered / force / stress / mrtree / radial / rectpacking. Fixtures live in [`benchmarks/`](./benchmarks/).
 - `pnpm --filter @filigree/alg-layered generate-docs` — regenerate `docs/layout-examples.md` + the SVGs it references.
 - `pnpm build` — emit `dist/` per package via `tsc -p tsconfig.build.json`.
+
+## Releasing
+
+Each workspace package has `publishConfig.access: "public"` and a `publishConfig` block that swaps `main` / `types` / `exports` to `./dist/...` at publish time. Workspace cross-imports keep reading from `src/` during development.
+
+To publish the workspace to npm:
+
+```bash
+pnpm install
+pnpm build              # emit dist/ for every package
+pnpm test               # verify
+# Remove `"private": true` from each package.json the first time:
+#   pnpm -r --no-private exec npm pkg delete private
+pnpm publish -r --access public
+```
+
+The CHANGELOG is at [`CHANGELOG.md`](./CHANGELOG.md). Bump versions across the workspace with `pnpm -r exec npm version <patch|minor|major> --no-git-tag-version` before publishing.
 
 ## Contributing
 
