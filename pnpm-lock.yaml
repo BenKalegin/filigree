@@ -54,6 +54,33 @@ importers:
         specifier: ^2.1.0
         version: 2.1.9(@types/node@22.19.19)
 
+  benchmarks:
+    dependencies:
+      '@filigree/alg-force':
+        specifier: workspace:*
+        version: link:../packages/alg-force
+      '@filigree/alg-layered':
+        specifier: workspace:*
+        version: link:../packages/alg-layered
+      '@filigree/alg-mrtree':
+        specifier: workspace:*
+        version: link:../packages/alg-mrtree
+      '@filigree/alg-radial':
+        specifier: workspace:*
+        version: link:../packages/alg-radial
+      '@filigree/alg-rectpacking':
+        specifier: workspace:*
+        version: link:../packages/alg-rectpacking
+      '@filigree/alg-stress':
+        specifier: workspace:*
+        version: link:../packages/alg-stress
+      '@filigree/core':
+        specifier: workspace:*
+        version: link:../packages/core
+      '@filigree/graph':
+        specifier: workspace:*
+        version: link:../packages/graph
+
   packages/alg-force:
     dependencies:
       '@filigree/core':

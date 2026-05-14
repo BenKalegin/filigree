@@ -111,6 +111,15 @@ The input format follows the [ELK JSON format](https://eclipse.dev/elk/documenta
 
 If you need a non-EPL implementation, a clean-room rewrite from ELK's published papers (starting with [arXiv:2311.00533](https://arxiv.org/abs/2311.00533)) is the only legal path.
 
+## Development
+
+- `pnpm test` — vitest test suite (110+ unit, integration, and property-based tests).
+- `pnpm typecheck` — strict TS check across all packages plus benchmarks.
+- `pnpm lint` — ESLint with the conventions enforced in [`docs/conventions.md`](./docs/conventions.md).
+- `pnpm bench` — performance benchmarks (vitest `bench`) across layered / force / stress / mrtree / radial / rectpacking. Fixtures live in [`benchmarks/`](./benchmarks/).
+- `pnpm --filter @filigree/alg-layered generate-docs` — regenerate `docs/layout-examples.md` + the SVGs it references.
+- `pnpm build` — emit `dist/` per package via `tsc -p tsconfig.build.json`.
+
 ## Contributing
 
 Contributions welcome. By submitting a pull request you agree that your contribution is licensed under EPL-2.0.

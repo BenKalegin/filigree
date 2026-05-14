@@ -128,6 +128,16 @@ export default tseslint.config(
       'no-restricted-syntax': 'off',
     },
   },
+  // Benchmarks: parameterized inputs (node counts, densities, depths) are the
+  // whole point — extracting them to named constants would just relocate the
+  // numbers without making them clearer.
+  {
+    files: ['benchmarks/**/*.ts'],
+    rules: {
+      'max-lines-per-function': 'off',
+      '@typescript-eslint/no-magic-numbers': 'off',
+    },
+  },
   // Config files at repo root are not part of any package tsconfig — use untyped linting for them.
   {
     files: ['*.config.ts', '*.config.mts', 'eslint.config.ts', 'vitest.config.ts'],

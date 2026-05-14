@@ -13,6 +13,7 @@
     "typecheck": "pnpm -r typecheck && tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
+    "bench": "vitest bench --run",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",

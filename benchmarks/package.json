@@ -1,0 +1,19 @@
+{
+  "name": "@filigree/benchmarks",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@filigree/alg-force": "workspace:*",
+    "@filigree/alg-layered": "workspace:*",
+    "@filigree/alg-mrtree": "workspace:*",
+    "@filigree/alg-radial": "workspace:*",
+    "@filigree/alg-rectpacking": "workspace:*",
+    "@filigree/alg-stress": "workspace:*",
+    "@filigree/core": "workspace:*",
+    "@filigree/graph": "workspace:*"
+  }
+}
