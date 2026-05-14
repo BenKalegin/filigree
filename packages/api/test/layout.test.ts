@@ -6,6 +6,8 @@
  */
 
 import { describe, expect, it } from 'vitest';
+import { fromJson } from '@filigree/graph';
+import { attachHints, orderBefore } from '@filigree/hints';
 
 import { layout } from '../src/layout.js';
 
@@ -26,6 +28,27 @@ describe('layout (single-call facade)', () => {
     expect(Number.isFinite(b?.x) && Number.isFinite(b?.y)).toBe(true);
     // Layered, default direction: source above target.
     expect(a?.y).toBeLessThan(b?.y ?? Infinity);
+  });
+
+  it('accepts a prebuilt ElkGraph so hints can be attached before layout', async () => {
+    const graph = fromJson({
+      id: 'root',
+      children: [
+        { id: 'parent', width: 30, height: 30 },
+        { id: 's1', width: 30, height: 30 },
+        { id: 's2', width: 30, height: 30 },
+      ],
+      edges: [
+        { id: 'e1', sources: ['parent'], targets: ['s1'] },
+        { id: 'e2', sources: ['parent'], targets: ['s2'] },
+      ],
+    });
+    attachHints(graph, [orderBefore('s2', 's1')]);
+    await layout(graph);
+    const s1 = graph.children.find((n) => n.id === 's1');
+    const s2 = graph.children.find((n) => n.id === 's2');
+    // OrderBefore(s2, s1) ⇒ s2 sits left of s1.
+    expect((s2?.x ?? 0) < (s1?.x ?? 0)).toBe(true);
   });
 
   it('routes through the force algorithm when requested', async () => {

@@ -120,6 +120,12 @@ importers:
       '@filigree/alg-layered':
         specifier: workspace:*
         version: link:../alg-layered
+      '@filigree/alg-mrtree':
+        specifier: workspace:*
+        version: link:../alg-mrtree
+      '@filigree/alg-radial':
+        specifier: workspace:*
+        version: link:../alg-radial
       '@filigree/core':
         specifier: workspace:*
         version: link:../core
@@ -129,6 +135,10 @@ importers:
       '@filigree/render-svg':
         specifier: workspace:*
         version: link:../render-svg
+    devDependencies:
+      '@filigree/hints':
+        specifier: workspace:*
+        version: link:../hints
 
   packages/core:
     dependencies:

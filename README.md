@@ -30,19 +30,19 @@ The hint system is a **deliberate divergence** from upstream and is unique to `f
 
 ## Status
 
-| Algorithm        | Status               | Notes                                                                                                                                                          |
-| ---------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ELK Layered      | _implemented (POC)_  | Greedy cycle breaker, longest-path layerer, barycenter crossing minimization, Brandes-Köpf node placement (2-alignment), two-bend orthogonal edge routing.     |
-| ELK Force        | _implemented (POC)_  | Fruchterman-Reingold; deterministic spiral start, 100 iterations with cooling.                                                                                 |
-| ELK Stress       | _planned_            |                                                                                                                                                                |
-| ELK Radial       | _planned_            |                                                                                                                                                                |
-| ELK Mr.Tree      | _planned_            |                                                                                                                                                                |
-| ELK Rectpacking  | _planned_            |                                                                                                                                                                |
-| Human hints      | _implemented (POC)_  | `PinPosition` (post-layout, any algorithm), `SameLayer` + `OrderBefore` (in-layout, layered). Not in upstream ELK. See [`docs/hints.md`](./docs/hints.md).     |
-| OGDF integration | _excluded_           | GPL-licensed, license incompatible                                                                                                                             |
-| libavoid routing | _excluded_           | LGPL C++, not portable                                                                                                                                         |
+| Algorithm        | Status         | Notes                                                                                                                                                           |
+| ---------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ELK Layered      | _implemented_  | Greedy cycle breaker, longest-path layerer, barycenter crossing minimization, dummy-node long-edge routing, Brandes-Köpf placement, two-bend orthogonal router. |
+| ELK Force        | _implemented_  | Fruchterman-Reingold; deterministic spiral start, 100 iterations with cooling.                                                                                  |
+| ELK Mr.Tree      | _implemented_  | Reingold-Tilford-style tree placement.                                                                                                                          |
+| ELK Radial       | _implemented_  | Hub-and-spoke concentric tree.                                                                                                                                  |
+| ELK Stress       | _planned_      |                                                                                                                                                                 |
+| ELK Rectpacking  | _planned_      |                                                                                                                                                                 |
+| Human hints      | _implemented_  | `PinPosition` (post-layout, any algorithm), `SameLayer` / `OrderBefore` / `Group` (in-layout, layered). See [`docs/hints.md`](./docs/hints.md). Not in upstream ELK. |
+| OGDF integration | _excluded_     | GPL-licensed, license incompatible                                                                                                                              |
+| libavoid routing | _excluded_     | LGPL C++, not portable                                                                                                                                          |
 
-See [`docs/layout-examples.md`](./docs/layout-examples.md) for rendered SVG previews of every algorithm and strategy currently shipped.
+See [`docs/layout-examples.md`](./docs/layout-examples.md) for rendered SVG previews of every algorithm and hint currently shipped.
 
 ## Installation
 
@@ -53,27 +53,17 @@ cd filigree
 pnpm install
 ```
 
-Filigree is currently a workspace of seven scoped packages (`@filigree/graph`, `@filigree/core`, `@filigree/alg-layered`, `@filigree/alg-force`, `@filigree/render-svg`, plus two utility stubs). A single facade package that re-exports a `layout()` function is planned; until then, compose the engine explicitly.
+The workspace is split into scoped packages: graph model (`@filigree/graph`), engine + options (`@filigree/core`), algorithms (`@filigree/alg-layered`, `@filigree/alg-force`, `@filigree/alg-mrtree`, `@filigree/alg-radial`), hints (`@filigree/hints`), renderer (`@filigree/render-svg`), and a one-call facade (`@filigree/api`). Every source file carries an EPL-2.0 header — files derived from a specific ELK Java class preserve the original Kiel University copyright per EPL §3.1(c).
 
 ## Usage
 
+The simplest entry point is the `@filigree/api` facade:
+
 ```typescript
-import { fromJson } from "@filigree/graph";
-import {
-  DefaultAlgorithmRegistry,
-  DefaultLayoutEngine,
-  DefaultOptionResolver,
-} from "@filigree/core";
-import { createDefaultLayeredAlgorithm } from "@filigree/alg-layered";
+import { layout } from "@filigree/api";
 import { renderSvg } from "@filigree/render-svg";
 
-// Wire the engine once, register the algorithms you want available.
-const registry = new DefaultAlgorithmRegistry();
-registry.register(createDefaultLayeredAlgorithm());
-const engine = new DefaultLayoutEngine(registry, new DefaultOptionResolver());
-
-// Build the graph from the elkjs-compatible JSON shape.
-const graph = fromJson({
+const graph = await layout({
   id: "root",
   children: [
     { id: "n1", width: 40, height: 40 },
@@ -82,16 +72,31 @@ const graph = fromJson({
   edges: [{ id: "e1", sources: ["n1"], targets: ["n2"] }],
 });
 
-await engine.layout(graph);
-// graph.children[0].x, graph.children[0].y are now set.
-
-// Optional: render to a self-contained SVG.
+// Positions are set on graph.children[*].x / .y; render if you want SVG.
 const svg = renderSvg(graph);
 ```
 
-The input format follows the [ELK JSON format](https://eclipse.dev/elk/documentation/tooldevelopers/graphdatastructure/jsonformat.html) — existing ELK / elkjs users should feel at home.
+Select a different algorithm via `layoutOptions: { 'elk.algorithm': 'force' }` (`force` | `mrtree` | `radial` | `layered`).
 
-Selecting a different algorithm: set `elk.algorithm` on the graph's `layoutOptions`, e.g. `{ "elk.algorithm": "force" }`, after registering `@filigree/alg-force` against the same engine.
+Attach human hints before layout:
+
+```typescript
+import { attachHints, group, orderBefore, sameLayer } from "@filigree/hints";
+import { fromJson } from "@filigree/graph";
+import { layout } from "@filigree/api";
+
+const graph = fromJson({ id: "root", children: [...], edges: [...] });
+attachHints(graph, [
+  sameLayer("validate", "summarize"),
+  orderBefore("yes_branch", "no_branch"),
+  group(["task_a", "task_c", "task_e"]),
+]);
+await layout(graph);
+```
+
+For explicit engine wiring (custom strategy combinations, per-phase overrides), use `DefaultLayoutEngine` directly — see `packages/alg-layered/examples/example-engines.ts` for the patterns.
+
+The input format follows the [ELK JSON format](https://eclipse.dev/elk/documentation/tooldevelopers/graphdatastructure/jsonformat.html) — existing ELK / elkjs users should feel at home.
 
 ## License
 
