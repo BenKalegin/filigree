@@ -1,7 +1,6 @@
 {
   "name": "@filigree/util-solver",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -29,8 +28,6 @@
       }
     }
   },
-  "dependencies": {},
-  "devDependencies": {},
   "description": "Linear-solver interface stubs shared across filigree packages.",
   "license": "EPL-2.0",
   "author": "Ben Kalegin",

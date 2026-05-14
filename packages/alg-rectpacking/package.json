@@ -1,7 +1,6 @@
 {
   "name": "@filigree/alg-rectpacking",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -33,7 +32,6 @@
     "@filigree/core": "workspace:*",
     "@filigree/graph": "workspace:*"
   },
-  "devDependencies": {},
   "description": "Shelf-packing layout for edge-free rectangle collections for filigree.",
   "license": "EPL-2.0",
   "author": "Ben Kalegin",

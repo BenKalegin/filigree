@@ -1,7 +1,6 @@
 {
   "name": "@filigree/render-svg",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -32,7 +31,6 @@
   "dependencies": {
     "@filigree/graph": "workspace:*"
   },
-  "devDependencies": {},
   "description": "Self-contained SVG renderer for laid-out filigree graphs.",
   "license": "EPL-2.0",
   "author": "Ben Kalegin",

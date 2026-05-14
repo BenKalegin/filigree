@@ -1,7 +1,6 @@
 {
   "name": "@filigree/graph",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -29,8 +28,6 @@
       }
     }
   },
-  "dependencies": {},
-  "devDependencies": {},
   "description": "TypeScript graph model: nodes, edges, ports, labels, JSON I/O, property holders.",
   "license": "EPL-2.0",
   "author": "Ben Kalegin",
