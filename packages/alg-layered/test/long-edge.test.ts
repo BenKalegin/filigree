@@ -127,4 +127,36 @@ describe('DummyLongEdgeProcessor', () => {
     // layers ⇒ at least one bend point at a non-trivial y.
     expect(bLeft.bendPoints.length).toBeGreaterThanOrEqual(2);
   });
+
+  // Back edges (reversed by the cycle breaker) used to skip the dummy
+  // pipeline because their layer span was negative; the long back edge
+  // would draw a single straight line cutting through any nodes in the
+  // intermediate layers. With dummy-insertion now sorting endpoints by
+  // layer, the back edge picks up the same threading.
+  //
+  // Graph: chain a → b → c plus a back edge c → a (the cycle breaker
+  // reverses it; in DAG terms a sits below c by 2 layers).
+  it('inserts dummies for a multi-layer back edge after cycle breaking', async () => {
+    const graph = fromJson({
+      id: 'root',
+      children: [
+        { id: 'a', width: 40, height: 30 },
+        { id: 'b', width: 40, height: 30 },
+        { id: 'c', width: 40, height: 30 },
+      ],
+      edges: [
+        { id: 'ab', sources: ['a'], targets: ['b'] },
+        { id: 'bc', sources: ['b'], targets: ['c'] },
+        { id: 'back_ca', sources: ['c'], targets: ['a'] },
+      ],
+    } satisfies IJsonGraph);
+
+    await buildEngine().layout(graph);
+
+    const back = findEdge(graph, 'back_ca');
+    // A back edge spanning 2 layers (c at top of DAG, a at bottom) gets
+    // 1 dummy on the intermediate layer ⇒ 4 bend points (2 segments × 2
+    // bends each in the general case).
+    expect(back.bendPoints.length).toBeGreaterThanOrEqual(2);
+  });
 });

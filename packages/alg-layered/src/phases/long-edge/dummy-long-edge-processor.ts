@@ -95,9 +95,15 @@ const handleEdge = (state: ISplitState, edge: IEdge): void => {
   const resolved = resolveSimpleEndpoints(edge, state.lookup);
   if (resolved === undefined) return;
   const { source, target } = resolved;
-  const span = target.layer - source.layer;
+  // After cycle breaking, back-edge adjacency was reversed so the
+  // *layer* order doesn't necessarily match the IEdge source→target
+  // direction. Sort by layer here so both forward and reversed long
+  // edges go through the same dummy machinery.
+  const dagSource = source.layer <= target.layer ? source : target;
+  const dagTarget = source.layer <= target.layer ? target : source;
+  const span = dagTarget.layer - dagSource.layer;
   if (span <= 1) return;
-  const key = `${source.elkNode.id}→${target.elkNode.id}`;
+  const key = `${dagSource.elkNode.id}→${dagTarget.elkNode.id}`;
   const existing = state.chainsByPair.get(key);
   if (existing !== undefined) {
     state.context.registerLongEdge(
@@ -108,9 +114,9 @@ const handleEdge = (state: ISplitState, edge: IEdge): void => {
     );
     return;
   }
-  const chain = buildDummyChain(source.layer, target.layer);
+  const chain = buildDummyChain(dagSource.layer, dagTarget.layer);
   insertChainIntoLayers(chain, state.layers);
-  rewireAdjacency(source, target, chain, state.adjacency);
+  rewireAdjacency(dagSource, dagTarget, chain, state.adjacency);
   state.chainsByPair.set(key, chain);
   state.context.registerLongEdge(
     edge,

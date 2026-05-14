@@ -53,6 +53,7 @@ import { LayeredPhase } from '../../enums.js';
 import { type IEdgeRouter } from '../../i-edge-router.js';
 import { LayeredOptions } from '../../layered-options.js';
 import { type LayeredContext } from '../../model/layered-context.js';
+import { routeHyperedge } from './hyperedge-router.js';
 import { bendsBetween, bendsThroughWaypoints } from './orthogonal-bends.js';
 
 export class OrthogonalEdgeRouter implements IEdgeRouter {
@@ -119,7 +120,10 @@ export class OrthogonalEdgeRouter implements IEdgeRouter {
     lateralOffset: number,
   ): void {
     const resolved = this.resolveSimpleEdge(edge, portToNode);
-    if (resolved === undefined) return;
+    if (resolved === undefined) {
+      routeHyperedge(edge, portToNode);
+      return;
+    }
     const goingDown = resolved.sourceOwner.y <= resolved.targetOwner.y;
     const sourceSide = goingDown ? EdgeAnchorSide.Bottom : EdgeAnchorSide.Top;
     const targetSide = goingDown ? EdgeAnchorSide.Top : EdgeAnchorSide.Bottom;
@@ -127,7 +131,12 @@ export class OrthogonalEdgeRouter implements IEdgeRouter {
     const end = endpointAnchor(resolved.targetEndpoint, resolved.targetOwner, targetSide);
     const dummies = context.dummyChainFor(edge);
     if (dummies !== undefined && dummies.length > 0) {
-      const waypoints: readonly IPoint[] = dummies.map((d) => ({ x: d.x, y: d.y }));
+      // Dummy chain is stored in DAG order (ascending layer). For a back
+      // edge (source below target in user orientation), walk it the other
+      // way so the polyline traces source-anchor → dummies → target-anchor
+      // in the right sequence.
+      const ordered = goingDown ? dummies : [...dummies].reverse();
+      const waypoints: readonly IPoint[] = ordered.map((d) => ({ x: d.x, y: d.y }));
       edge.setBendPoints(bendsThroughWaypoints(start, waypoints, end));
       return;
     }
