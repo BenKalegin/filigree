@@ -38,7 +38,7 @@ The hint system is a **deliberate divergence** from upstream and is unique to `f
 | ELK Radial       | _planned_            |                                                                                                                                                                |
 | ELK Mr.Tree      | _planned_            |                                                                                                                                                                |
 | ELK Rectpacking  | _planned_            |                                                                                                                                                                |
-| Human hints      | _planned_            | New subsystem, not in upstream ELK                                                                                                                             |
+| Human hints      | _implemented (POC)_  | `PinPosition` (post-layout, any algorithm), `SameLayer` + `OrderBefore` (in-layout, layered). Not in upstream ELK. See [`docs/hints.md`](./docs/hints.md).     |
 | OGDF integration | _excluded_           | GPL-licensed, license incompatible                                                                                                                             |
 | libavoid routing | _excluded_           | LGPL C++, not portable                                                                                                                                         |
 
