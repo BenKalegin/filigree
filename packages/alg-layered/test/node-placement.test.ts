@@ -79,6 +79,38 @@ describe('balanced node placement', () => {
     expect(centerX(merge)).toBe((centerX(a) + centerX(b)) / 2);
   });
 
+  it('centers a chain over a fan-out (parent chain at average of children centers)', async () => {
+    // a → b, then b fans out to c1/c2/c3. Real ELK BK lands a + b at the
+    // centroid of [c1, c2, c3]; the simplified compaction left them stuck
+    // at x=0 (column-aligned above c1) before this fix.
+    const graph = fromJson({
+      id: 'root',
+      children: [
+        { id: 'a', width: 100, height: 30 },
+        { id: 'b', width: 100, height: 30 },
+        { id: 'c1', width: 100, height: 30 },
+        { id: 'c2', width: 100, height: 30 },
+        { id: 'c3', width: 100, height: 30 },
+      ],
+      edges: [
+        { id: 'e1', sources: ['a'], targets: ['b'] },
+        { id: 'e2', sources: ['b'], targets: ['c1'] },
+        { id: 'e3', sources: ['b'], targets: ['c2'] },
+        { id: 'e4', sources: ['b'], targets: ['c3'] },
+      ],
+    } satisfies IJsonGraph);
+
+    await buildEngine().layout(graph);
+    const a = findById(graph, 'a');
+    const b = findById(graph, 'b');
+    const c1 = findById(graph, 'c1');
+    const c2 = findById(graph, 'c2');
+    const c3 = findById(graph, 'c3');
+    const childrenCentroid = (centerX(c1) + centerX(c2) + centerX(c3)) / 3;
+    expect(centerX(a)).toBeCloseTo(childrenCentroid, 1);
+    expect(centerX(b)).toBeCloseTo(childrenCentroid, 1);
+  });
+
   it('never overlaps two nodes in the same layer (no x-range intersection)', async () => {
     // Two layers, three nodes each — wider nodes should not overlap.
     const graph = fromJson({

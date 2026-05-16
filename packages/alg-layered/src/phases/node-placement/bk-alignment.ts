@@ -53,7 +53,7 @@ export const computeAlignmentXs = (
   nodeGap: number,
 ): ReadonlyMap<LNode, number> => {
   const alignment = verticalAlignment(context, vertical, horizontal);
-  return compactBlocks(context, alignment, nodeGap);
+  return compactBlocks(context, alignment, nodeGap, horizontal);
 };
 
 interface IAlignmentState {
@@ -160,19 +160,39 @@ const compactBlocks = (
   context: LayeredContext,
   alignment: IBlockAlignment,
   nodeGap: number,
+  horizontal: HorizontalDirection,
 ): ReadonlyMap<LNode, number> => {
-  const blockX = new Map<LNode, number>();
+  // Always start with a left-pack sweep — it tells us where the widest layer
+  // ends, which is the anchor a right-pack needs to push toward.
+  const leftpack = new Map<LNode, number>();
   for (const node of context.nodes) {
-    const root = alignment.root.get(node) ?? node;
-    blockX.set(root, 0);
+    leftpack.set(alignment.root.get(node) ?? node, 0);
   }
-  for (let iter = 0; iter < MAX_COMPACTION_ITERATIONS; iter++) {
-    if (!sweepCompaction(context, alignment, blockX, nodeGap)) break;
+  iterateUntilStable(MAX_COMPACTION_ITERATIONS, () =>
+    sweepLeftpack(context, alignment, leftpack, nodeGap),
+  );
+  if (horizontal === HorizontalDirection.LeftToRight) {
+    return expandBlockXs(context, alignment, leftpack);
   }
-  return expandBlockXs(context, alignment, blockX);
+  // RightToLeft: re-pack each block as far right as it can go without
+  // colliding with the right neighbor in any layer. The anchor is the
+  // rightmost edge the left-pack sweep needed.
+  const rightAnchor = totalWidth(context, alignment, leftpack);
+  const rightpack = new Map<LNode, number>();
+  for (const root of leftpack.keys()) rightpack.set(root, rightAnchor);
+  iterateUntilStable(MAX_COMPACTION_ITERATIONS, () =>
+    sweepRightpack(context, alignment, rightpack, nodeGap, rightAnchor),
+  );
+  return expandBlockXs(context, alignment, rightpack);
 };
 
-const sweepCompaction = (
+const iterateUntilStable = (max: number, step: () => boolean): void => {
+  for (let i = 0; i < max; i++) {
+    if (!step()) return;
+  }
+};
+
+const sweepLeftpack = (
   context: LayeredContext,
   alignment: IBlockAlignment,
   blockX: Map<LNode, number>,
@@ -192,6 +212,45 @@ const sweepCompaction = (
     }
   }
   return changed;
+};
+
+const sweepRightpack = (
+  context: LayeredContext,
+  alignment: IBlockAlignment,
+  blockX: Map<LNode, number>,
+  nodeGap: number,
+  anchor: number,
+): boolean => {
+  let changed = false;
+  for (const layer of context.layers) {
+    let nextLeft = anchor;
+    for (let i = layer.length - 1; i >= 0; i--) {
+      const v = layer[i]!;
+      const root = alignment.root.get(v) ?? v;
+      const maxAllowed = nextLeft - v.width;
+      const required = Math.min(blockX.get(root) ?? anchor, maxAllowed);
+      if (required < (blockX.get(root) ?? anchor)) {
+        blockX.set(root, required);
+        changed = true;
+      }
+      nextLeft = required - nodeGap;
+    }
+  }
+  return changed;
+};
+
+const totalWidth = (
+  context: LayeredContext,
+  alignment: IBlockAlignment,
+  blockX: ReadonlyMap<LNode, number>,
+): number => {
+  let max = 0;
+  for (const node of context.nodes) {
+    const root = alignment.root.get(node) ?? node;
+    const right = (blockX.get(root) ?? 0) + node.width;
+    if (right > max) max = right;
+  }
+  return max;
 };
 
 const expandBlockXs = (
