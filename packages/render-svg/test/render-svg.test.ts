@@ -186,8 +186,8 @@ describe('renderSvg', () => {
       nodeStyle: noOverride,
       edgeStyle: noOverride,
     });
-    // No overrides at all ⇒ default node fill is present.
-    expect(svg).toContain('fill="#ffffff"');
-    expect(svg).toContain('rx="4"');
+    // No overrides at all ⇒ default node fill + corner radius come through.
+    expect(svg).toContain('fill="#64748b0d"');
+    expect(svg).toContain('rx="6"');
   });
 });
