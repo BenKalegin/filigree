@@ -21,6 +21,7 @@ import { HintAwareCrossingMinimizer } from './phases/crossing-minimization/hint-
 import { GreedyCycleBreaker } from './phases/cycle-breaking/greedy-cycle-breaker.js';
 import { OrthogonalEdgeRouter } from './phases/edge-routing/orthogonal-edge-router.js';
 import { BrandesKopfNodePlacer } from './phases/node-placement/brandes-kopf-node-placer.js';
+import { CompactingNodePlacer } from './phases/node-placement/compacting-node-placer.js';
 import { HintAwareLayerer } from './phases/layer-assignment/hint-aware-layerer.js';
 import { LongestPathLayerer } from './phases/layer-assignment/longest-path-layerer.js';
 import { DummyLongEdgeProcessor } from './phases/long-edge/dummy-long-edge-processor.js';
@@ -34,7 +35,7 @@ export const createDefaultLayeredAlgorithm = (): LayeredAlgorithm =>
     layerAssigner: new HintAwareLayerer(new LongestPathLayerer()),
     longEdgeProcessor: new DummyLongEdgeProcessor(),
     crossingMinimizer: new HintAwareCrossingMinimizer(new BarycenterCrossingMinimizer()),
-    nodePlacer: new BrandesKopfNodePlacer(),
+    nodePlacer: new CompactingNodePlacer(new BrandesKopfNodePlacer()),
     edgeRouter: new OrthogonalEdgeRouter(),
     resultApplier: new LayeredResultApplier(),
   });
