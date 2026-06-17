@@ -53,8 +53,8 @@ const applyExampleHints = (graph: ElkGraph, hints: readonly IHint[] | undefined)
 const toAnchorSlug = (title: string): string =>
   title
     .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-');
+    .replaceAll(/[^a-z0-9\s-]/g, '')
+    .replaceAll(/\s+/g, '-');
 
 const generateMarkdown = (examples: readonly IExample[]): string => {
   const intro = [

@@ -181,7 +181,7 @@ const compactBlocks = (
   const rightpack = new Map<LNode, number>();
   for (const root of leftpack.keys()) rightpack.set(root, rightAnchor);
   iterateUntilStable(MAX_COMPACTION_ITERATIONS, () =>
-    sweepRightpack(context, alignment, rightpack, nodeGap, rightAnchor),
+    sweepRightpack(context, alignment, rightpack, { nodeGap, anchor: rightAnchor }),
   );
   return expandBlockXs(context, alignment, rightpack);
 };
@@ -218,14 +218,15 @@ const sweepRightpack = (
   context: LayeredContext,
   alignment: IBlockAlignment,
   blockX: Map<LNode, number>,
-  nodeGap: number,
-  anchor: number,
+  opts: { nodeGap: number; anchor: number },
 ): boolean => {
+  const { nodeGap, anchor } = opts;
   let changed = false;
   for (const layer of context.layers) {
     let nextLeft = anchor;
     for (let i = layer.length - 1; i >= 0; i--) {
-      const v = layer[i]!;
+      const v = layer[i];
+      if (!v) continue;
       const root = alignment.root.get(v) ?? v;
       const maxAllowed = nextLeft - v.width;
       const required = Math.min(blockX.get(root) ?? anchor, maxAllowed);
